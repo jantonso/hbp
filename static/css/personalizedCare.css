@@ -1,0 +1,145 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html,
+body {
+	height: 100%;
+	width: 100%;
+}
+
+body {
+	font-size: 14px;
+	font-family: 'Merriweather', 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Header section */
+
+header {
+	width: 100%;
+	text-align: center;
+	background-color: #745C9D;
+	padding-top: 30px;
+	padding-bottom: 30px;
+}
+
+header .header-content h1 {
+	font-size: 3.0em;
+	font-weight: 400;
+	color: #FEFDFD;
+	margin: 0;
+}
+
+/* Describe the personalized care section of HBP */
+
+#care-message {
+	padding-top: 25px;
+	background-color: #FEFDFD;
+}
+
+#care-message h2 {
+	font-size: 3.0em;
+	font-weight: 300;
+	color: #8D74B7;
+}
+
+#care-message p {
+	margin-top: 50px;
+	font-weight: 500;
+	font-size: 2.5em;
+	color: #8D74B7;
+}
+
+/* Questions w/ Likert Scales section of HBP */
+
+#questions-container {
+	padding-top: 25px;
+}
+
+#questions-container form .statement {
+	display: block;
+	font-weight: bold;
+	font-size: 1.75em;
+	margin-bottom: 15px;
+}
+
+#questions-container form .likert {
+	list-style: none;
+	width: 100%;
+	margin-bottom: 40px;
+	padding: 0 0 35px;
+	display: block;
+}
+
+#questions-container form .likert:before {
+	content: '';
+	position:relative;
+	top:11px;
+	left:9.5%;
+	display:block;
+	background-color: #efefef;
+	height:4px;
+	width:78%;
+}
+
+#questions-container form .likert li {
+	display: inline-block;
+	width: 19%;
+	text-align: center;
+	vertical-align: top;
+}
+
+#questions-container form .likert li input[type=radio] {
+	display: block;
+	position: relative;
+	top: 0;
+	left: 50%;
+	margin-left: -18px;
+	margin-top: -2px;
+}
+
+#questions-container form input[type=radio] {
+	width: 20px;
+	height: 20px;
+}
+
+#questions-container form .likert li label {
+	width: 100%;
+	margin-left: -12px;
+}
+
+#questions-container form label {
+	font-weight: normal;
+	font-size: 1.25em;
+}
+
+/* Questions w/ yes, no, or don't know answers on HBP */
+
+#questions-container form .non-likert {
+	display: block;
+	text-align: left;
+	margin-bottom: 40px;
+}
+
+/* Continue button for next page*/
+
+.button {
+	padding-bottom: 75px;
+}
+
+#continue-button {
+	display: inline-block;
+	padding: 3px 20px 3px 20px;
+	border-style: solid;
+	border-width: 2px;
+	border-color: #8D74B7;
+	background-color: #FEFEFE;
+	color: #8D74B7;
+	font-size: 1.5em;
+	font-weight: bold;
+}
+
+#continue-button:hover {
+	border-width: 3px;
+}

@@ -1,0 +1,72 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html,
+body {
+	height: 100%;
+	width: 100%;
+}
+
+body {
+	font-size: 14px;
+	font-family: 'Merriweather', 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Header section */
+
+header {
+	width: 100%;
+	text-align: center;
+	background-color: #745C9D;
+	padding-top: 30px;
+	padding-bottom: 30px;
+}
+
+header .header-content h1 {
+	font-size: 3.0em;
+	font-weight: 400;
+	color: #FEFDFD;
+	margin: 0;
+}
+
+/* Describe hte personalized care section of HBP */
+
+#care-message {
+	padding-top: 25px;
+	background-color: #FEFDFD;
+}
+
+#care-message h2 {
+	font-size: 3.0em;
+	font-weight: 300;
+	color: #8D74B7;
+}
+
+#care-message p {
+	font-weight: 500;
+	font-size: 1.5em;
+	color: #745C9D;
+}
+
+
+/* Continue button for next page*/
+#continue-button {
+	display: inline-block;
+	padding: 3px 20px 3px 20px;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #8D74B7;
+}
+
+#continue-button:hover {
+	border-width: 2px;
+}
+
+#continue-button a {
+	text-decoration: none;
+	outline: 0;
+	color: #8D74B7;
+	font-size: 1.5em;
+}
