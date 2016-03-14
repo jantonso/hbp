@@ -18,3 +18,6 @@ def informationalVideos(request, video_index=0):
 		return render(request, 'importantInformation.html', {'video_index': video_index})
 	except ValueError as e:
 		print e
+
+def commitAndSchedule(request):
+	return render(request, 'commitAndSchedule.html', {})
