@@ -17,15 +17,30 @@
 					<div class="col-lg-10 col-lg-offset-1 text-center">
 						<h2> Based on your answers here are video links to some important information. </h2>
 						<div id="video-container">
-							<iframe width="560" height="315" src="https://www.youtube.com/embed/8bAccWMfyHo" frameborder="0" allowfullscreen></iframe>
+							{% if video_index == 0 %}
+								<p> Please watching the following 2 videos. </p>
+							{% elif video_index == 1 %}
+								<iframe width="560" height="315" src="https://www.youtube.com/embed/8bAccWMfyHo" frameborder="0" allowfullscreen></iframe>
+							{% elif video_index == 2 %}
+								<iframe width="560" height="315" src="https://www.youtube.com/embed/seHxzqWFqa8" frameborder="0" allowfullscreen></iframe>
+							{% else %}
+								<p> I want to watch more on different content areas. </p>
+								<p> Please continue to commit and schedule an appointment. </p>
+							{% endif %}
 						</div>
 					</div>		
 				</div>
 			</div>
 		</section>
 		<footer>
-			<a href="#"><div id="back-button">Back</div></a>
-			<a href="#"><div id="next-button">Next video</div></a>
+			{% if not video_index == 3 %}
+				{% if not video_index == 0 %}
+					<a href="/iv/{{ video_index|add:-1 }}/"><div id="back-button">Back</div></a>
+				{% endif %}
+				<a href="/iv/{{ video_index|add:1 }}/"><div id="next-button">Next video</div></a>
+			{% else %}
+				<a href="/cs/"><div id="next-button">Continue</div></a>
+			{% endif %}
 		</footer>
 	</body>
 </html>

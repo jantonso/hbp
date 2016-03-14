@@ -12,5 +12,9 @@ def personalizedCare(request):
 		# Do POST SHIT => redirect to important information
 		return redirect('/iv/')
 
-def informationalVideos(request):
-	return render(request, 'importantInformation.html', {})
+def informationalVideos(request, video_index=0):
+	try:
+		video_index = int(video_index)
+		return render(request, 'importantInformation.html', {'video_index': video_index})
+	except ValueError as e:
+		print e
