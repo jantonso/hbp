@@ -98,11 +98,11 @@ header .header-content p {
 	border-color: #FEFDFD;
 }
 
-#get-started #start-button:hover {
-	border-width: 2px;
+#get-started a:hover > #start-button {
+	border-width: 3px;
 }
 
-#get-started #start-button a {
+#get-started a {
 	text-decoration: none;
 	outline: 0;
 	color: #FEFDFD;
