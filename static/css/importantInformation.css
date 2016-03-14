@@ -3,10 +3,9 @@
 	padding: 0;
 }
 
-html,
-body {
-	height: 100%;
-	width: 100%;
+html {
+	position: relative;
+	min-height: 100%;
 }
 
 body {
@@ -31,42 +30,71 @@ header .header-content h1 {
 	margin: 0;
 }
 
-/* Describe hte personalized care section of HBP */
+/* Describe the personalized care section of HBP */
 
-#care-message {
+#care-content {
+	margin-bottom: 60px;
+}
+
+#care-content {
 	padding-top: 25px;
 	background-color: #FEFDFD;
 }
 
-#care-message h2 {
+#care-content h2 {
 	font-size: 3.0em;
 	font-weight: 300;
 	color: #8D74B7;
 }
 
-#care-message p {
-	font-weight: 500;
-	font-size: 1.5em;
-	color: #745C9D;
+/* Video section */
+
+#care-content #video-container {
+	margin-top: 50px;
 }
 
+/* Footer section */
 
-/* Continue button for next page*/
-#continue-button {
+footer {
+	background-color: #DFDDDC;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	height: 60px;
+	width: 100%;
+	overflow: hidden;
+}
+
+footer div {
 	display: inline-block;
-	padding: 3px 20px 3px 20px;
-	border-style: solid;
-	border-width: 1px;
-	border-color: #8D74B7;
+
 }
 
-#continue-button:hover {
-	border-width: 2px;
+footer #back-button {
+	display: inline-block;
+	float: left;
+	height: 60px;
+	padding: 15px 20px 15px 20px;
+	background-color: #8D74B7;
 }
 
-#continue-button a {
+footer #next-button {
+	display: inline-block;
+	float: right;
+	height: 60px;
+	padding: 15px 20px 15px 20px;
+	background-color: #8D74B7;
+}
+
+footer a {
 	text-decoration: none;
 	outline: 0;
-	color: #8D74B7;
+	color: #FEFEFE;
 	font-size: 1.5em;
+	font-weight: bold;
+}
+
+footer a:hover {
+	color: #E1D4F4;
+	text-decoration: none;
 }
