@@ -33,11 +33,7 @@ header .header-content h1 {
 /* Describe the personalized care section of HBP */
 
 #cs-content {
-	margin-bottom: 60px;
-}
-
-#cs-content {
-	padding-top: 25px;
+	padding-top: 50px;
 	background-color: #FEFDFD;
 }
 
@@ -47,19 +43,44 @@ header .header-content h1 {
 	color: #8D74B7;
 }
 
-#cs-content p {
+#cs-content #cs1 p {
+	margin-top: 100px;
 	font-size: 2.0em;
 	font-weight: 300;
 	color: #8D74B7;
 }
 
-/* Button section */
-
-.button {
-	padding-bottom: 75px;
+#cs-content #cs2 label {
+	margin-top: 100px;
+	font-size: 2.0em;
+	font-weight: 300;
+	color: #8D74B7;
 }
 
+#cs-content #cs2 input[type=text] {
+	font-size: 2.0em;
+	font-weight: 300;
+	text-align: center;
+	margin-left: 20px;
+	border: 2px solid #745C9D;
+}
+
+#cs-content #cs2 #txtMonth, #txtDay {
+	width: 60px;
+}
+
+#cs-content #cs2 #txtYear {
+	width: 100px;
+}
+
+#cs-content #cs2 {
+	display: none;
+}
+
+/* Button section */
+
 #commit-button {
+	margin-top: 25px;
 	display: inline-block;
 	padding: 3px 20px 3px 20px;
 	border-style: solid;
