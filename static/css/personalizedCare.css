@@ -3,10 +3,9 @@
 	padding: 0;
 }
 
-html,
-body {
-	height: 100%;
-	width: 100%;
+html {
+	position: relative;
+	min-height: 100%;
 }
 
 body {
@@ -35,6 +34,7 @@ header .header-content h1 {
 
 #care-message {
 	padding-top: 25px;
+	margin-bottom: 60px; /* Equal to the height of the footer */
 	background-color: #FEFDFD;
 }
 
@@ -142,4 +142,16 @@ header .header-content h1 {
 
 #continue-button:hover {
 	border-width: 3px;
+}
+
+/* Footer section */
+
+footer {
+	background-color: #DFDDDC;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	height: 60px;
+	width: 100%;
+	overflow: hidden;
 }

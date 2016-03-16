@@ -33,6 +33,10 @@ header .header-content h1 {
 /* Describe the personalized care section of HBP */
 
 #cs-content {
+	margin-bottom: 60px; /* Equal to the height of the footer */
+}
+
+#cs-content {
 	padding-top: 50px;
 	background-color: #FEFDFD;
 }
@@ -94,4 +98,16 @@ header .header-content h1 {
 
 #commit-button:hover {
 	border-width: 3px;
+}
+
+/* Footer section */
+
+footer {
+	background-color: #DFDDDC;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	height: 60px;
+	width: 100%;
+	overflow: hidden;
 }

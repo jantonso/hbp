@@ -33,7 +33,7 @@ header .header-content h1 {
 /* Describe the personalized care section of HBP */
 
 #care-content {
-	margin-bottom: 60px;
+	margin-bottom: 60px; /* Equal to the height of the footer */
 }
 
 #care-content {
