@@ -15,17 +15,39 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-10 col-lg-offset-1 text-center">
-						<h2> Based on your answers here are video links to some important information. </h2>
 						<div id="video-container">
 							{% if video_index == 0 %}
-								<p> Please watching the following 2 videos. </p>
+								<h2> Based on your answers, please watch two videos with some important information on birth control and breastfeeding support. </h2>
+								<p id="start-prompt"> Please click Next Video to begin. </p>
 							{% elif video_index == 1 %}
-								<iframe width="560" height="315" src="https://www.youtube.com/embed/8bAccWMfyHo" frameborder="0" allowfullscreen></iframe>
-							{% elif video_index == 2 %}
+								<h2> Birth control </h2>
 								<iframe width="560" height="315" src="https://www.youtube.com/embed/seHxzqWFqa8" frameborder="0" allowfullscreen></iframe>
+							{% elif video_index == 2 %}
+								<h2> Breastfeeding support </h2>
+								<iframe width="560" height="315" src="https://www.youtube.com/embed/8bAccWMfyHo" frameborder="0" allowfullscreen></iframe>
 							{% else %}
-								<p> I want to watch more on different content areas. </p>
-								<p> Please continue to commit and schedule an appointment. </p>
+								<h2> Feel free to watch more videos on different content areas or continue to commit and schedule. </h2>
+								<div class="video-links">
+									<a href="/iv/1/"><p>Birth control</p></a>
+									<p class="divider"> | </p>
+									<a href="/iv/2/"><p>Breastfeeding support</p></a>
+									<p class="divider"> | </p>
+									<a href="/iv/3/"><p>Screening for depression</p></a>
+								</div>
+								<div class="video-links">
+									<a href="/iv/4/"><p>Talking to a doctor</p></a>
+									<p class="divider"> | </p>
+									<a href="/iv/5/"><p>Diet, exercise, weight loss, sexual activity</p></a>
+									<p class="divider"> | </p>						
+									<a href="/iv/6/"><p>Bowel and bladder health</p></a>
+								</div>
+								<div class="video-links">
+									<a href="/iv/7/"><p>Gestational diabetes</p></a>
+									<p class="divider"> | </p>
+									<a href="/iv/8/"><p>High blood pressure</p></a>
+									<p class="divider"> | </p>
+									<a href="/iv/9/"><p>Preterm labor</p></a>
+								</div>
 							{% endif %}
 						</div>
 					</div>		

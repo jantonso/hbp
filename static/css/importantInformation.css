@@ -41,16 +41,45 @@ header .header-content h1 {
 	background-color: #FEFDFD;
 }
 
-#care-content h2 {
+/* Video section */
+
+#care-content #video-container h2 {
 	font-size: 3.0em;
 	font-weight: 300;
 	color: #8D74B7;
+	margin-bottom: 50px;
 }
 
-/* Video section */
+#care-content #video-container #start-prompt {
+	font-size: 2.0em;
+	font-weight: normal;
+	margin-top: 150px;
+}
 
-#care-content #video-container {
-	margin-top: 50px;
+#care-content #video-container .video-links {
+	text-align: center;
+	margin-bottom: 50px;
+}
+
+#care-content #video-container .video-links a {
+	text-decoration: none;
+	color: #000000;
+}
+
+#care-content #video-container .video-links a:hover {
+	color: #745C9D;
+}
+
+#care-content #video-container .video-links p {
+	display: inline-block;
+	font-size: 1.6em;
+}
+
+#care-content #video-container .video-links .divider {
+	margin-left: 10px;
+	margin-right: 10px;
+	color: #745C9D;
+	font-weight: bold;
 }
 
 /* Footer section */
