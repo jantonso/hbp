@@ -55,13 +55,16 @@
 			</div>
 		</section>
 		<footer>
-			{% if not video_index == 3 %}
-				{% if not video_index == 0 %}
-					<a href="/iv/{{ video_index|add:-1 }}/"><div id="back-button">Back</div></a>
+			<!-- If they have finished the videos either have back or continue buttons -->
+			{% if finished_videos %}
+				{% if video_index == 3 %}
+					<a href="/cs/"><div id="next-button">Continue</div></a>
+				{% else %}
+					<a href="/iv/3/"><div id="back-button">Back</div></a>
 				{% endif %}
-				<a href="/iv/{{ video_index|add:1 }}/"><div id="next-button">Next video</div></a>
+			<!-- If they have not finished the videos, only have next button -->
 			{% else %}
-				<a href="/cs/"><div id="next-button">Continue</div></a>
+				<a href="/iv/{{ video_index|add:1 }}/"><div id="next-button">Next video</div></a>
 			{% endif %}
 		</footer>
 	</body>
