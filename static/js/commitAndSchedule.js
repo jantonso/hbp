@@ -1,26 +1,20 @@
-function onCommitClick() {
-	$('#cs1').hide();
-	$('#cs2').show();
-	$('#confirm-date-button').show();
-}
-
 var MIN_YEAR = 1900;
 var CURRENT_YEAR = 2016;
 
-function getCalendar() {
-	if (validateDate()) {
-		dateIsValid();
+function checkDate() {
+	var day = document.getElementById('deliveryDay').value;
+	var month = document.getElementById('deliveryMonth').value;
+	var year = document.getElementById('deliveryYear').value;
+	if (validateDate(day, month, year)) {
+		var date = month + '/' + day + '/' + year;
+		dateIsValid(date);
 	} else {
 		dateIsInvalid();
 	}
 }
 
 // Check to make sure that the date is valid
-function validateDate() {
-	var day = document.getElementById('txtDay').value;
-	var month = document.getElementById('txtMonth').value;
-	var year = document.getElementById('txtYear').value;
-
+function validateDate(day, month, year) {
 	var isDay = /^[0-9]+$/.test(day);
 	var isMonth = /^[0-9]+$/.test(month);
 	var isYear = /^[0-9]+$/.test(year);
@@ -65,8 +59,28 @@ function dateIsInvalid() {
 	$('#error-msg').show();
 }
 
-function dateIsValid() {
+function dateIsValid(date) {
 	console.log('Date is valid!');
-	$('#cs-content').hide();
+	$('#deliveryDate').value = date;
+
+	// Hide the delivery date section, show the calendar section
+	$('#cs-delivery-date').hide();
+	$('#confirm-date-button').hide();
 	$('#cs-calendar').show();
+	$('#confirm-appt-button').show();
+}
+
+// Hide the commit message section, show the delivery date section
+function onCommitClick() {
+	$('#cs-commit').hide();
+	$('#cs-delivery-date').show();
+	$('#confirm-date-button').show();
+}
+
+// Hide the calendar section, show the signature section
+function getSignature() {
+	$('#cs-calendar').hide();
+	$('#confirm-appt-button').hide();
+	$('#cs-signature').show();
+	$('#confirm-sig-button').show();
 }

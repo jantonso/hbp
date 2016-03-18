@@ -12,26 +12,30 @@
 				<h1> Commit and Schedule </h1>
 			</div>
 		</header>
-		<section id="cs-content">
+		<section id="cs-commit">
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-10 col-lg-offset-1 text-center">
-						<div id="cs1">
-							<h2> Please commit to and schedule a follow up appointment. </h2>
-							<p> I understand the importance of the postpartum visit in keeping me and my baby healthy and I commit to returning for this visit. </p>
-							<div class="button">
-								<button id="commit-button" onclick="onCommitClick()">Commit</button>
-							</div>
-						</div>
-						<div id="cs2">
-							<h2> Please enter the date on which you delivered. </h2>
-							<label for="delivery-date"> I delivered on </label>
-							<input type="text" id="txtMonth" placeholder="MM" />
-							<input type="text" id="txtDay" placeholder="DD" />
-							<input type="text" id="txtYear" placeholder="YYYY" />	
-							<p id="error-msg"> That date is invalid. Please try again. </p>
+						<p class="section-header"> Please commit to and schedule a follow up appointment. </p>
+						<p id="commit-msg"> I understand the importance of the postpartum visit in keeping me and my baby healthy and I commit to returning for this visit. </p>
+						<div class="button">
+							<button id="commit-button" onclick="onCommitClick()">Commit</button>
 						</div>
 					</div>		
+				</div>
+			</div>
+		</section>
+		<section id="cs-delivery-date">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-10 col-lg-offset-1 text-center">
+						<p class="section-header"> Please enter the date on which you delivered. </p>
+						<label for="delivery-date"> I delivered on </label>
+						<input type="text" id="deliveryMonth" placeholder="MM" />
+						<input type="text" id="deliveryDay" placeholder="DD" />
+						<input type="text" id="deliveryYear" placeholder="YYYY" />	
+						<p id="error-msg"> That date is invalid. Please try again. </p>
+					</div>
 				</div>
 			</div>
 		</section>
@@ -39,16 +43,44 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-10 col-lg-offset-1 text-center">
-						<h2> Please select a follow up appointment. </h2>
+						<p class="section-header"> Please select a follow up appointment. </p>
+						<p> CALENDAR </p>
 					</div>
 				</div>
 			</div>
-			<div>
-				<p> CALENDAR </p>
+		</section>
+		<section id="cs-signature">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-10 col-lg-offset-1 text-center">
+						<p class="section-header"> Please provide a signature and confirm your follow up appointment. </p>
+						<div id="sig-form">
+							<form method="POST" action="/cs/">
+								{% csrf_token %}
+								<div>
+									<label for="name"> Name </label>
+									<input type="text" id="name" />
+								</div>
+								<div>
+									<label for="dob"> Date of birth </label>
+									<input type="text" id="dobMonth" placeholder="MM" />
+									<input type="text" id="dobDay" placeholder="DD" />
+									<input type="text" id="dobYear" placeholder="YYYY" />
+								</div>	
+								<div>
+									<input type="text" id="deliveryDate" class="hidden" />	
+									<input type="submit" id="submit-form" class="hidden" />
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
 			</div>
 		</section>
 		<footer>
-			<button id="confirm-date-button" name="button" value="Continue" onclick="getCalendar()"> Continue </button>
+			<button id="confirm-date-button" name="button" value="Continue" onclick="checkDate()"> Continue </button>
+			<button id="confirm-appt-button" name="button" value="Continue" onclick="getSignature()"> Continue </button>
+			<div id="confirm-sig-button"><label for="submit-form"> Continue </label></div>
 		</footer>
 	</body>
 </html>
