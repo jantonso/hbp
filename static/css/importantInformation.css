@@ -34,9 +34,6 @@ header .header-content h1 {
 
 #care-content {
 	margin-bottom: 60px; /* Equal to the height of the footer */
-}
-
-#care-content {
 	padding-top: 25px;
 	background-color: #FEFDFD;
 }
@@ -52,7 +49,8 @@ header .header-content h1 {
 
 #care-content #video-container #start-prompt {
 	font-size: 2.0em;
-	font-weight: normal;
+	font-weight: 200;
+	color: #433F48;
 	margin-top: 150px;
 }
 
@@ -63,7 +61,7 @@ header .header-content h1 {
 
 #care-content #video-container .video-links a {
 	text-decoration: none;
-	color: #000000;
+	color: #433F48;
 }
 
 #care-content #video-container .video-links a:hover {
@@ -72,14 +70,14 @@ header .header-content h1 {
 
 #care-content #video-container .video-links p {
 	display: inline-block;
-	font-size: 1.6em;
+	font-weight: 300;
+	font-size: 1.70em;
 }
 
 #care-content #video-container .video-links .divider {
 	margin-left: 10px;
 	margin-right: 10px;
 	color: #745C9D;
-	font-weight: bold;
 }
 
 /* Footer section */

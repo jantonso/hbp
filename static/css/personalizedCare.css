@@ -46,9 +46,9 @@ header .header-content h1 {
 
 #care-message p {
 	margin-top: 50px;
-	font-weight: 500;
+	font-weight: 200;
 	font-size: 2.5em;
-	color: #8D74B7;
+	color: #433F48;
 }
 
 /* Questions w/ Likert Scales section of HBP */
@@ -59,8 +59,9 @@ header .header-content h1 {
 
 #questions-container form .statement {
 	display: block;
-	font-weight: bold;
+	font-weight: 300;
 	font-size: 1.75em;
+	color: #433F48;
 	margin-bottom: 15px;
 }
 
@@ -107,11 +108,13 @@ header .header-content h1 {
 #questions-container form .likert li label {
 	width: 100%;
 	margin-left: -12px;
+	color: #433F48;
 }
 
 #questions-container form label {
 	font-weight: normal;
 	font-size: 1.25em;
+	color: #433F48;
 }
 
 /* Questions w/ yes, no, or don't know answers on HBP */
