@@ -37,4 +37,10 @@ def informationalVideos(request, video_index=0):
 		print e
 
 def commitAndSchedule(request):
-	return render(request, 'commitAndSchedule.html', {})
+	if request.method == 'GET':
+		return render(request, 'commitAndSchedule.html', {})
+	elif request.method == 'POST':
+		return redirect('/incentive/')
+
+def incentive(request):
+	return render(request, 'incentive.html', {})
