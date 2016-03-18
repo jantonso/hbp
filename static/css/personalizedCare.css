@@ -122,28 +122,6 @@ header .header-content h1 {
 	margin-bottom: 40px;
 }
 
-/* Continue button for next page*/
-
-.button {
-	padding-bottom: 75px;
-}
-
-#continue-button {
-	display: inline-block;
-	padding: 3px 20px 3px 20px;
-	border-style: solid;
-	border-width: 2px;
-	border-color: #8D74B7;
-	background-color: #FEFEFE;
-	color: #8D74B7;
-	font-size: 1.5em;
-	font-weight: bold;
-}
-
-#continue-button:hover {
-	border-width: 3px;
-}
-
 /* Footer section */
 
 footer {
@@ -154,4 +132,25 @@ footer {
 	height: 60px;
 	width: 100%;
 	overflow: hidden;
+}
+
+footer #continue-button {
+	position: relative;
+	display: inline-block;
+	float: right;
+	height: 60px;
+	padding: 15px 20px 15px 20px;
+	background-color: #8D74B7;
+}
+
+footer #continue-button label {
+	color: #FEFEFE;
+	font-size: 1.5em;
+	font-weight: bold;
+	cursor: pointer;
+	cursor: hand;
+}
+
+footer #continue-button label:hover {
+	color: #DFDDDC;
 }
