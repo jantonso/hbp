@@ -28,14 +28,27 @@
 							<label for="delivery-date"> I delivered on </label>
 							<input type="text" id="txtMonth" placeholder="MM" />
 							<input type="text" id="txtDay" placeholder="DD" />
-							<input type="text" id="txtYear" placeholder="YYYY" />			
+							<input type="text" id="txtYear" placeholder="YYYY" />	
+							<p id="error-msg"> That date is invalid. Please try again. </p>
 						</div>
 					</div>		
 				</div>
 			</div>
 		</section>
+		<section id="cs-calendar">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-10 col-lg-offset-1 text-center">
+						<h2> Please select a follow up appointment. </h2>
+					</div>
+				</div>
+			</div>
+			<div>
+				<p> CALENDAR </p>
+			</div>
+		</section>
 		<footer>
-			<button id="continue-button" name="button" value="Continue" onclick="getCalendar()"> Continue </button>
+			<button id="confirm-date-button" name="button" value="Continue" onclick="getCalendar()"> Continue </button>
 		</footer>
 	</body>
 </html>

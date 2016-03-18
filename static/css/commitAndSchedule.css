@@ -34,9 +34,6 @@ header .header-content h1 {
 
 #cs-content {
 	margin-bottom: 60px; /* Equal to the height of the footer */
-}
-
-#cs-content {
 	padding-top: 50px;
 	background-color: #FEFDFD;
 }
@@ -81,7 +78,30 @@ header .header-content h1 {
 	display: none;
 }
 
-/* Button section */
+#cs-content #cs2 #error-msg {
+	display: none;
+	font-size: 1.75em;
+	font-weight: 300;
+	margin-top: 50px;
+	color: #4E8DFF;	
+}
+
+/* Calendar section */
+
+#cs-calendar {
+	display: none;
+	margin-bottom: 60px; /* Equal to the height of the footer */
+	padding-top: 50px;
+	background-color: #FEFDFD;
+}
+
+#cs-calendar h2 {
+	font-size: 3.0em;
+	font-weight: 300;
+	color: #8D74B7;
+}
+
+/* Button in footer section */
 
 #commit-button {
 	margin-top: 25px;
@@ -112,7 +132,7 @@ footer {
 	overflow: hidden;
 }
 
-footer #continue-button {
+footer #confirm-date-button {
 	position: relative;
 	display: inline-block;
 	float: right;
@@ -123,8 +143,9 @@ footer #continue-button {
 	color: #FEFEFE;
 	font-size: 1.5em;
 	font-weight: bold;
+	display: none;
 }
 
-footer #continue-button:hover {
+footer #confirm-date-button:hover {
 	color: #DFDDDC;
 }
