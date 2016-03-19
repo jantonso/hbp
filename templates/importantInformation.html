@@ -3,6 +3,7 @@
 	<head>
 		<link rel="stylesheet" type="text/css" href="/static/css/importantInformation.css">
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+		<link href='https://fonts.googleapis.com/css?family=Work+Sans:400,900,800,700,600,500,300,200,100' rel='stylesheet' type='text/css'>
 		<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
 	</head>
 	<body>
@@ -11,49 +12,72 @@
 				<h1> Personalized Care </h1>
 			</div>
 		</header>
-		<section id="care-content">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-10 col-lg-offset-1 text-center">
-						<div id="video-container">
-							{% if video_index == 0 %}
-								<h2> Based on your answers, please watch two videos with some important information on birth control and breastfeeding support. </h2>
-								<p id="start-prompt"> Please click Next Video to begin. </p>
-							{% elif video_index == 1 %}
-								<h2> Birth control </h2>
-								<iframe width="560" height="315" src="https://www.youtube.com/embed/seHxzqWFqa8" frameborder="0" allowfullscreen></iframe>
-							{% elif video_index == 2 %}
-								<h2> Breastfeeding support </h2>
-								<iframe width="560" height="315" src="https://www.youtube.com/embed/8bAccWMfyHo" frameborder="0" allowfullscreen></iframe>
-							{% else %}
-								<h2> Feel free to watch more videos on different content areas or continue to commit and schedule. </h2>
-								<div class="video-links">
-									<a href="/iv/1/"><p>Birth control</p></a>
-									<p class="divider"> | </p>
-									<a href="/iv/2/"><p>Breastfeeding support</p></a>
-									<p class="divider"> | </p>
-									<a href="/iv/3/"><p>Screening for depression</p></a>
-								</div>
-								<div class="video-links">
-									<a href="/iv/4/"><p>Talking to a doctor</p></a>
-									<p class="divider"> | </p>
-									<a href="/iv/5/"><p>Diet, exercise, weight loss, sexual activity</p></a>
-									<p class="divider"> | </p>						
-									<a href="/iv/6/"><p>Bowel and bladder health</p></a>
-								</div>
-								<div class="video-links">
-									<a href="/iv/7/"><p>Gestational diabetes</p></a>
-									<p class="divider"> | </p>
-									<a href="/iv/8/"><p>High blood pressure</p></a>
-									<p class="divider"> | </p>
-									<a href="/iv/9/"><p>Preterm labor</p></a>
-								</div>
-							{% endif %}
+
+		<!-- Initial message about important informational videos -->
+		{% if video_index == 0 %}
+			<section id="care-content-message">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-10 col-lg-offset-1 text-center">
+							<h2> Based on your answers, please watch two videos with some important information on birth control and breastfeeding support. </h2>
+							<p> Please click Next Video to begin. </p>
 						</div>
-					</div>		
+					</div>
 				</div>
-			</div>
-		</section>
+			</section>
+		<!-- Video content -->
+		{% elif not video_index == 0 and not video_index == 3 %}
+			<section id="care-content-videos">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-10 col-lg-offset-1 text-center">
+							<div id="video-container">
+								{% if video_index == 1 %}
+									<h2> Birth control </h2>
+									<iframe width="560" height="315" src="https://www.youtube.com/embed/seHxzqWFqa8" frameborder="0" allowfullscreen></iframe>
+								{% elif video_index == 2 %}
+									<h2> Breastfeeding support </h2>
+									<iframe width="560" height="315" src="https://www.youtube.com/embed/8bAccWMfyHo" frameborder="0" allowfullscreen></iframe>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		<!-- Nav links to watch rest of videos or continue -->
+		{% else %}
+			<section id="care-content-navlinks">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-10 col-lg-offset-1 text-center">
+							<h2> Feel free to watch more videos on different content areas or continue to commit and schedule. </h2>
+							<div class="video-links">
+								<a href="/iv/1/"><p>Birth control</p></a>
+								<p class="divider"> | </p>
+								<a href="/iv/2/"><p>Breastfeeding support</p></a>
+								<p class="divider"> | </p>
+								<a href="/iv/3/"><p>Screening for depression</p></a>
+							</div>
+							<div class="video-links">
+								<a href="/iv/4/"><p>Talking to a doctor</p></a>
+								<p class="divider"> | </p>
+								<a href="/iv/5/"><p>Diet, exercise, weight loss, sexual activity</p></a>
+								<p class="divider"> | </p>						
+								<a href="/iv/6/"><p>Bowel and bladder health</p></a>
+							</div>
+							<div class="video-links">
+								<a href="/iv/7/"><p>Gestational diabetes</p></a>
+								<p class="divider"> | </p>
+								<a href="/iv/8/"><p>High blood pressure</p></a>
+								<p class="divider"> | </p>
+								<a href="/iv/9/"><p>Preterm labor</p></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		{% endif %}
+
 		<footer>
 			<!-- If they have finished the videos either have back or continue buttons -->
 			{% if finished_videos %}

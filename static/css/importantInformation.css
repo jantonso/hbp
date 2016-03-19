@@ -10,7 +10,8 @@ html {
 
 body {
 	font-size: 14px;
-	font-family: 'Merriweather', 'Helvetica Neue', Arial, sans-serif;
+	/*font-family: 'Merriweather', 'Helvetica Neue', Arial, sans-serif;*/
+	font-family: 'Work Sans', sans-serif;
 }
 
 /* Header section */
@@ -30,51 +31,79 @@ header .header-content h1 {
 	margin: 0;
 }
 
-/* Describe the personalized care section of HBP */
+/* Initial message about important informational videos */
 
-#care-content {
+#care-content-message {
 	margin-bottom: 60px; /* Equal to the height of the footer */
 	padding-top: 25px;
 	background-color: #FEFDFD;
 }
 
-/* Video section */
-
-#care-content #video-container h2 {
+#care-content-message h2 {
 	font-size: 3.0em;
 	font-weight: 300;
 	color: #8D74B7;
 	margin-bottom: 50px;
 }
 
-#care-content #video-container #start-prompt {
+#care-content-message p {
 	font-size: 2.0em;
 	font-weight: 200;
 	color: #433F48;
 	margin-top: 150px;
 }
 
-#care-content #video-container .video-links {
+/* Video content */
+
+#care-content-videos {
+	margin-bottom: 60px; /* Equal to the height of the footer */
+	padding-top: 25px;
+	background-color: #FEFDFD;
+}
+
+#care-content-videos #video-container h2 {
+	font-size: 3.0em;
+	font-weight: 300;
+	color: #8D74B7;
+	margin-bottom: 50px;
+}
+
+/* Nav links to watch rest of videos or continue */
+
+#care-content-navlinks {
+	margin-bottom: 60px; /* Equal to the height of the footer */
+	padding-top: 25px;
+	background-color: #FEFDFD;
+}
+
+#care-content-navlinks h2 {
+	font-size: 3.0em;
+	font-weight: 300;
+	color: #8D74B7;
+	margin-bottom: 50px;
+}
+
+#care-content-navlinks .video-links {
 	text-align: center;
 	margin-bottom: 50px;
 }
 
-#care-content #video-container .video-links a {
+#care-content-navlinks .video-links a {
 	text-decoration: none;
 	color: #433F48;
 }
 
-#care-content #video-container .video-links a:hover {
+#care-content-navlinks .video-links a:hover {
 	color: #745C9D;
 }
 
-#care-content #video-container .video-links p {
+#care-content-navlinks .video-links p {
 	display: inline-block;
 	font-weight: 300;
 	font-size: 1.70em;
 }
 
-#care-content #video-container .video-links .divider {
+#care-content-navlinks .video-links .divider {
 	margin-left: 10px;
 	margin-right: 10px;
 	color: #745C9D;
