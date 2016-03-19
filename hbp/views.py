@@ -43,4 +43,10 @@ def commitAndSchedule(request):
 		return redirect('/incentive/')
 
 def incentive(request):
-	return render(request, 'incentive.html', {})
+	if request.method == 'GET':
+		return render(request, 'incentive.html', {})
+	elif request.method == 'POST':
+		return redirect('/final/')
+
+def final(request):
+	return render(request, 'final.html', {})

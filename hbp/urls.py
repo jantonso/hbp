@@ -11,4 +11,5 @@ urlpatterns = patterns('',
 	url(r'^iv/(?P<video_index>[0-9])/$', views.informationalVideos, name='informationalVideos'),
 	url(r'^cs/$', views.commitAndSchedule ,name='commitAndSchedule'),
 	url(r'^incentive/$', views.incentive, name='incentive'),
+	url(r'^final/$', views.final, name='final'),
 )
