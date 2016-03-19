@@ -10,7 +10,8 @@ html {
 
 body {
 	font-size: 14px;
-	font-family: 'Merriweather', 'Helvetica Neue', Arial, sans-serif;
+	/*font-family: 'Merriweather', 'Helvetica Neue', Arial, sans-serif;*/
+	font-family: 'Work Sans', sans-serif;
 }
 
 /* Header section */
@@ -36,6 +37,13 @@ header .header-content h1 {
 	color: #8D74B7;	
 }
 
+.error-msg {
+	display: none;
+	font-size: 1.75em;
+	font-weight: 300;
+	margin-top: 50px;
+	color: #4E8DFF;	
+}
 /* Describe the commit and schedule section of CS */
 
 #cs-commit {
@@ -104,14 +112,6 @@ header .header-content h1 {
 
 #cs-delivery-date {
 	display: none;
-}
-
-#cs-delivery-date #error-msg {
-	display: none;
-	font-size: 1.75em;
-	font-weight: 300;
-	margin-top: 50px;
-	color: #4E8DFF;	
 }
 
 /* Calendar section of CS */
