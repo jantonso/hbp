@@ -10,7 +10,8 @@ html, body {
 
 body {
 	font-size: 14px;
-	font-family: 'Merriweather', 'Helvetica Neue', Arial, sans-serif;
+	/*font-family: 'Merriweather', 'Helvetica Neue', Arial, sans-serif;*/
+	font-family: 'Work Sans', sans-serif;
 }
 
 /* Header section */
@@ -43,8 +44,8 @@ header .header-content h1 {
 
 header .header-content p {
 	font-weight: 300;
-	font-size: 2.0em;
-	color: #FEFEFE;
+	font-size: 2.5em;
+	color: #745C9D;
 }
 
 /* About section, describe the steps of HBP */
