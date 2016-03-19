@@ -31,12 +31,6 @@ header .header-content h1 {
 	margin: 0;
 }
 
-.section-header {
-	font-size: 3.0em;
-	font-weight: 300;
-	color: #8D74B7;	
-}
-
 .error-msg {
 	display: none;
 	font-size: 1.75em;
@@ -48,8 +42,14 @@ header .header-content h1 {
 
 #cs-commit {
 	margin-bottom: 60px; /* Equal to the height of the footer */
-	padding-top: 50px;
+	padding-top: 25px;
 	background-color: #FEFDFD;
+}
+
+#cs-commit h2 {
+	font-size: 3.0em;
+	font-weight: 300;
+	color: #8D74B7;	
 }
 
 #cs-commit #commit-msg {
@@ -82,8 +82,14 @@ header .header-content h1 {
 #cs-delivery-date {
 	display: none;
 	margin-bottom: 60px; /* Equal to the height of the footer */
-	padding-top: 50px;
+	padding-top: 25px;
 	background-color: #FEFDFD;
+}
+
+#cs-delivery-date h2 {
+	font-size: 3.0em;
+	font-weight: 300;
+	color: #8D74B7;	
 }
 
 #cs-delivery-date label {
@@ -119,8 +125,14 @@ header .header-content h1 {
 #cs-calendar {
 	display: none;
 	margin-bottom: 60px; /* Equal to the height of the footer */
-	padding-top: 50px;
+	padding-top: 25px;
 	background-color: #FEFDFD;
+}
+
+#cs-calendar h2 {
+	font-size: 3.0em;
+	font-weight: 300;
+	color: #8D74B7;	
 }
 
 /* Signature and Confirm section of CS */
@@ -128,8 +140,14 @@ header .header-content h1 {
 #cs-signature {
 	display: none;
 	margin-bottom: 60px; /* Equal to the height of the footer */
-	padding-top: 50px;
+	padding-top: 25px;
 	background-color: #FEFDFD;
+}
+
+#cs-signature h2 {
+	font-size: 3.0em;
+	font-weight: 300;
+	color: #8D74B7;	
 }
 
 #cs-signature #sig-form {

@@ -17,7 +17,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-10 col-lg-offset-1 text-center">
-						<p class="section-header"> Please commit to and schedule a follow up appointment. </p>
+						<h2> Please commit to and schedule a follow up appointment. </h2>
 						<p id="commit-msg"> I understand the importance of the postpartum visit in keeping me and my baby healthy and I commit to returning for this visit. </p>
 						<div class="button">
 							<button id="commit-button" onclick="onCommitClick()">Commit</button>
@@ -30,7 +30,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-10 col-lg-offset-1 text-center">
-						<p class="section-header"> Please enter the date on which you delivered. </p>
+						<h2> Please enter the date on which you delivered. </h2>
 						<label for="delivery-date"> I delivered on </label>
 						<input type="text" id="deliveryMonth" placeholder="MM" />
 						<input type="text" id="deliveryDay" placeholder="DD" />
@@ -44,7 +44,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-10 col-lg-offset-1 text-center">
-						<p class="section-header"> Please select a follow up appointment. </p>
+						<h2> Please select a follow up appointment. </h2>
 						<p> CALENDAR </p>
 					</div>
 				</div>
@@ -54,7 +54,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-10 col-lg-offset-1 text-center">
-						<p class="section-header"> Please provide a signature and confirm your follow up appointment. </p>
+						<h2> Please provide a signature and confirm your follow up appointment. </h2>
 						<div id="sig-form">
 							<form method="POST" action="/cs/" onsubmit="return validateSigForm()">
 								{% csrf_token %}

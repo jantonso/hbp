@@ -34,8 +34,8 @@ header .header-content h1 {
 /* Describe the personalized care section of HBP */
 
 #care-message {
-	padding-top: 25px;
 	margin-bottom: 60px; /* Equal to the height of the footer */
+	padding-top: 25px;
 	background-color: #FEFDFD;
 }
 
