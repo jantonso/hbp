@@ -5,6 +5,7 @@
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 		<link href='https://fonts.googleapis.com/css?family=Work+Sans:400,900,800,700,600,500,300,200,100' rel='stylesheet' type='text/css'>
 		<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+		<script src="/static/js/incentive.js" type="text/javascript"></script>
 	</head>
 	<body>
 		<header>
@@ -25,9 +26,12 @@
 						<div id="phone-number-form">
 							<form method="POST" action="/incentive/" onsubmit="return validatePhoneNumber()">
 								{% csrf_token %}
-								<div>
+								<div id="fields">
 									<label for="phone-number"> Phone number </label>
-									<input type="text" id="phone-number" name="phone-number" />
+									<input type="text" id="phone-number" name="phone-number" placeholder="xxx-xxx-xxxx" />
+								</div>
+								<div id="error-msg">
+									<p id="phone-number-error-msg"> Please enter a valid phone number. </p>
 								</div>
 								<div>
 									<input type="submit" id="submit-form" class="hidden" />

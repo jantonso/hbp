@@ -35,7 +35,7 @@ header .header-content h1 {
 
 #cs-incentive {
 	margin-bottom: 60px; /* Equal to the height of the footer */
-	padding-top: 50px;
+	padding-top: 25px;
 	background-color: #FEFDFD;
 }
 
@@ -45,12 +45,9 @@ header .header-content h1 {
 	color: #8D74B7;	
 }
 
-#cs-incentive #messages {
-}
-
 #cs-incentive p {
 	margin-top: 25px;
-	font-size: 1.75em;
+	font-size: 1.80em;
 	font-weight: 200;
 	color: #433F48;
 	text-align: left;
@@ -74,6 +71,22 @@ header .header-content h1 {
 	text-align: center;
 	margin-left: 20px;
 	border: 2px solid #745C9D;
+}
+
+#cs-incentive #phone-number-form form #fields {
+	display: inline-block;
+}
+
+#cs-incentive #phone-number-form form #error-msg {
+	display: inline-block;
+	padding-left: 50px;
+}
+
+#cs-incentive #phone-number-form form #error-msg #phone-number-error-msg {
+	display: none;
+	font-size: 1.75em;
+	font-weight: 300;
+	color: #4E8DFF;	
 }
 
 /* Footer section */
