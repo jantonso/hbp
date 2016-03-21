@@ -135,6 +135,103 @@ header .header-content h1 {
 	color: #8D74B7;	
 }
 
+#cs-calendar #calendar-container {
+	padding: 15px 0px 0px 0px;
+	margin: 0;
+}
+
+#cs-calendar .ui-datepicker,
+#cs-calendar .ui-datepicker table,
+#cs-calendar .ui-datepicker tr,
+#cs-calendar .ui-datepicker td,
+#cs-calendar .ui-datepicker th {
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-spacing: 0;
+}
+
+#cs-calendar .ui-datepicker {
+	display: none;
+	text-transform: uppercase;
+	font-family: 'Work Sans', sans-serif;
+	font-size: 1.75em;
+}
+
+	/* Datepicker header */
+
+#cs-calendar .ui-datepicker-header {
+	position: relative;
+}
+
+#cs-calendar .ui-datepicker-title {
+	text-align: center;
+}
+
+#cs-calendar .ui-datepicker-month {
+	color: #433F48;
+}
+
+#cs-calendar .ui-datepicker-year {
+	color: #433F48;
+}
+
+#cs-calendar .ui-datepicker-prev, 
+#cs-calendar .ui-datepicker-next {
+	position: absolute;
+	cursor: pointer;
+}
+
+#cs-calendar .ui-datepicker-prev {
+    left: 0;
+    padding-left: 0;
+}
+ 
+#cs-calendar .ui-datepicker-next {
+    right: 0;
+    padding-right: 0;
+}
+ 
+	/* Datepicker calendar */
+	
+#cs-calendar table.ui-datepicker-calendar {
+	border-collapse: separate;
+	border-spacing: 8px;
+}
+
+#cs-calendar .ui-datepicker-calendar th {
+	text-align: center;
+	font-weight: normal;
+	color: #a8a8a8;
+}
+
+#cs-calendar .ui-datepicker-calendar td {
+	padding: 0.6em 1.45em 0.6em 1.45em;
+	background: #DFDDDC;
+	text-align: center;
+}
+
+#cs-calendar .ui-datepicker-calendar td:hover {
+	background: #4E8DFF;	
+	cursor: pointer;
+}
+
+/* The days in this current month */
+#cs-calendar .ui-datepicker-calendar .ui-state-default {
+	font-weight: 500;
+	color: #433F48;
+}
+
+/* The days in the next/previous months */
+#cs-calendar .ui-datepicker-other-month .ui-state-default {
+	color: #433F48;
+	opacity: 0.25;
+}
+
+#cs-calendar .ui-datepicker-calendar .ui-state-default:hover {
+	text-decoration: none;
+}
+
 /* Signature and Confirm section of CS */
 
 #cs-signature {

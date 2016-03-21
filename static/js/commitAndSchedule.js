@@ -1,3 +1,12 @@
+$(document).ready(function() {
+	$('#calendar-container').datepicker({
+		inline: true,
+		firstDay: 1,
+		showOtherMonths: true,
+		dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+	});
+})
+
 var MIN_YEAR = 1900;
 var CURRENT_YEAR = 2016;
 
