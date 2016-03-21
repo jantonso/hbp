@@ -5,6 +5,19 @@ $(document).ready(function() {
 		showOtherMonths: true,
 		dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 	});
+
+	// When the user clicks on a day from the calendar, show the appts for that day
+	$('#cs-calendar .ui-datepicker-calendar td').click(function() {
+		console.log($(this));
+		$(this).css('background','#4E8DFF');
+		$('#cs-calendar h2').hide();
+		$('#cs-calendar #appt-container').show();
+	});
+
+	// When the user clicks on an appt, display it as selected
+	$('#cs-calendar #appt-container .appt').click(function() {
+		$(this).css('background', '#4E8DFF');
+	});
 })
 
 var MIN_YEAR = 1900;

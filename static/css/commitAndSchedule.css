@@ -125,18 +125,19 @@ header .header-content h1 {
 #cs-calendar {
 	display: none;
 	margin-bottom: 60px; /* Equal to the height of the footer */
-	padding-top: 25px;
 	background-color: #FEFDFD;
 }
 
 #cs-calendar h2 {
-	font-size: 3.0em;
+	margin-top: 200px;
+	text-align: center;
+	font-size: 2.0em;
 	font-weight: 300;
 	color: #8D74B7;	
 }
 
 #cs-calendar #calendar-container {
-	padding: 15px 0px 0px 0px;
+	padding: 25px 0px 5px 0px;
 	margin: 0;
 }
 
@@ -184,35 +185,47 @@ header .header-content h1 {
 
 #cs-calendar .ui-datepicker-prev {
     left: 0;
-    padding-left: 0;
+    padding-left: 20px;
+    text-decoration: none;
+    color: #433F48;
+}
+
+#cs-calendar .ui-datepicker-prev:hover {
+    color: #4E8DFF;
 }
  
 #cs-calendar .ui-datepicker-next {
     right: 0;
-    padding-right: 0;
+    padding-right: 20px;
+    text-decoration: none;
+    color: #433F48;
 }
- 
+
+#cs-calendar .ui-datepicker-next:hover {
+	color: #4E8DFF;
+}
+
 	/* Datepicker calendar */
 	
 #cs-calendar table.ui-datepicker-calendar {
 	border-collapse: separate;
-	border-spacing: 8px;
+	border-spacing: 7px;
 }
 
 #cs-calendar .ui-datepicker-calendar th {
 	text-align: center;
-	font-weight: normal;
+	font-weight: 400;
 	color: #a8a8a8;
 }
 
 #cs-calendar .ui-datepicker-calendar td {
 	padding: 0.6em 1.45em 0.6em 1.45em;
-	background: #DFDDDC;
+	background: #ECECDC;
 	text-align: center;
 }
 
 #cs-calendar .ui-datepicker-calendar td:hover {
-	background: #4E8DFF;	
+	background: #CDDEFF;	
 	cursor: pointer;
 }
 
@@ -230,6 +243,61 @@ header .header-content h1 {
 
 #cs-calendar .ui-datepicker-calendar .ui-state-default:hover {
 	text-decoration: none;
+}
+
+	/* Individual day appointments to right of calendar */
+
+#cs-calendar #appt-container {
+	font-family: 'Work Sans', sans-serif;
+	display: none;
+	padding-top: 110px;
+}
+
+#cs-calendar #appt-container #appt-date {
+	background-color: #ECECDC;
+	height: 35px;
+}
+
+#cs-calendar #appt-container #appt-date #appt-month {
+	font-size: 1.50em;
+	margin-top: 3px;
+	float: left;
+}
+
+#cs-calendar #appt-container #appt-date #appt-day {
+	font-size: 1.75em;
+	font-weight: 700;
+	float: right;
+}
+
+#cs-calendar #appt-container .appt {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+#cs-calendar #appt-container .appt:hover {
+	background: #4E8DFF;
+}
+
+#cs-calendar #appt-container .appt-odd {
+	background-color: #CDDEFF;
+}
+
+#cs-calendar #appt-container .appt-even {
+	background-color: #DCE7FD;
+}
+
+#cs-calendar #appt-container .appt-time {
+	margin: 0;
+	font-size: 1.50em;
+	font-weight: 600;
+	color: #FEFEFE;
+}
+
+#cs-calendar #appt-container .appt-doctor {
+	margin: 0;
+	font-size: 1.50em;
+	color: #FEFEFE;
 }
 
 /* Signature and Confirm section of CS */
