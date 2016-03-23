@@ -246,7 +246,15 @@ header .header-content h1 {
 
 #cs-calendar .ui-datepicker-calendar td:not(.ui-datepicker-other-month):hover .ui-state-default {
 	color: #FEFEFE;
-	opacity: 1;
+	text-decoration: none;
+}
+
+#cs-calendar .ui-datepicker-calendar td.selectedDate {
+	background: #4E8DFF;
+}
+
+#cs-calendar .ui-datepicker-calendar td.selectedDate .ui-state-default {
+	color: #FEFEFE;
 	text-decoration: none;
 }
 
