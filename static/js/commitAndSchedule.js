@@ -3,20 +3,46 @@ $(document).ready(function() {
 		inline: true,
 		firstDay: 1,
 		showOtherMonths: true,
-		dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+		dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+		dateFormat: 'MM-d-yy',
+		beforeShowDay: function(date) {
+			// Can modify this to show the availabity of days
+			// Adds the class 'free' to the td's
+			return [true, 'free'];
+		},
+		onSelect: function(dateText, inst) {
+			// Highlight the selected day ------ NOT WORKING --------
+			$(inst).css('background','#4E8DFF'); 
+
+			console.log(dateText);
+			var temp = dateText.split('-');
+			var month = temp[0];
+			var day = temp[1];
+			var year = temp[2];
+			// Display the appointments for that day
+			$('#cs-calendar h2').hide();
+			$('#cs-calendar #appt-container').show();
+			$('#cs-calendar #appt-container #appt-month').text(month);
+			$('#cs-calendar #appt-container #appt-day').text(day);	
+		}
 	});
 
 	// When the user clicks on a day from the calendar, show the appts for that day
-	$('#cs-calendar .ui-datepicker-calendar td').click(function() {
-		console.log($(this));
-		$(this).css('background','#4E8DFF');
-		$('#cs-calendar h2').hide();
-		$('#cs-calendar #appt-container').show();
+	$('td').click(function() {
+		console.log("blah");
+		console.log($(this).text());
+		//$(this).children().parent().css('background', '#4E8DFF');
 	});
 
 	// When the user clicks on an appt, display it as selected
 	$('#cs-calendar #appt-container .appt').click(function() {
+		// Unselect old appt
+		$('#cs-calendar #appt-container .appt p').css('color', '#7B8FB7');
+		$('#cs-calendar #appt-container .appt-odd').css('background','#CDDEFF');
+		$('#cs-calendar #appt-container .appt-even').css('background','#DCE7FD');		
+		// Select this appt
 		$(this).css('background', '#4E8DFF');
+		$(this).children().css('color', '#FEFEFE');
 	});
 })
 

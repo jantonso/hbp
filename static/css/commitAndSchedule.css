@@ -10,7 +10,6 @@ html {
 
 body {
 	font-size: 14px;
-	/*font-family: 'Merriweather', 'Helvetica Neue', Arial, sans-serif;*/
 	font-family: 'Work Sans', sans-serif;
 }
 
@@ -129,7 +128,7 @@ header .header-content h1 {
 }
 
 #cs-calendar h2 {
-	margin-top: 200px;
+	margin-top: 225px;
 	text-align: center;
 	font-size: 2.0em;
 	font-weight: 300;
@@ -137,7 +136,7 @@ header .header-content h1 {
 }
 
 #cs-calendar #calendar-container {
-	padding: 25px 0px 5px 0px;
+	padding: 50px 0px 5px 0px;
 	margin: 0;
 }
 
@@ -224,9 +223,8 @@ header .header-content h1 {
 	text-align: center;
 }
 
-#cs-calendar .ui-datepicker-calendar td:hover {
-	background: #CDDEFF;	
-	cursor: pointer;
+#cs-calendar .ui-datepicker-calendar td a {
+	outline: none;
 }
 
 /* The days in this current month */
@@ -236,12 +234,19 @@ header .header-content h1 {
 }
 
 /* The days in the next/previous months */
-#cs-calendar .ui-datepicker-other-month .ui-state-default {
+#cs-calendar .ui-datepicker-calendar .ui-datepicker-other-month .ui-state-default {
 	color: #433F48;
 	opacity: 0.25;
 }
 
-#cs-calendar .ui-datepicker-calendar .ui-state-default:hover {
+#cs-calendar .ui-datepicker-calendar td:not(.ui-datepicker-other-month):hover {
+	background: #4E8DFF;
+	cursor: pointer;
+}
+
+#cs-calendar .ui-datepicker-calendar td:not(.ui-datepicker-other-month):hover .ui-state-default {
+	color: #FEFEFE;
+	opacity: 1;
 	text-decoration: none;
 }
 
@@ -250,7 +255,7 @@ header .header-content h1 {
 #cs-calendar #appt-container {
 	font-family: 'Work Sans', sans-serif;
 	display: none;
-	padding-top: 110px;
+	padding-top: 133px;
 }
 
 #cs-calendar #appt-container #appt-date {
@@ -276,7 +281,12 @@ header .header-content h1 {
 }
 
 #cs-calendar #appt-container .appt:hover {
-	background: #4E8DFF;
+	background: #4E8DFF !important;
+	cursor: pointer;
+}
+
+#cs-calendar #appt-container .appt:hover p {
+	color: #FEFEFE !important;
 }
 
 #cs-calendar #appt-container .appt-odd {
@@ -291,13 +301,13 @@ header .header-content h1 {
 	margin: 0;
 	font-size: 1.50em;
 	font-weight: 600;
-	color: #FEFEFE;
+	color: #7B8FB7;
 }
 
 #cs-calendar #appt-container .appt-doctor {
 	margin: 0;
 	font-size: 1.50em;
-	color: #FEFEFE;
+	color: #7B8FB7;
 }
 
 /* Signature and Confirm section of CS */
