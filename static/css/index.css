@@ -31,20 +31,20 @@ header {
 
 header .header-content {
 	position: relative;
-	padding-top: 120px;
+	padding-top: 150px;
 	padding-bottom: 150px;
 }
 
 header .header-content h1 {
-	font-size: 5.0em;
-	font-weight: 600;
+	font-size: 6.0em;
+	font-weight: 500;
 	color: #745C9D;
 	margin-bottom: 60px;
 }
 
 header .header-content p {
 	font-weight: 300;
-	font-size: 2.5em;
+	font-size: 3.0em;
 	color: #745C9D;
 }
 
@@ -52,7 +52,7 @@ header .header-content p {
 
 #about {
 	padding-top: 70px;
-	padding-bottom: 70px;
+	padding-bottom: 90px;
 	background-color: #FEFDFD;
 }
 
