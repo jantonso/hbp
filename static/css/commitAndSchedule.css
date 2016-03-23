@@ -34,7 +34,7 @@ header .header-content h1 {
 	display: none;
 	font-size: 1.75em;
 	font-weight: 300;
-	margin-top: 50px;
+	margin-top: 30px;
 	color: #4E8DFF;	
 }
 /* Describe the commit and schedule section of CS */
@@ -274,12 +274,13 @@ header .header-content h1 {
 #cs-calendar #appt-container #appt-date #appt-month {
 	font-size: 1.50em;
 	margin-top: 3px;
+	font-weight: 500;
 	float: left;
 }
 
 #cs-calendar #appt-container #appt-date #appt-day {
 	font-size: 1.75em;
-	font-weight: 700;
+	font-weight: 600;
 	float: right;
 }
 

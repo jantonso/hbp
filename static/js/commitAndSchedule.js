@@ -19,7 +19,6 @@ function checkDeliveryDate() {
 	if (validateDate(day, month, year)) {
 		// Store the delivery date in a new field
 		var date = month + '/' + day + '/' + year;
-		console.log('Date is valid!');
 		$('#deliveryDate').value = date;
 
 		// Hide the delivery date section, show the calendar section
@@ -38,6 +37,7 @@ function checkDeliveryDate() {
 // -------------------------------- 3: Calendar ---------------------------------------
 
 var selectedDate = '';
+var selectedAppt = '';
 
 $(document).ready(function() {
 	$('#calendar-container').datepicker({
@@ -68,27 +68,43 @@ $(document).ready(function() {
 			$('#cs-calendar #appt-container').show();
 			$('#cs-calendar #appt-container #appt-month').text(month);
 			$('#cs-calendar #appt-container #appt-day').text(day);	
+
+			// Reset all selected appointments 
+			resetAppointments();
 		}
 	});
 
 	// When the user clicks on an appt, display it as selected
 	$('#cs-calendar #appt-container .appt').click(function() {
 		// Unselect old appt
-		$('#cs-calendar #appt-container .appt p').css('color', '#7B8FB7');
-		$('#cs-calendar #appt-container .appt-odd').css('background','#CDDEFF');
-		$('#cs-calendar #appt-container .appt-even').css('background','#DCE7FD');		
+		resetAppointments();
+
 		// Select this appt
+		selectedAppt = $(this).find('.appt-time').text();
 		$(this).css('background', '#4E8DFF');
 		$(this).children().css('color', '#FEFEFE');
 	});
 })
 
-// Hide the calendar section, show the signature section
+// Resets any selected appointment
+function resetAppointments() {
+	selectedAppt = '';
+	$('#cs-calendar #appt-container .appt p').css('color', '#7B8FB7');
+	$('#cs-calendar #appt-container .appt-odd').css('background','#CDDEFF');
+	$('#cs-calendar #appt-container .appt-even').css('background','#DCE7FD');	
+}
+
+// Hide the calendar section, show the signature section if an appt was selected
+// Otherwise display an error message
 function getSignature() {
-	$('#cs-calendar').hide();
-	$('#confirm-appt-button').hide();
-	$('#cs-signature').show();
-	$('#confirm-sig-button').show();
+	if (selectedAppt != '') {
+		$('#cs-calendar').hide();
+		$('#confirm-appt-button').hide();
+		$('#cs-signature').show();
+		$('#confirm-sig-button').show();
+	} else {
+		$('#cs-calendar #appt-container .error-msg').show();
+	}
 }
 
 // -------------------------------- 4: Signature --------------------------------------
