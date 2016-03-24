@@ -1,5 +1,10 @@
 var MIN_YEAR = 1900;
 var CURRENT_YEAR = 2016;
+var selectedDate = '';
+var selectedAppt = '';
+var canvas;
+var signaturePad;
+
 
 // -------------------------------- 1: Commit -----------------------------------------
 
@@ -35,9 +40,6 @@ function checkDeliveryDate() {
 }
 
 // -------------------------------- 3: Calendar ---------------------------------------
-
-var selectedDate = '';
-var selectedAppt = '';
 
 $(document).ready(function() {
 	$('#calendar-container').datepicker({
@@ -102,6 +104,13 @@ function getSignature() {
 		$('#confirm-appt-button').hide();
 		$('#cs-signature').show();
 		$('#confirm-sig-button').show();
+
+		// Bring up the canvas to allow users to sign
+		canvas = document.getElementById('signature-canvas');
+		canvas.width = 800;
+		canvas.height = 300;
+		window.onresize = resizeCanvas;
+		signaturePad = new SignaturePad(canvas);
 	} else {
 		$('#cs-calendar #appt-container .error-msg').show();
 	}
@@ -110,7 +119,7 @@ function getSignature() {
 // -------------------------------- 4: Signature --------------------------------------
 
 function validateSigForm() {
-	if (checkName() && checkDOBDate()) {
+	if (checkName() && checkDOBDate() && checkSignature()) {
 		return true
 	} else {
 		return false;
@@ -124,8 +133,8 @@ function checkName() {
 		return true;
 	} else {
 		console.log('Please enter your name.');
-		$('#dob-error-msg').text('Please enter your name.');
-		$('#dob-error-msg').show();
+		$('#sig-error-msg').text('Please enter your name.');
+		$('#sig-error-msg').show();
 		return false;
 	}
 }
@@ -143,10 +152,34 @@ function checkDOBDate() {
 	} else {
 		// Display error message
 		console.log('Please enter a valid date...')
-		$('#dob-error-msg').text('That date is invalid. Please try again.');
-		$('#dob-error-msg').show();
+		$('#sig-error-msg').text('That date is invalid. Please try again.');
+		$('#sig-error-msg').show();
 		return false;
 	}
+}
+
+// Make sure the user signed
+function checkSignature() {
+	if (signaturePad.isEmpty()) {
+		// Display error message
+		console.log('Please sign...');
+		$('#sig-error-msg').text('Please provide a signature.');
+		$('#sig-error-msg').show();
+		return false;
+	} else {
+		// save the image as png
+		//signaturePad.toDataURL();
+		return true;
+	}
+}
+
+// Adjust canvas coordinate space taking into account pixel ratio,
+// to make it look crisp on mobile devices.
+function resizeCanvas() {
+    var ratio =  Math.max(window.devicePixelRatio || 1, 1);
+    canvas.width = canvas.offsetWidth * ratio;
+    canvas.height = canvas.offsetHeight * ratio;
+    canvas.getContext("2d").scale(ratio, ratio);
 }
 
 // -------------------------------- Helpers -------------------------------------------

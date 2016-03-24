@@ -334,18 +334,18 @@ header .header-content h1 {
 	color: #8D74B7;	
 }
 
-#cs-signature #sig-form {
-	padding-top: 25px;
+#cs-signature #sig-text-fields {
+	padding-top: 15px;
+	padding-bottom: 10px;
 }
 
-#cs-signature #sig-form form label {
-	margin-top: 25px;
+#cs-signature #sig-form form #sig-text-fields label {
 	font-size: 2.0em;
 	font-weight: 200;
 	color: #433F48;
 }
 
-#cs-signature #sig-form form input[type=text] {
+#cs-signature #sig-form form #sig-text-fields input[type=text] {
 	font-size: 2.0em;
 	font-weight: 300;
 	color: #433F48;
@@ -354,12 +354,27 @@ header .header-content h1 {
 	border: 2px solid #745C9D;
 }
 
-#cs-signature #sig-form form #dobMonth, #dobDay {
+#cs-signature #sig-form form #sig-text-fields #dobMonth, #dobDay {
 	width: 60px;
 }
 
-#cs-signature #sig-form form #dobYear {
-	width: 100px;
+#cs-signature #sig-form form #sig-text-fields #dobYear {
+	width: 90px;
+}
+
+#cs-signature #sig-form form #signature-field label {
+	font-size: 2.0em;
+	font-weight: 200;
+	color: #433F48;
+	float: left;
+}
+
+#cs-signature #sig-form form #signature-field #signature-canvas {
+	border: 2px solid #745C9D;
+}
+
+#cs-signature #sig-form form #sig-error-msg {
+	margin-top: 10px;
 }
 
 /* Footer section */
