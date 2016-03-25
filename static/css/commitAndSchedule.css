@@ -48,7 +48,7 @@ header .header-content h1 {
 #cs-commit h2 {
 	font-size: 3.0em;
 	font-weight: 300;
-	color: #8D74B7;	
+	color: #745C9D;
 }
 
 #cs-commit #commit-msg {
@@ -60,20 +60,22 @@ header .header-content h1 {
 }
 
 #cs-commit #commit-button {
+	width: 130px;
+	height: 50px;
 	margin-top: 25px;
 	display: inline-block;
-	padding: 3px 20px 3px 20px;
+	text-align: center;
 	border-style: solid;
-	border-width: 2px;
-	border-color: #8D74B7;
+	border-width: 3px;
+	border-color: #745C9D;
 	background-color: #FEFEFE;
-	color: #8D74B7;
-	font-size: 1.5em;
+	color: #745C9D;
+	font-size: 1.75em;
 	font-weight: bold;
 }
 
 #cs-commit #commit-button:hover {
-	border-width: 3px;
+	border-width: 4px;
 }
 
 /* Enter the delivery date section of CS */
@@ -88,7 +90,7 @@ header .header-content h1 {
 #cs-delivery-date h2 {
 	font-size: 3.0em;
 	font-weight: 300;
-	color: #8D74B7;	
+	color: #745C9D;
 }
 
 #cs-delivery-date label {
@@ -132,7 +134,7 @@ header .header-content h1 {
 	text-align: center;
 	font-size: 2.0em;
 	font-weight: 300;
-	color: #8D74B7;	
+	color: #745C9D;
 }
 
 #cs-calendar #calendar-container {
@@ -331,7 +333,7 @@ header .header-content h1 {
 #cs-signature h2 {
 	font-size: 3.0em;
 	font-weight: 300;
-	color: #8D74B7;	
+	color: #745C9D;
 }
 
 #cs-signature #sig-text-fields {
@@ -396,7 +398,7 @@ footer #confirm-date-button {
 	height: 60px;
 	padding: 15px 20px 15px 20px;
 	border: 0;
-	background-color: #8D74B7;
+	background-color: #745C9D;
 	color: #FEFEFE;
 	font-size: 1.5em;
 	font-weight: bold;
@@ -414,7 +416,7 @@ footer #confirm-appt-button {
 	height: 60px;
 	padding: 15px 20px 15px 20px;
 	border: 0;
-	background-color: #8D74B7;
+	background-color: #745C9D;
 	color: #FEFEFE;
 	font-size: 1.5em;
 	font-weight: bold;
@@ -431,7 +433,7 @@ footer #confirm-sig-button {
 	float: right;
 	height: 60px;
 	padding: 15px 20px 15px 20px;
-	background-color: #8D74B7;
+	background-color: #745C9D;
 	display: none;
 }
 

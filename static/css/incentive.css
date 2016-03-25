@@ -42,7 +42,7 @@ header .header-content h1 {
 #cs-incentive h2 {
 	font-size: 3.0em;
 	font-weight: 300;
-	color: #8D74B7;	
+	color: #745C9D;
 }
 
 #cs-incentive p {
@@ -107,7 +107,7 @@ footer #confirm-phone-number-button {
 	float: right;
 	height: 60px;
 	padding: 15px 20px 15px 20px;
-	background-color: #8D74B7;
+	background-color: #745C9D;
 }
 
 footer #confirm-phone-number-button label {

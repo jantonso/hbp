@@ -42,7 +42,8 @@ header .header-content h1 {
 #final-message h2 {
 	font-size: 3.0em;
 	font-weight: 300;
-	color: #8D74B7;	
+	color: #745C9D;
+	margin-bottom: 50px;
 }
 
 #final-message p {
