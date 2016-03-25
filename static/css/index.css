@@ -31,21 +31,21 @@ header {
 
 header .header-content {
 	position: relative;
-	padding-top: 150px;
+	padding-top: 200px;
 	padding-bottom: 150px;
 }
 
 header .header-content h1 {
 	font-size: 6.0em;
 	font-weight: 500;
-	color: #745C9D;
+	color: #53347F;
 	margin-bottom: 60px;
 }
 
 header .header-content p {
 	font-weight: 300;
 	font-size: 3.0em;
-	color: #745C9D;
+	color: #53347F;
 }
 
 /* About section, describe the steps of HBP */
@@ -60,7 +60,7 @@ header .header-content p {
 	font-size: 3.5em;
 	font-weight: 300;
 	margin-bottom: 50px;
-	color: #8D74B7;
+	color: #745C9D;
 }
 
 #about .step {
@@ -80,7 +80,7 @@ header .header-content p {
 #get-started {
 	padding-top: 80px;
 	padding-bottom: 80px;
-	background-color: #8D74B7;
+	background-color: #745C9D;
 }
 
 #get-started h3 {
@@ -92,9 +92,11 @@ header .header-content p {
 
 #get-started #start-button {
 	display: inline-block;
-	padding: 3px 20px 3px 20px;
+	width: 130px;
+	height: 50px;
+	padding: 6px 20px 6px 20px;
 	border-style: solid;
-	border-width: 1px;
+	border-width: 2px;
 	border-color: #FEFDFD;
 }
 
@@ -106,5 +108,5 @@ header .header-content p {
 	text-decoration: none;
 	outline: 0;
 	color: #FEFDFD;
-	font-size: 1.5em;
+	font-size: 1.75em;
 }
