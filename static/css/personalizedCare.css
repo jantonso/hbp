@@ -92,6 +92,12 @@ header .header-content h1 {
 	vertical-align: top;
 }
 
+#questions-container form .likert li label {
+	width: 100%;
+	margin-left: -12px;
+	color: #433F48;
+}
+
 #questions-container form .likert li input[type=radio] {
 	display: block;
 	position: relative;
@@ -102,14 +108,8 @@ header .header-content h1 {
 }
 
 #questions-container form input[type=radio] {
-	width: 20px;
-	height: 20px;
-}
-
-#questions-container form .likert li label {
-	width: 100%;
-	margin-left: -12px;
-	color: #433F48;
+	width: 22px;
+	height: 22px;
 }
 
 #questions-container form label {
@@ -124,6 +124,12 @@ header .header-content h1 {
 	display: block;
 	text-align: left;
 	margin-bottom: 40px;
+}
+
+#questions-container form .non-likert .non-likert-option label {
+	vertical-align: top;
+	padding-top: 2px;
+	padding-left: 3px;
 }
 
 /* Footer section */
