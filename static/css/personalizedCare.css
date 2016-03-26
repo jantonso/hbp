@@ -31,6 +31,15 @@ header .header-content h1 {
 	margin: 0;
 }
 
+.error-msg {
+	display: none;
+	font-size: 1.75em;
+	font-weight: 300;
+	margin-top: 20px;
+	margin-bottom: 30px;
+	color: #4E8DFF;	
+}
+
 /* Describe the personalized care section of HBP */
 
 #care-message {
@@ -45,7 +54,7 @@ header .header-content h1 {
 	color: #745C9D;
 }
 
-#care-message p {
+#care-message #question-prompt {
 	margin-top: 50px;
 	font-weight: 200;
 	font-size: 2.5em;

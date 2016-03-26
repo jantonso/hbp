@@ -18,9 +18,9 @@
 				<div class="row">
 					<div class="col-lg-10 col-lg-offset-1 text-center">
 						<h2 class="text-center"> The postpartum visit is a time for us to address important health issues for you and your baby. </h2>
-						<p class="text-left"> Tell us how important the following issues are to you: </p>
+						<p class="text-left" id="question-prompt"> Tell us how important the following issues are to you: </p>
 						<div id="questions-container">
-							<form action="/pc/" method="POST">
+							<form action="/pc/" method="POST" onsubmit="return validatePCForm()">
 								{% csrf_token %}
 								<label class="statement text-left"> Getting birth control </label>
 								<ul class="likert">
@@ -212,6 +212,10 @@
 										<input type="radio" name="q9" value="dk" />
 										<label>don't know</label>
 									</div>
+								</div>
+
+								<div>
+									<p class="error-msg"> Please answers all the questions. </p>
 								</div>
 
 								<div class="button">
