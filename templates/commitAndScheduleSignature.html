@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="/static/css/commitAndScheduleSignature.css">
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+		<link href='https://fonts.googleapis.com/css?family=Work+Sans:400,900,800,700,600,500,300,200,100' rel='stylesheet' type='text/css'>
+		<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+		<script src="/static/lib/signature_pad.min.js" type="text/javascript"></script>
+		<script src="/static/js/commitAndScheduleSignature.js" type="text/javascript"></script>
+	</head>
+	<body>
+		<header>
+			<div class="header-content">
+				<h1> Commit and Schedule </h1>
+			</div>
+		</header>
+		<section id="cs-signature">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-10 col-lg-offset-1 text-center">
+						<h2> Please provide a signature and confirm your follow up appointment. </h2>
+						<div id="sig-form">
+							<form method="POST" action="/cs/signature/" onsubmit="return validateSigForm()">
+								{% csrf_token %}
+								<div class="row" id="sig-text-fields">
+									<div class="col-lg-6">
+										<label for="sig-name"> Name </label>
+										<input type="text" id="sig-name" name="sig-name" />
+									</div>
+									<div class="col-lg-6">
+										<label for="dob"> Date of birth </label>
+										<input type="text" name="dobMonth" id="dobMonth" placeholder="MM" />
+										<input type="text" name="dobDay" id="dobDay" placeholder="DD" />
+										<input type="text" name="dobYear" id="dobYear" placeholder="YYYY" />
+									</div>	
+								</div>
+								<div class="row" id="signature-field">
+									<div class="col-lg-12">
+										<label for="signature-canvas"> Signature </label>
+										<canvas id="signature-canvas"></canvas>
+									</div>
+								</div>
+								<div>
+									<p id="sig-error-msg"> That date is invalid. Please try again. </p>
+								</div>
+								<div>
+									<input type="submit" id="submit-form" class="hidden" />
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<footer>
+			<div id="confirm-sig-button"><label for="submit-form"> Continue </label></div>
+		</footer>
+	</body>
+</html>

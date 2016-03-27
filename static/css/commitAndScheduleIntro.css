@@ -1,0 +1,85 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	position: relative;
+	min-height: 100%;
+}
+
+body {
+	font-size: 14px;
+	font-family: 'Work Sans', sans-serif;
+}
+
+/* Header section */
+
+header {
+	width: 100%;
+	text-align: center;
+	background-color: #745C9D;
+	padding-top: 30px;
+	padding-bottom: 30px;
+}
+
+header .header-content h1 {
+	font-size: 3.0em;
+	font-weight: 400;
+	color: #FEFDFD;
+	margin: 0;
+}
+
+/* Describe the commit and schedule section of CS */
+
+#cs-commit {
+	margin-bottom: 60px; /* Equal to the height of the footer */
+	padding-top: 25px;
+	background-color: #FEFDFD;
+}
+
+#cs-commit h2 {
+	font-size: 3.0em;
+	font-weight: 300;
+	color: #745C9D;
+}
+
+#cs-commit #commit-msg {
+	margin-top: 100px;
+	font-size: 2.0em;
+	font-weight: 200;
+	color: #433F48;
+}
+
+#cs-commit #commit-button {
+	display: inline-block;
+	width: 130px;
+	height: 50px;
+	margin-top: 25px;
+	background-color: #FEFEFE;
+	padding: 6px 20px 6px 20px;
+	border: 3px solid #745C9D;
+}
+
+#cs-commit a:hover > #commit-button {
+	border-width: 4px;
+}
+
+#cs-commit a {
+	text-decoration: none;
+	outline: 0;
+	color: #745C9D;
+	font-size: 1.75em;
+}
+
+/* Footer section */
+
+footer {
+	background-color: #DFDDDC;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	height: 60px;
+	width: 100%;
+	overflow: hidden;
+}

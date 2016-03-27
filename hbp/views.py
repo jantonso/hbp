@@ -2,12 +2,13 @@ from django.http import HttpResponse
 
 from django.shortcuts import render, redirect
 
-# The index that indicates the user has finished all the videos
+# Indicates that the user has finished all the videos
 finished_videos_index = 3
 
 def index(request):
 	return render(request, 'index.html', {})
 
+# User answers questions about postpartum needs
 def personalizedCare(request):
 	if request.method == 'GET':
 		return render(request, 'personalizedCare.html', {})
@@ -17,6 +18,7 @@ def personalizedCare(request):
 		# Do POST SHIT => redirect to important information
 		return redirect('/iv/')
 
+# User watches informational videos 
 def informationalVideos(request, video_index=0):
 	try:		
 		finished_videos = False
@@ -36,17 +38,35 @@ def informationalVideos(request, video_index=0):
 	except ValueError as e:
 		print e
 
-def commitAndSchedule(request):
+# Displays intro message for commit and schedule page
+def commitAndScheduleIntro(request):
+	return render(request, 'commitAndScheduleIntro.html', {})
+
+# User enters in delivery date 
+def commitAndScheduleDeliveryDate(request):
 	if request.method == 'GET':
-		return render(request, 'commitAndSchedule.html', {})
+		return render(request, 'commitAndScheduleDeliveryDate.html', {})
+	elif request.method == 'POST':
+		return redirect('/cs/calendar/')
+
+# User selects an appt from calendar 
+def commitAndScheduleCalendar(request):
+	return render(request, 'commitAndScheduleCalendar.html', {})
+
+# User signs and confirms appt 
+def commitAndScheduleSignature(request):
+	if request.method == 'GET':
+		return render(request, 'commitAndScheduleSignature.html', {})
 	elif request.method == 'POST':
 		return redirect('/incentive/')
 
+# Displays incentive message and user provides phone number
 def incentive(request):
 	if request.method == 'GET':
 		return render(request, 'incentive.html', {})
 	elif request.method == 'POST':
 		return redirect('/final/')
 
+# Displays final message to the user
 def final(request):
 	return render(request, 'final.html', {})

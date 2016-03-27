@@ -1,0 +1,110 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	position: relative;
+	min-height: 100%;
+}
+
+body {
+	font-size: 14px;
+	font-family: 'Work Sans', sans-serif;
+}
+
+/* Header section */
+
+header {
+	width: 100%;
+	text-align: center;
+	background-color: #745C9D;
+	padding-top: 30px;
+	padding-bottom: 30px;
+}
+
+header .header-content h1 {
+	font-size: 3.0em;
+	font-weight: 400;
+	color: #FEFDFD;
+	margin: 0;
+}
+
+/* Enter the delivery date section of CS */
+
+#cs-delivery-date {
+	margin-bottom: 60px; /* Equal to the height of the footer */
+	padding-top: 25px;
+	background-color: #FEFDFD;
+}
+
+#cs-delivery-date h2 {
+	font-size: 3.0em;
+	font-weight: 300;
+	color: #745C9D;
+}
+
+#cs-delivery-date form label {
+	margin-top: 100px;
+	font-size: 2.0em;
+	font-weight: 200;
+	color: #433F48;
+}
+
+#cs-delivery-date form input[type=text] {
+	font-size: 2.0em;
+	font-weight: 300;
+	color: #433F48;
+	text-align: center;
+	margin-left: 20px;
+	border: 2px solid #745C9D;
+}
+
+#cs-delivery-date form #deliveryMonth, #deliveryDay {
+	width: 60px;
+}
+
+#cs-delivery-date form #deliveryYear {
+	width: 100px;
+}
+
+#cs-delivery-date #delivery-date-error-msg {
+	display: none;
+	font-size: 1.75em;
+	font-weight: 300;
+	margin-top: 30px;
+	color: #4E8DFF;	
+}
+
+/* Footer section */
+
+footer {
+	background-color: #DFDDDC;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	height: 60px;
+	width: 100%;
+	overflow: hidden;
+}
+
+footer #confirm-date-button {
+	position: relative;
+	display: inline-block;
+	float: right;
+	height: 60px;
+	padding: 15px 20px 15px 20px;
+	background-color: #745C9D;
+}
+
+footer #confirm-date-button label {
+	color: #FEFEFE;
+	font-size: 1.5em;
+	font-weight: bold;
+	cursor: pointer;
+	cursor: hand;
+}
+
+footer #confirm-date-button label:hover {
+	color: #DFDDDC;
+}
