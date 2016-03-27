@@ -1,60 +1,11 @@
-* {
-	margin: 0;
-	padding: 0;
-}
-
-html {
-	position: relative;
-	min-height: 100%;
-}
-
-body {
-	font-size: 14px;
-	/*font-family: 'Merriweather', 'Helvetica Neue', Arial, sans-serif;*/
-	font-family: 'Work Sans', sans-serif;
-}
-
-/* Header section */
-
-header {
-	width: 100%;
-	text-align: center;
-	background-color: #745C9D;
-	padding-top: 30px;
-	padding-bottom: 30px;
-}
-
-header .header-content h1 {
-	font-size: 3.0em;
-	font-weight: 400;
-	color: #FEFDFD;
-	margin: 0;
-}
-
 .error-msg {
 	display: none;
 	font-size: 1.75em;
 	font-weight: 300;
-	margin-top: 20px;
-	margin-bottom: 30px;
 	color: #4E8DFF;	
 }
 
-/* Describe the personalized care section of HBP */
-
-#care-message {
-	margin-bottom: 60px; /* Equal to the height of the footer */
-	padding-top: 25px;
-	background-color: #FEFDFD;
-}
-
-#care-message h2 {
-	font-size: 3.0em;
-	font-weight: 300;
-	color: #745C9D;
-}
-
-#care-message #question-prompt {
+#question-prompt {
 	margin-top: 50px;
 	font-weight: 200;
 	font-size: 2.5em;
@@ -142,16 +93,6 @@ header .header-content h1 {
 }
 
 /* Footer section */
-
-footer {
-	background-color: #DFDDDC;
-	position: absolute;
-	left: 0;
-	bottom: 0;
-	height: 60px;
-	width: 100%;
-	overflow: hidden;
-}
 
 footer #continue-button {
 	position: relative;
