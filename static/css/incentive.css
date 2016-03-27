@@ -1,51 +1,4 @@
-* {
-	margin: 0;
-	padding: 0;
-}
-
-html {
-	position: relative;
-	min-height: 100%;
-}
-
-body {
-	font-size: 14px;
-	/*font-family: 'Merriweather', 'Helvetica Neue', Arial, sans-serif;*/
-	font-family: 'Work Sans', sans-serif;
-}
-
-/* Header section */
-
-header {
-	width: 100%;
-	text-align: center;
-	background-color: #745C9D;
-	padding-top: 30px;
-	padding-bottom: 30px;
-}
-
-header .header-content h1 {
-	font-size: 3.0em;
-	font-weight: 400;
-	color: #FEFDFD;
-	margin: 0;
-}
-
-/* Describe the incentive message section of CS */
-
-#cs-incentive {
-	margin-bottom: 60px; /* Equal to the height of the footer */
-	padding-top: 25px;
-	background-color: #FEFDFD;
-}
-
-#cs-incentive h2 {
-	font-size: 3.0em;
-	font-weight: 300;
-	color: #745C9D;
-}
-
-#cs-incentive p {
+#incentive-messages p {
 	margin-top: 25px;
 	font-size: 1.80em;
 	font-weight: 200;
@@ -53,18 +6,18 @@ header .header-content h1 {
 	text-align: left;
 }
 
-#cs-incentive #phone-number-form {
+#phone-number-form {
 	text-align: left;
 }
 
-#cs-incentive #phone-number-form form label {
+#phone-number-form form label {
 	margin-top: 25px;
 	font-size: 2.0em;
 	font-weight: 200;
 	color: #433F48;
 }
 
-#cs-incentive #phone-number-form form input[type=text] {
+#phone-number-form form input[type=text] {
 	font-size: 2.0em;
 	font-weight: 300;
 	color: #433F48;
@@ -73,35 +26,23 @@ header .header-content h1 {
 	border: 2px solid #745C9D;
 }
 
-#cs-incentive #phone-number-form form #fields {
+#phone-number-form form #fields {
 	display: inline-block;
 }
 
-#cs-incentive #phone-number-form form #error-msg {
+#phone-number-form form #error-msg {
 	display: inline-block;
 	padding-left: 50px;
 }
 
-#cs-incentive #phone-number-form form #error-msg #phone-number-error-msg {
+#phone-number-form form #error-msg #phone-number-error-msg {
 	display: none;
 	font-size: 1.75em;
 	font-weight: 300;
 	color: #4E8DFF;	
 }
 
-/* Footer section */
-
-footer {
-	background-color: #DFDDDC;
-	position: absolute;
-	left: 0;
-	bottom: 0;
-	height: 60px;
-	width: 100%;
-	overflow: hidden;
-}
-
-footer #confirm-phone-number-button {
+footer #confirm-button {
 	position: relative;
 	display: inline-block;
 	float: right;
@@ -110,14 +51,12 @@ footer #confirm-phone-number-button {
 	background-color: #745C9D;
 }
 
-footer #confirm-phone-number-button label {
+footer #confirm-button label {
 	color: #FEFEFE;
 	font-size: 1.5em;
 	font-weight: bold;
-	cursor: pointer;
-	cursor: hand;
 }
 
-footer #confirm-phone-number-button label:hover {
+footer #confirm-button label:hover {
 	color: #DFDDDC;
 }
