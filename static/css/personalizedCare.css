@@ -70,6 +70,8 @@
 #questions-container form input[type=radio] {
 	width: 22px;
 	height: 22px;
+	cursor: pointer;
+	cursor: hand;
 }
 
 #questions-container form label {
