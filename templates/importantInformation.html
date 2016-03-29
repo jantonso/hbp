@@ -24,32 +24,97 @@
 				<iframe width="560" height="315" src="https://www.youtube.com/embed/8bAccWMfyHo" frameborder="0" allowfullscreen></iframe>
 			{% endif %}
 		</div>
-	<!-- Final message on video section & links to rewatch videos -->
+	<!-- (Final message on video section) & links to rewatch videos -->
 	{% else %}
-		<div id="videos-navlinks">
-			<h2> Feel free to watch more videos on different content areas or continue to commit and schedule. </h2>
-			<div class="video-links">
-				<a href="/iv/1/"><p>Birth control</p></a>
-				<p class="divider"> | </p>
-				<a href="/iv/2/"><p>Breastfeeding support</p></a>
-				<p class="divider"> | </p>
-				<a href="/iv/3/"><p>Screening for depression</p></a>
+		<h2> You can watch more videos on other topics or continue to schedule an appointment. </h2>
+	{% endif %}
+{% endblock %}
+
+{% block extraSection %}
+	<!-- Final message on video section & (links to rewatch videos) -->
+	{% if video_index == 3 %}
+		<section id="video-links">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-4 video-link">
+						<a href="/">
+							<img src="http://placehold.it/320x150" alt="">
+							<div class="caption">
+								<p> Birth control </p>
+							</div>
+						</a>
+					</div>
+					<div class="col-lg-4 video-link">
+						<a href="/">
+							<img src="http://placehold.it/320x150" alt="">
+							<div class="caption">
+								<p> Breastfeeding support </p>
+							</div>
+						</a>
+					</div>
+					<div class="col-lg-4 video-link">
+						<a href="/">
+							<img src="http://placehold.it/320x150" alt="">
+							<div class="caption">
+								<p> Screening for depression </p>
+							</div>
+						</a>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-4 video-link">
+						<a href="/">
+							<img src="http://placehold.it/320x150" alt="">
+							<div class="caption">
+								<p> Talking to a doctor </p>
+							</div>
+						</a>
+					</div>
+					<div class="col-lg-4 video-link">
+						<a href="/">
+							<img src="http://placehold.it/320x150" alt="">
+							<div class="caption">
+								<p> Diet, exercise, weight loss, sexual activity </p>
+							</div>
+						</a>
+					</div>
+					<div class="col-lg-4 video-link">
+						<a href="/">
+							<img src="http://placehold.it/320x150" alt="">
+							<div class="caption">
+								<p> Bowel and bladder health </p>
+							</div>
+						</a>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-4 video-link">
+						<a href="/">
+							<img src="http://placehold.it/320x150" alt="">
+							<div class="caption">
+								<p> Gestational diabetes </p>
+							</div>
+						</a>
+					</div>
+					<div class="col-lg-4 video-link">
+						<a href="/">
+							<img src="http://placehold.it/320x150" alt="">
+							<div class="caption">
+								<p> High blood pressure </p>
+							</div>
+						</a>
+					</div>
+					<div class="col-lg-4 video-link">
+						<a href="/">
+							<img src="http://placehold.it/320x150" alt="">
+							<div class="caption">
+								<p> Preterm labor </p>
+							</div>
+						</a>
+					</div>
+				</div>			
 			</div>
-			<div class="video-links">
-				<a href="/iv/4/"><p>Talking to a doctor</p></a>
-				<p class="divider"> | </p>
-				<a href="/iv/5/"><p>Diet, exercise, weight loss, sexual activity</p></a>
-				<p class="divider"> | </p>						
-				<a href="/iv/6/"><p>Bowel and bladder health</p></a>
-			</div>
-			<div class="video-links">
-				<a href="/iv/7/"><p>Gestational diabetes</p></a>
-				<p class="divider"> | </p>
-				<a href="/iv/8/"><p>High blood pressure</p></a>
-				<p class="divider"> | </p>
-				<a href="/iv/9/"><p>Preterm labor</p></a>
-			</div>
-		</div>
+		</section>
 	{% endif %}
 {% endblock %}
 

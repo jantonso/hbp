@@ -14,7 +14,8 @@
 				<h1> {% block header %} Healthy Beyond Pregnancy {% endblock %} </h1>
 			</div>
 		</header>
-		<section class="page-content">
+		
+		<section id="page-content">
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-10 col-lg-offset-1 text-center">
@@ -23,6 +24,9 @@
 				</div>
 			</div>
 		</section>
+
+		{% block extraSection %} {% endblock %}
+
 		<footer>
 			{% block footer %}<div></div>{% endblock %}
 		</footer>

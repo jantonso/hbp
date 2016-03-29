@@ -9,29 +9,45 @@
 
 /* Nav links to watch rest of videos or continue */
 
-#videos-navlinks .video-links {
-	text-align: center;
-	margin-bottom: 50px;
+#video-links {
+	margin-top: -60px; /* Need to overide the default #page-content margin-bottom */
+	margin-bottom: 60px; /* Equal to the height of the footer */
+	padding-top: 25px;
+	background-color: #FEFDFD;
 }
 
-#videos-navlinks .video-links a {
+#video-links .video-link {
+	margin-bottom: 30px;
+}
+
+#video-links .video-link img {
+	width: 100%;
+}
+
+#video-links .video-link a {
 	text-decoration: none;
+}
+
+#video-links .video-link .caption {
+	padding-top: 7px;
+	text-align: center;
+	border-left: 2px solid #DFDDDC;
+	border-bottom: 2px solid #DFDDDC;
+	border-right: 2px solid #DFDDDC;
+}
+
+#video-links .video-link p {
+	font-weight: 400;
+	font-size: 1.30em;
 	color: #433F48;
 }
 
-#videos-navlinks .video-links a:hover {
-	color: #745C9D;
+#video-links .video-link:hover .caption {
+	background-color: #4E8DFF;
 }
 
-#videos-navlinks .video-links p {
-	display: inline-block;
-	font-weight: 300;
-	font-size: 1.70em;
-}
-
-#videos-navlinks .video-links .divider {
-	margin: 0px 10px 0px 10px;
-	color: #745C9D;
+#video-links .video-link:hover .caption p {
+	color: #FEFEFE;
 }
 
 /* Footer section */
