@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 # Indicates that the user has finished all the videos
-finished_videos_index = 3
+finished_videos_index = 10
 
 def index(request):
 	return render(request, 'index.html', {})

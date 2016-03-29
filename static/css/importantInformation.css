@@ -12,7 +12,6 @@
 #video-links {
 	margin-top: -60px; /* Need to overide the default #page-content margin-bottom */
 	margin-bottom: 60px; /* Equal to the height of the footer */
-	padding-top: 25px;
 	background-color: #FEFDFD;
 }
 
@@ -44,6 +43,9 @@
 
 #video-links .video-link:hover .caption {
 	background-color: #4E8DFF;
+	border-left: 2px solid #4E8DFF;
+	border-bottom: 2px solid #4E8DFF;
+	border-right: 2px solid #4E8DFF;
 }
 
 #video-links .video-link:hover .caption p {
