@@ -6,6 +6,7 @@
 		<link href='https://fonts.googleapis.com/css?family=Work+Sans:400,900,800,700,600,500,300,200,100' rel='stylesheet' type='text/css'>
 		<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
 		<script src="/static/lib/signature_pad.min.js" type="text/javascript"></script>
+		<script src="/static/js/checkDate.js" type="text/javascript"></script>
 		<script src="/static/js/commitAndScheduleSignature.js" type="text/javascript"></script>
 	</head>
 	<body>
@@ -18,7 +19,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-10 col-lg-offset-1 text-center">
-						<h2> Please provide a signature and confirm your follow up appointment. </h2>
+						<h2> Please type your name and date of birth and provide a signature to confirm your appointment. </h2>
 						<div id="sig-form">
 							<form method="POST" action="/cs/signature/" onsubmit="return validateSigForm()">
 								{% csrf_token %}
