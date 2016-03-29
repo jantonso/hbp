@@ -13,28 +13,31 @@ def personalizedCare(request):
 	if request.method == 'GET':
 		return render(request, 'personalizedCare.html', {})
 	elif request.method == 'POST':
-		# Create session to keep track of if the user has watched all their required videos
-		request.session['finished_videos'] = False
+		# Add a list of the required videos to the session
+		request.session['required_videos'] = [1, 4, 6, 8, 10]
 		# Do POST SHIT => redirect to important information
 		return redirect('/iv/')
 
 # User watches informational videos 
 def informationalVideos(request, video_index=0):
-	try:		
-		finished_videos = False
-		# Check to see if they have finished all their videos
-		if (request.session.get('finished_videos', False)):
-			finished_videos = True
-
+	try:	
 		video_index = int(video_index)
-		if (not finished_videos):
-			# Update the session to reflect that they have finished all the videos
-			if (video_index == finished_videos_index):
-				request.session['finished_videos'] = True
-				finished_videos = True
+		# Check to see if they have finished all their required videos
+		next_video = 0
+		finished_videos = True
+		required_videos = request.session.get('required_videos')
+		# They jumped directly to this page
+		if (required_videos == None):
+			return redirect('/')	
+		# They still have required videos to watch		
+		elif (len(required_videos) != 0):
+			next_video = required_videos[0]
+			finished_videos = False
+			# Remove the next video from the list of required videos
+			request.session['required_videos'] = required_videos[1:]
 
 		return render(request, 'importantInformation.html', {'video_index': video_index, 
-						'finished_videos': finished_videos})
+						'finished_videos': finished_videos, 'next_video': next_video})
 	except ValueError as e:
 		print e
 
