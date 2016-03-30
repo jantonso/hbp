@@ -25,9 +25,9 @@
 							{% csrf_token %}
 							<div>
 								<label for="delivery-date"> I delivered on </label>
-								<input type="text" id="deliveryMonth" placeholder="MM" />
-								<input type="text" id="deliveryDay" placeholder="DD" />
-								<input type="text" id="deliveryYear" placeholder="YYYY" />	
+								{{ form.delivery_month }}
+								{{ form.delivery_day }}
+								{{ form.delivery_year }}
 							</div>
 							<div>
 								<input type="submit" id="submit-form" class="hidden" />

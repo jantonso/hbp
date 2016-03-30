@@ -60,11 +60,11 @@ header .header-content h1 {
 	border: 2px solid #745C9D;
 }
 
-#cs-delivery-date form #deliveryMonth, #deliveryDay {
+#cs-delivery-date form #id_delivery_month, #id_delivery_day {
 	width: 60px;
 }
 
-#cs-delivery-date form #deliveryYear {
+#cs-delivery-date form #id_delivery_year {
 	width: 100px;
 }
 

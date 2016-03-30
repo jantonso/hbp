@@ -2,8 +2,17 @@ from django.http import HttpResponse
 
 from django.shortcuts import render, redirect
 
+from .forms import DeliveryDateForm
+
 # Indicates that the user has finished all the videos
 finished_videos_index = 10
+
+# Session values
+# 	=> required_videos = list of required videos for the user to watch
+#	=> delivery_date = the date on which the user delivered
+#
+#
+#
 
 def index(request):
 	return render(request, 'index.html', {})
@@ -15,7 +24,6 @@ def personalizedCare(request):
 	elif request.method == 'POST':
 		# Add a list of the required videos to the session
 		request.session['required_videos'] = [1, 4, 6, 8, 10]
-		# Do POST SHIT => redirect to important information
 		return redirect('/iv/')
 
 # User watches informational videos 
@@ -40,6 +48,7 @@ def informationalVideos(request, video_index=0):
 						'finished_videos': finished_videos, 'next_video': next_video})
 	except ValueError as e:
 		print e
+		return redirect('/')
 
 # Displays intro message for commit and schedule page
 def commitAndScheduleIntro(request):
@@ -48,9 +57,21 @@ def commitAndScheduleIntro(request):
 # User enters in delivery date 
 def commitAndScheduleDeliveryDate(request):
 	if request.method == 'GET':
-		return render(request, 'commitAndScheduleDeliveryDate.html', {})
+		form = DeliveryDateForm()
+		return render(request, 'commitAndScheduleDeliveryDate.html', {'form': form})
 	elif request.method == 'POST':
-		return redirect('/cs/calendar/')
+		# Process the DeliveryDateForm data
+		form = DeliveryDateForm(request.POST)
+		if form.is_valid():
+			delivery_day = form.cleaned_data['delivery_day']
+			delivery_month = form.cleaned_data['delivery_month']
+			delivery_year = form.cleaned_data['delivery_year']
+			# Keep track of the deliveryDate in the user's session
+			delivery_date = delivery_month + '/' + delivery_day + '/' + delivery_year
+			request.session['delivery_date'] = delivery_date
+			return redirect('/cs/calendar/')
+		else:
+			print "WE GOT AN ERROR BOYS"
 
 # User selects an appt from calendar 
 def commitAndScheduleCalendar(request):
