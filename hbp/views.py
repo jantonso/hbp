@@ -61,14 +61,7 @@ def commitAndScheduleDeliveryDate(request):
 		# Process the DeliveryDateForm data
 		form = DeliveryDateForm(request.POST)
 		if form.is_valid():
-			delivery_day = form.cleaned_data['delivery_day']
-			delivery_month = form.cleaned_data['delivery_month']
-			delivery_year = form.cleaned_data['delivery_year']
-
-			# Keep track of the user's appointment info in the session
-			delivery_date = delivery_month + '/' + delivery_day + '/' + delivery_year
-			request.session['appointment'] = {'delivery_date': delivery_date}
-
+			handleDeliveryDateForm(request, form)
 			return redirect('/cs/calendar/')
 		else:
 			# form is invalid, need to display errors to the user
@@ -86,21 +79,9 @@ def commitAndScheduleSignature(request):
 		return render(request, 'commitAndScheduleSignature.html', {'form': form})
 	elif request.method == 'POST':
 		# Process the SignatureForm data
-		form = SignatureForm(request.POST, request.FILES)
+		form = SignatureForm(request.POST)
 		if form.is_valid():
-			sig_name = form.cleaned_data['sig_name']
-			dob_day = form.cleaned_data['dob_day']
-			dob_month = form.cleaned_data['dob_month']
-			dob_year = form.cleaned_data['dob_year']
-			sig_image = form.cleaned_data['sig_image']
-			print len(sig_image)
-
-			# Add user's appointment info to the session
-			dob_date = dob_month + '/' + dob_day + '/' + dob_year
-			temp_appointment = request.session['appointment']
-			temp_appointment.update({'sig_name': sig_name, 
-				'dob_date': dob_date})
-			request.session['appointment'] = temp_appointment
+			handleSignatureForm(request, form)
 			return redirect('/incentive/')
 		else:
 			# form is invalid, need to display errors to the user
@@ -118,3 +99,32 @@ def incentive(request):
 # Displays final message to the user
 def final(request):
 	return render(request, 'final.html', {})
+
+# ----------------------------- Helper Functions ---------------------------------- #
+
+def handleDeliveryDateForm(request, form):
+	delivery_day = form.cleaned_data['delivery_day']
+	delivery_month = form.cleaned_data['delivery_month']
+	delivery_year = form.cleaned_data['delivery_year']
+
+	# Keep track of the user's appointment info in the session
+	delivery_date = delivery_month + '/' + delivery_day + '/' + delivery_year
+	request.session['appointment'] = {'delivery_date': delivery_date}
+	return
+
+def handleSignatureForm(request, form):
+	sig_name = form.cleaned_data['sig_name']
+	dob_day = form.cleaned_data['dob_day']
+	dob_month = form.cleaned_data['dob_month']
+	dob_year = form.cleaned_data['dob_year']
+	sig_image = form.cleaned_data['sig_image']
+	print len(sig_image)
+
+	# Add user's appointment info to the session
+	dob_date = dob_month + '/' + dob_day + '/' + dob_year
+	temp_appointment = request.session['appointment']
+	temp_appointment.update({'sig_name': sig_name, 
+		'dob_date': dob_date})
+	request.session['appointment'] = temp_appointment
+	return
+
