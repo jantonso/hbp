@@ -1,6 +1,5 @@
 #incentive-messages p {
-	margin-top: 25px;
-	font-size: 1.80em;
+	font-size: 1.7em;
 	font-weight: 200;
 	color: #433F48;
 	text-align: left;
@@ -11,7 +10,7 @@
 }
 
 #phone-number-form form label {
-	margin-top: 25px;
+	margin-top: 10px;
 	font-size: 2.0em;
 	font-weight: 200;
 	color: #433F48;
@@ -30,16 +29,17 @@
 	display: inline-block;
 }
 
-#phone-number-form form #error-msg {
-	display: inline-block;
-	padding-left: 50px;
-}
-
 #phone-number-form form #error-msg #phone-number-error-msg {
 	display: none;
+	margin-left: 60px;
 	font-size: 1.75em;
 	font-weight: 300;
 	color: #4E8DFF;	
+}
+
+img {
+	position: relative;
+	float: right;
 }
 
 footer #confirm-button {
