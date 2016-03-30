@@ -9,10 +9,8 @@ finished_videos_index = 10
 
 # Session values
 # 	=> required_videos = list of required videos for the user to watch
-#	=> delivery_date = the date on which the user delivered
-#
-#
-#
+#	=> appointment = {delivery_date, name, date_of_birth, 
+#					  signature, appointment_info, phone_number}
 
 def index(request):
 	return render(request, 'index.html', {})
@@ -66,9 +64,11 @@ def commitAndScheduleDeliveryDate(request):
 			delivery_day = form.cleaned_data['delivery_day']
 			delivery_month = form.cleaned_data['delivery_month']
 			delivery_year = form.cleaned_data['delivery_year']
-			# Keep track of the deliveryDate in the user's session
+
+			# Keep track of the user's appointment info in the session
 			delivery_date = delivery_month + '/' + delivery_day + '/' + delivery_year
-			request.session['delivery_date'] = delivery_date
+			request.session['appointment'] = {'delivery_date': delivery_date}
+
 			return redirect('/cs/calendar/')
 		else:
 			print "WE GOT AN ERROR BOYS"
