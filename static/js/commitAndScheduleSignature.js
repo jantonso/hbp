@@ -22,7 +22,7 @@ function validateSigForm() {
 
 // Make sure the name field is valid
 function checkName() {
-	var name = document.getElementById('sig-name').value;
+	var name = document.getElementById('id_sig_name').value;
 	if (name != null && name != '') {
 		return true;
 	} else {
@@ -35,9 +35,9 @@ function checkName() {
 
 // Make sure the date of birth field is valid
 function checkDOBDate() {
-	var day = document.getElementById('dobDay').value;
-	var month = document.getElementById('dobMonth').value;
-	var year = document.getElementById('dobYear').value;
+	var day = document.getElementById('id_dob_day').value;
+	var month = document.getElementById('id_dob_month').value;
+	var year = document.getElementById('id_dob_year').value;
 	if (checkDate(day, month, year)) {
 		return true;
 	} else {
@@ -46,6 +46,21 @@ function checkDOBDate() {
 		$('#sig-error-msg').text('That date is invalid. Please try again.');
 		$('#sig-error-msg').show();
 		return false;
+	}
+}
+
+// Make sure the user signed
+function checkSignature() {
+	if (signaturePad.isEmpty()) {
+		// Display error message
+		console.log('Please sign...');
+		$('#sig-error-msg').text('Please provide a signature.');
+		$('#sig-error-msg').show();
+		return false;
+	} else {
+		// Add the base 64 string of the image to a hidden input field in form
+		document.getElementById('id_sig_image').value = signaturePad.toDataURL();
+		return true;
 	}
 }
 

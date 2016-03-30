@@ -2,7 +2,7 @@ from django.http import HttpResponse
 
 from django.shortcuts import render, redirect
 
-from .forms import DeliveryDateForm
+from .forms import DeliveryDateForm, SignatureForm
 
 # Indicates that the user has finished all the videos
 finished_videos_index = 10
@@ -71,7 +71,9 @@ def commitAndScheduleDeliveryDate(request):
 
 			return redirect('/cs/calendar/')
 		else:
-			print "WE GOT AN ERROR BOYS"
+			# form is invalid, need to display errors to the user
+			print form.errors
+			return redirect('/')
 
 # User selects an appt from calendar 
 def commitAndScheduleCalendar(request):
@@ -80,12 +82,34 @@ def commitAndScheduleCalendar(request):
 # User signs and confirms appt 
 def commitAndScheduleSignature(request):
 	if request.method == 'GET':
-		return render(request, 'commitAndScheduleSignature.html', {})
+		form = SignatureForm()
+		return render(request, 'commitAndScheduleSignature.html', {'form': form})
 	elif request.method == 'POST':
-		return redirect('/incentive/')
+		# Process the SignatureForm data
+		form = SignatureForm(request.POST, request.FILES)
+		if form.is_valid():
+			sig_name = form.cleaned_data['sig_name']
+			dob_day = form.cleaned_data['dob_day']
+			dob_month = form.cleaned_data['dob_month']
+			dob_year = form.cleaned_data['dob_year']
+			sig_image = form.cleaned_data['sig_image']
+			print len(sig_image)
+
+			# Add user's appointment info to the session
+			dob_date = dob_month + '/' + dob_day + '/' + dob_year
+			temp_appointment = request.session['appointment']
+			temp_appointment.update({'sig_name': sig_name, 
+				'dob_date': dob_date})
+			request.session['appointment'] = temp_appointment
+			return redirect('/incentive/')
+		else:
+			# form is invalid, need to display errors to the user
+			print form.errors
+			return redirect('/')
 
 # Displays incentive message and user provides phone number
 def incentive(request):
+	print request.session.get('appointment')
 	if request.method == 'GET':
 		return render(request, 'incentive.html', {})
 	elif request.method == 'POST':

@@ -25,20 +25,22 @@
 								{% csrf_token %}
 								<div class="row" id="sig-text-fields">
 									<div class="col-lg-6">
-										<label for="sig-name"> Name </label>
-										<input type="text" id="sig-name" name="sig-name" />
+										<label for"id_sig_name"> Name </label>
+										{{ form.sig_name }}
 									</div>
 									<div class="col-lg-6">
 										<label for="dob"> Date of birth </label>
-										<input type="text" name="dobMonth" id="dobMonth" placeholder="MM" />
-										<input type="text" name="dobDay" id="dobDay" placeholder="DD" />
-										<input type="text" name="dobYear" id="dobYear" placeholder="YYYY" />
+										{{ form.dob_month }}
+										{{ form.dob_day }}
+										{{ form.dob_year }}
 									</div>	
 								</div>
 								<div class="row" id="signature-field">
 									<div class="col-lg-12">
 										<label for="signature-canvas"> Signature </label>
 										<canvas id="signature-canvas"></canvas>
+										<!-- by defaul this is a hidden field -->
+										{{ form.sig_image }}
 									</div>
 								</div>
 								<div>

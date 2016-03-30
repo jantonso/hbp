@@ -72,11 +72,11 @@ header .header-content h1 {
 	border: 2px solid #745C9D;
 }
 
-#cs-signature #sig-form form #sig-text-fields #dobMonth, #dobDay {
+#cs-signature #sig-form form #sig-text-fields #id_dob_month, #id_dob_day {
 	width: 60px;
 }
 
-#cs-signature #sig-form form #sig-text-fields #dobYear {
+#cs-signature #sig-form form #sig-text-fields #id_dob_year {
 	width: 90px;
 }
 
