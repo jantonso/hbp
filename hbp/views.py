@@ -2,7 +2,7 @@ from django.http import HttpResponse
 
 from django.shortcuts import render, redirect
 
-from .forms import DeliveryDateForm, SignatureForm, PhoneNumberForm
+from .forms import PersonalizedCareForm, DeliveryDateForm, SignatureForm, PhoneNumberForm
 
 # Indicates that the user has finished all the videos
 finished_videos_index = 10
@@ -18,7 +18,8 @@ def index(request):
 # User answers questions about postpartum needs
 def personalizedCare(request):
 	if request.method == 'GET':
-		return render(request, 'personalizedCare.html', {})
+		form = PersonalizedCareForm()
+		return render(request, 'personalizedCare.html', {'form': form})
 	elif request.method == 'POST':
 		# Add a list of the required videos to the session
 		request.session['required_videos'] = [1, 4, 6, 8, 10]
