@@ -21,9 +21,15 @@ def personalizedCare(request):
 		form = PersonalizedCareForm()
 		return render(request, 'personalizedCare.html', {'form': form})
 	elif request.method == 'POST':
-		# Add a list of the required videos to the session
-		request.session['required_videos'] = [1, 4, 6, 8, 10]
-		return redirect('/iv/')
+		# Process the PersonalizedCareForm
+		form = PersonalizedCareForm(request.POST)
+		if form.is_valid():
+			handlePersonalizedCareForm(request, form)
+			return redirect('/iv/')
+		else:
+			# form is invalid, need to display errors to the user
+			print form.errors
+			return redirect('/')
 
 # User watches informational videos 
 def informationalVideos(request, video_index=0):
@@ -112,6 +118,18 @@ def final(request):
 
 # ----------------------------- Helper Functions ---------------------------------- #
 
+def handlePersonalizedCareForm(request, form):
+	list_of_questions = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9']
+	question_answers = []
+	for question_name in list_of_questions:
+		question_answers += [form.cleaned_data[question_name]]
+	print question_answers
+	# ALGORITHM TO DETERMINE THE BEST VIDEOS TO WATCH
+
+	# Add a list of the required videos to the session
+	request.session['required_videos'] = [1, 4, 6, 8, 10]
+	return
+
 def handleDeliveryDateForm(request, form):
 	delivery_day = form.cleaned_data['delivery_day']
 	delivery_month = form.cleaned_data['delivery_month']
@@ -159,5 +177,3 @@ def storeAppointment(appointment):
 	print len(sig_image)
 	print phone_number
 	return
-
-

@@ -1,8 +1,16 @@
 from django import forms
 
-LIKERT_CHOICES = [(-2,'not at all'),(-1,'not really'),(0,'neutral'),
-	(1,'somewhat'),(2,'very important')]
-NON_LIKERT_CHOICES = [('','yes'),('','no'),('','dk')]
+LIKERT_CHOICES = [
+	(-2,'not at all'),
+	(-1,'not really'),
+	(0,'neutral'),
+	(1,'somewhat'),
+	(2,'very important')]
+
+NON_LIKERT_CHOICES = [
+	('yes','yes'),
+	('no','no'),
+	('dk','don\'t know')]
 
 class PersonalizedCareForm(forms.Form):
 	q1 = forms.ChoiceField(label='Getting birth control', 
