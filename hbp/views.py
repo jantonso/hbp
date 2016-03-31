@@ -2,7 +2,7 @@ from django.http import HttpResponse
 
 from django.shortcuts import render, redirect
 
-from .forms import DeliveryDateForm, SignatureForm
+from .forms import DeliveryDateForm, SignatureForm, PhoneNumberForm
 
 # Indicates that the user has finished all the videos
 finished_videos_index = 10
@@ -90,11 +90,20 @@ def commitAndScheduleSignature(request):
 
 # Displays incentive message and user provides phone number
 def incentive(request):
-	print request.session.get('appointment')
 	if request.method == 'GET':
-		return render(request, 'incentive.html', {})
+		form = PhoneNumberForm()
+		return render(request, 'incentive.html', {'form': form})
 	elif request.method == 'POST':
-		return redirect('/final/')
+		# Process the PhoneNumberForm data
+		form = PhoneNumberForm(request.POST)
+		if form.is_valid():
+			handlePhoneNumberForm(request, form)
+			storeAppointment(request.session.get('appointment'))
+			return redirect('/final/')
+		else:
+			# form is invalid, need to display errors to the user
+			print form.errors
+			return redirect('/')		
 
 # Displays final message to the user
 def final(request):
@@ -118,13 +127,36 @@ def handleSignatureForm(request, form):
 	dob_month = form.cleaned_data['dob_month']
 	dob_year = form.cleaned_data['dob_year']
 	sig_image = form.cleaned_data['sig_image']
-	print len(sig_image)
 
 	# Add user's appointment info to the session
 	dob_date = dob_month + '/' + dob_day + '/' + dob_year
 	temp_appointment = request.session['appointment']
 	temp_appointment.update({'sig_name': sig_name, 
-		'dob_date': dob_date})
+		'dob_date': dob_date, 'sig_image': sig_image})
 	request.session['appointment'] = temp_appointment
 	return
+
+def handlePhoneNumberForm(request, form):
+	phone_number = form.cleaned_data['phone_number']
+	temp_appointment = request.session['appointment']
+	# Add user's phone number to the appt in session
+	temp_appointment.update({'phone_number': phone_number})
+	request.session['appointment'] = temp_appointment
+	return
+
+def storeAppointment(appointment):
+	if (appointment == None):
+		print ('why is there no appointment...')
+	sig_name = appointment.get('sig_name', None)
+	dob_date = appointment.get('dob_date', None)
+	delivery_date = appointment.get('delivery_date', None)
+	sig_image = appointment.get('sig_image', None)
+	phone_number = appointment.get('phone_number', None)
+	print sig_name
+	print dob_date
+	print delivery_date
+	print len(sig_image)
+	print phone_number
+	return
+
 

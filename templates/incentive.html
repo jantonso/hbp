@@ -23,8 +23,8 @@
 				<form method="POST" action="/incentive/" onsubmit="return validatePhoneNumber()">
 					{% csrf_token %}
 					<div id="fields">
-						<label for="phone-number"> Phone number </label>
-						<input type="text" id="phone-number" name="phone-number" placeholder="xxx-xxx-xxxx" />
+						<label for="id_phone_number"> Phone number </label>
+						{{ form.phone_number }}
 					</div>
 					<div id="error-msg">
 						<p id="phone-number-error-msg"> Please enter a valid phone number. </p>

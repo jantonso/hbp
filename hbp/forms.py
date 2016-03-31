@@ -17,3 +17,7 @@ class SignatureForm(forms.Form):
 	dob_year = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'YYYY'}),
 						max_length=10)
 	sig_image = forms.CharField(widget=forms.HiddenInput())
+
+class PhoneNumberForm(forms.Form):
+	phone_number = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'xxx-xxx-xxxx'}),
+						max_length=20)

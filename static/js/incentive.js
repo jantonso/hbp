@@ -10,7 +10,7 @@ function validatePhoneNumber() {
 }
 
 function checkPhoneNumber() {
-	var phoneNumber = document.getElementById('phone-number').value;
+	var phoneNumber = document.getElementById('id_phone_number').value;
 	console.log(phoneNumber);
 
 	// Remove all non digit characters
@@ -19,7 +19,7 @@ function checkPhoneNumber() {
 
 	if (phoneNumber && phoneNumber.length == 10) {
 		// Set the phone number field to the stripped phone number
-		$('#phone-number').value = phoneNumber;
+		//$('#phone-number').value = phoneNumber;
 		return true;
 	} else {
 		return false;
