@@ -5,7 +5,8 @@ from django.shortcuts import render, redirect
 from .forms import PersonalizedCareForm, DeliveryDateForm, SignatureForm, PhoneNumberForm
 
 # Indicates that the user has finished all the videos
-finished_videos_index = 10
+list_of_questions = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9']
+finished_videos_index = len(list_of_questions) + 1
 
 # Session values
 # 	=> required_videos = list of required videos for the user to watch
@@ -41,6 +42,7 @@ def informationalVideos(request, video_index=0):
 		required_videos = request.session.get('required_videos')
 		# They jumped directly to this page
 		if (required_videos == None):
+			print ("There were no required videos?")
 			return redirect('/')	
 		# They still have required videos to watch		
 		elif (len(required_videos) != 0):
@@ -57,10 +59,18 @@ def informationalVideos(request, video_index=0):
 
 # Displays intro message for commit and schedule page
 def commitAndScheduleIntro(request):
+	# Keep track of the appointment info in the user's session
+	request.session['appointment'] = {}
 	return render(request, 'commitAndScheduleIntro.html', {})
 
 # User enters in delivery date 
 def commitAndScheduleDeliveryDate(request):
+	# Check to make sure they didn't just jump directly to this page
+	appt_info = request.session.get('appointment', None)
+	if (appt_info == None):
+		print ("There was no appointment in the session")
+		return redirect('/')
+
 	if request.method == 'GET':
 		form = DeliveryDateForm()
 		return render(request, 'commitAndScheduleDeliveryDate.html', {'form': form})
@@ -68,7 +78,7 @@ def commitAndScheduleDeliveryDate(request):
 		# Process the DeliveryDateForm data
 		form = DeliveryDateForm(request.POST)
 		if form.is_valid():
-			handleDeliveryDateForm(request, form)
+			handleDeliveryDateForm(request, form, appt_info)
 			return redirect('/cs/calendar/')
 		else:
 			# form is invalid, need to display errors to the user
@@ -77,10 +87,22 @@ def commitAndScheduleDeliveryDate(request):
 
 # User selects an appt from calendar 
 def commitAndScheduleCalendar(request):
+	# Check to make sure they didn't just jump directly to this page
+	appt_info = request.session.get('appointment', None)
+	if (appt_info == None):
+		print ("There was no appointment in the session")
+		return redirect('/')
+
 	return render(request, 'commitAndScheduleCalendar.html', {})
 
 # User signs and confirms appt 
 def commitAndScheduleSignature(request):
+	# Check to make sure they didn't just jump directly to this page
+	appt_info = request.session.get('appointment', None)
+	if (appt_info == None):
+		print ("There was no appointment in the session")
+		return redirect('/')
+
 	if request.method == 'GET':
 		form = SignatureForm()
 		return render(request, 'commitAndScheduleSignature.html', {'form': form})
@@ -88,7 +110,7 @@ def commitAndScheduleSignature(request):
 		# Process the SignatureForm data
 		form = SignatureForm(request.POST)
 		if form.is_valid():
-			handleSignatureForm(request, form)
+			handleSignatureForm(request, form, appt_info)
 			return redirect('/incentive/')
 		else:
 			# form is invalid, need to display errors to the user
@@ -97,6 +119,12 @@ def commitAndScheduleSignature(request):
 
 # Displays incentive message and user provides phone number
 def incentive(request):
+	# Check to make sure they didn't just jump directly to this page
+	appt_info = request.session.get('appointment', None)
+	if (appt_info == None):
+		print ("There was no appointment in the session")
+		return redirect('/')
+
 	if request.method == 'GET':
 		form = PhoneNumberForm()
 		return render(request, 'incentive.html', {'form': form})
@@ -104,8 +132,8 @@ def incentive(request):
 		# Process the PhoneNumberForm data
 		form = PhoneNumberForm(request.POST)
 		if form.is_valid():
-			handlePhoneNumberForm(request, form)
-			storeAppointment(request.session.get('appointment'))
+			handlePhoneNumberForm(request, form, appt_info)
+			storeAppointment(appt_info)
 			return redirect('/final/')
 		else:
 			# form is invalid, need to display errors to the user
@@ -119,28 +147,37 @@ def final(request):
 # ----------------------------- Helper Functions ---------------------------------- #
 
 def handlePersonalizedCareForm(request, form):
-	list_of_questions = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9']
-	question_answers = []
-	for question_name in list_of_questions:
-		question_answers += [form.cleaned_data[question_name]]
-	print question_answers
+	required_videos = []
+
 	# ALGORITHM TO DETERMINE THE BEST VIDEOS TO WATCH
+	# Any question that was marked 'very important' or answered 'yes' needs to be watched
+	# add that info to the required videos
+	for i in xrange(0,len(list_of_questions)):
+		question_name = list_of_questions[i]
+		question_index = i + 1
+		question_answer = form.cleaned_data[question_name]
+		if (question_answer == '2' or question_answer == 'yes'):
+			required_videos += [question_index]
+
+	# Add the final index to indicate that all the videos were finished
+	required_videos += [finished_videos_index]
 
 	# Add a list of the required videos to the session
-	request.session['required_videos'] = [1, 4, 6, 8, 10]
+	request.session['required_videos'] = required_videos
 	return
 
-def handleDeliveryDateForm(request, form):
+def handleDeliveryDateForm(request, form, appt_info):
 	delivery_day = form.cleaned_data['delivery_day']
 	delivery_month = form.cleaned_data['delivery_month']
 	delivery_year = form.cleaned_data['delivery_year']
 
 	# Keep track of the user's appointment info in the session
 	delivery_date = delivery_month + '/' + delivery_day + '/' + delivery_year
-	request.session['appointment'] = {'delivery_date': delivery_date}
+	appt_info.update({'delivery_date': delivery_date})
+	request.session['appointment'] = appt_info
 	return
 
-def handleSignatureForm(request, form):
+def handleSignatureForm(request, form, appt_info):
 	sig_name = form.cleaned_data['sig_name']
 	dob_day = form.cleaned_data['dob_day']
 	dob_month = form.cleaned_data['dob_month']
@@ -149,28 +186,25 @@ def handleSignatureForm(request, form):
 
 	# Add user's appointment info to the session
 	dob_date = dob_month + '/' + dob_day + '/' + dob_year
-	temp_appointment = request.session['appointment']
-	temp_appointment.update({'sig_name': sig_name, 
+	appt_info.update({'sig_name': sig_name, 
 		'dob_date': dob_date, 'sig_image': sig_image})
-	request.session['appointment'] = temp_appointment
+	request.session['appointment'] = appt_info
 	return
 
-def handlePhoneNumberForm(request, form):
+def handlePhoneNumberForm(request, form, appt_info):
 	phone_number = form.cleaned_data['phone_number']
-	temp_appointment = request.session['appointment']
+
 	# Add user's phone number to the appt in session
-	temp_appointment.update({'phone_number': phone_number})
-	request.session['appointment'] = temp_appointment
+	appt_info.update({'phone_number': phone_number})
+	request.session['appointment'] = appt_info
 	return
 
-def storeAppointment(appointment):
-	if (appointment == None):
-		print ('why is there no appointment...')
-	sig_name = appointment.get('sig_name', None)
-	dob_date = appointment.get('dob_date', None)
-	delivery_date = appointment.get('delivery_date', None)
-	sig_image = appointment.get('sig_image', None)
-	phone_number = appointment.get('phone_number', None)
+def storeAppointment(appt_info):
+	sig_name = appt_info.get('sig_name', None)
+	dob_date = appt_info.get('dob_date', None)
+	delivery_date = appt_info.get('delivery_date', None)
+	sig_image = appt_info.get('sig_image', None)
+	phone_number = appt_info.get('phone_number', None)
 	print sig_name
 	print dob_date
 	print delivery_date
