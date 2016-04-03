@@ -41,7 +41,7 @@ class DeliveryDateForm(forms.Form):
 						max_length=10)
 
 class SignatureForm(forms.Form):
-	sig_name = forms.CharField(max_length=50)
+	sig_name = forms.CharField(max_length=150)
 	dob_day = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'DD'}),
 						max_length=10)
 	dob_month = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'MM'}),
@@ -52,4 +52,4 @@ class SignatureForm(forms.Form):
 
 class PhoneNumberForm(forms.Form):
 	phone_number = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'xxx-xxx-xxxx'}),
-						max_length=20)
+						max_length=50)

@@ -12,7 +12,6 @@
 #video-links {
 	margin-top: -60px; /* Need to overide the default #page-content margin-bottom */
 	margin-bottom: 60px; /* Equal to the height of the footer */
-	background-color: #FEFDFD;
 }
 
 #video-links .video-link {

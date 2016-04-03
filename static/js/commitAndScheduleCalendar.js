@@ -26,10 +26,10 @@ $(document).ready(function() {
 			var year = temp[2];
 
 			// Display the appointments for that day
-			$('#cs-calendar h2').hide();
-			$('#cs-calendar #appt-container').show();
-			$('#cs-calendar #appt-container #appt-month').text(month);
-			$('#cs-calendar #appt-container #appt-day').text(day);	
+			$('#page-content #calendar-instructions').hide();
+			$('#page-content #appt-container').show();
+			$('#page-content #appt-container #appt-month').text(month);
+			$('#page-content #appt-container #appt-day').text(day);	
 
 			// Reset all selected appointments 
 			resetAppointments();
@@ -37,7 +37,7 @@ $(document).ready(function() {
 	});
 
 	// When the user clicks on an appt, display it as selected
-	$('#cs-calendar #appt-container .appt').click(function() {
+	$('#page-content #appt-container .appt').click(function() {
 		// Unselect old appt
 		resetAppointments();
 
@@ -51,9 +51,9 @@ $(document).ready(function() {
 // Resets any selected appointment
 function resetAppointments() {
 	selectedAppt = '';
-	$('#cs-calendar #appt-container .appt p').css('color', '#7B8FB7');
-	$('#cs-calendar #appt-container .appt-odd').css('background','#CDDEFF');
-	$('#cs-calendar #appt-container .appt-even').css('background','#DCE7FD');	
+	$('#page-content #appt-container .appt p').css('color', '#7B8FB7');
+	$('#page-content #appt-container .appt-odd').css('background','#CDDEFF');
+	$('#page-content #appt-container .appt-even').css('background','#DCE7FD');	
 }
 
 // Confirms that the user selected an appointment
@@ -61,7 +61,7 @@ function confirmAppt() {
 	if (selectedAppt != '') {
 		return true;
 	} else {
-		$('#cs-calendar #appt-container .error-msg').show();
+		$('#page-content #appt-container .error-msg').show();
 		return false;
 	}
 }

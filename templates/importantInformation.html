@@ -7,48 +7,50 @@
 {% block header %} Personalized Care {% endblock %}
 
 {% block content %} 
-	<!-- Intro message on video section -->
-	{% if video_index == 0 %}
-		<div id="videos-message">
-			<h2> Based on your answers, please watch two videos with some important information on birth control and breastfeeding support. </h2>
-			<p> Please click Next Video to begin. </p>
-		</div>
-	<!-- Individual video section -->
-	{% elif not video_index == 0 and not video_index == 10 %}
-		<div id="videos-container">
-			{% if video_index == 1 %}
-				<h2> Birth control </h2>
-				<iframe width="560" height="315" src="https://www.youtube.com/embed/seHxzqWFqa8" frameborder="0" allowfullscreen></iframe>
-			{% elif video_index == 2 %}
-				<h2> Breastfeeding support </h2>
-				<iframe width="560" height="315" src="https://www.youtube.com/embed/Fl14sYynSpA" frameborder="0" allowfullscreen></iframe>
-			{% elif video_index == 3 %}
-				<h2> Screening for depression </h2>
-				<iframe width="560" height="315" src="https://www.youtube.com/embed/vk_sgLRDPd4" frameborder="0" allowfullscreen></iframe>
-			{% elif video_index == 4 %}
-				<h2> Talking to a doctor </h2>
-				<iframe width="560" height="315" src="https://www.youtube.com/embed/8bAccWMfyHo" frameborder="0" allowfullscreen></iframe>
-			{% elif video_index == 5 %}
-				<h2> Diet, exercise, weight loss, sexual activity </h2>
-				<iframe width="560" height="315" src="https://www.youtube.com/embed/w7gM0ng9N2s" frameborder="0" allowfullscreen></iframe>			
-			{% elif video_index == 6 %}
-				<h2> Bowel and bladder health </h2>
-				<iframe width="560" height="315" src="https://www.youtube.com/embed/nxaPEcyaL2w" frameborder="0" allowfullscreen></iframe>
-			{% elif video_index == 7 %}
-				<h2> Gestational diabetes </h2>
-				<iframe width="560" height="315" src="https://www.youtube.com/embed/5TnVuPdHH_Y" frameborder="0" allowfullscreen></iframe>
-			{% elif video_index == 8 %}
-				<h2> High blood pressure </h2>
-				<iframe width="560" height="315" src="https://www.youtube.com/embed/h0w7buQrnAw" frameborder="0" allowfullscreen></iframe>
-			{% elif video_index == 9 %}
-				<h2> Preterm labor </h2>
-				<iframe width="560" height="315" src="https://www.youtube.com/embed/JXaF5I70zA8" frameborder="0" allowfullscreen></iframe>
-			{% endif %}
-		</div>
-	<!-- (Final message on video section) & links to rewatch videos -->
-	{% else %}
-		<h2> You can watch videos on other topics or continue to schedule an appointment. </h2>
-	{% endif %}
+	<div class="col-lg-10 col-lg-offset-1 text-center">
+		<!-- Intro message on video section -->
+		{% if video_index == 0 %}
+			<div id="videos-message">
+				<h2> Based on your answers, please watch two videos with some important information on birth control and breastfeeding support. </h2>
+				<p> Please click Next Video to begin. </p>
+			</div>
+		<!-- Individual video section -->
+		{% elif not video_index == 0 and not video_index == 10 %}
+			<div id="videos-container">
+				{% if video_index == 1 %}
+					<h2> Birth control </h2>
+					<iframe width="560" height="315" src="https://www.youtube.com/embed/seHxzqWFqa8" frameborder="0" allowfullscreen></iframe>
+				{% elif video_index == 2 %}
+					<h2> Breastfeeding support </h2>
+					<iframe width="560" height="315" src="https://www.youtube.com/embed/Fl14sYynSpA" frameborder="0" allowfullscreen></iframe>
+				{% elif video_index == 3 %}
+					<h2> Screening for depression </h2>
+					<iframe width="560" height="315" src="https://www.youtube.com/embed/vk_sgLRDPd4" frameborder="0" allowfullscreen></iframe>
+				{% elif video_index == 4 %}
+					<h2> Talking to a doctor </h2>
+					<iframe width="560" height="315" src="https://www.youtube.com/embed/8bAccWMfyHo" frameborder="0" allowfullscreen></iframe>
+				{% elif video_index == 5 %}
+					<h2> Diet, exercise, weight loss, sexual activity </h2>
+					<iframe width="560" height="315" src="https://www.youtube.com/embed/w7gM0ng9N2s" frameborder="0" allowfullscreen></iframe>			
+				{% elif video_index == 6 %}
+					<h2> Bowel and bladder health </h2>
+					<iframe width="560" height="315" src="https://www.youtube.com/embed/nxaPEcyaL2w" frameborder="0" allowfullscreen></iframe>
+				{% elif video_index == 7 %}
+					<h2> Gestational diabetes </h2>
+					<iframe width="560" height="315" src="https://www.youtube.com/embed/5TnVuPdHH_Y" frameborder="0" allowfullscreen></iframe>
+				{% elif video_index == 8 %}
+					<h2> High blood pressure </h2>
+					<iframe width="560" height="315" src="https://www.youtube.com/embed/h0w7buQrnAw" frameborder="0" allowfullscreen></iframe>
+				{% elif video_index == 9 %}
+					<h2> Preterm labor </h2>
+					<iframe width="560" height="315" src="https://www.youtube.com/embed/JXaF5I70zA8" frameborder="0" allowfullscreen></iframe>
+				{% endif %}
+			</div>
+		<!-- (Final message on video section) & links to rewatch videos -->
+		{% else %}
+			<h2> You can watch videos on other topics or continue to schedule an appointment. </h2>
+		{% endif %}
+	</div>
 {% endblock %}
 
 <!-- Final message on video section & (links to rewatch videos) -->

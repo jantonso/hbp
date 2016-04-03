@@ -10,8 +10,7 @@ html {
 
 body {
 	font-size: 14px;
-	/*font-family: 'Merriweather', 'Helvetica Neue', Arial, sans-serif;*/
-	font-family: 'Work Sans', sans-serif;
+	background-color: #FEFDFD;
 }
 
 /* Header section */
@@ -36,7 +35,6 @@ header h1 {
 #page-content {
 	margin-bottom: 60px; /* Equal to the height of the footer */
 	padding-top: 25px;
-	background-color: #FEFDFD;
 }
 
 #page-content h2 {

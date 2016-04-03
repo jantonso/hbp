@@ -11,45 +11,47 @@
 {% block header %} Personalized Care {% endblock %}
 
 {% block content %} 
-	<h2 class="text-center"> The postpartum visit is a time for us to address important health issues for you and your baby. </h2>
-	<p class="text-left" id="question-prompt"> Tell us how important the following issues are to you: </p>
-	<div id="questions-container">
-		<form action="/pc/" method="POST" onsubmit="return validatePCForm()">
-			{% csrf_token %}
+	<div class="col-lg-10 col-lg-offset-1 text-center">
+		<h2 class="text-center"> The postpartum visit is a time for us to address important health issues for you and your baby. </h2>
+		<p class="text-left" id="question-prompt"> Tell us how important the following issues are to you: </p>
+		<div id="questions-container">
+			<form action="/pc/" method="POST" onsubmit="return validatePCForm()">
+				{% csrf_token %}
 
-			{% for question in form %}
-				<label class="statement text-left"> {{ question.label }} </label>
-				<!-- Likert question (not at all, not really, neutral, somewhat, very important -->
-				{% if question|length == 5 %}
-					<ul class="likert">
-						{% for radio in question %}
-							<li>
-								{{ radio.tag }}
-								<label> {{ radio.choice_label }} </label>
-							</li>
-						{% endfor %}
-					</ul>
-				<!-- Non likert question (yes, no, don't know) -->
-				{% else %}
-					<div class="non-likert">
-						{% for radio in question %}
-							<div class="non-likert-option">
-								{{ radio.tag }}
-								<label> {{ radio.choice_label }} </label>
-							</div>
-						{% endfor %}
-					</div>
-				{% endif %}
-			{% endfor %}
+				{% for question in form %}
+					<label class="statement text-left"> {{ question.label }} </label>
+					<!-- Likert question (not at all, not really, neutral, somewhat, very important -->
+					{% if question|length == 5 %}
+						<ul class="likert">
+							{% for radio in question %}
+								<li>
+									{{ radio.tag }}
+									<label> {{ radio.choice_label }} </label>
+								</li>
+							{% endfor %}
+						</ul>
+					<!-- Non likert question (yes, no, don't know) -->
+					{% else %}
+						<div class="non-likert">
+							{% for radio in question %}
+								<div class="non-likert-option">
+									{{ radio.tag }}
+									<label> {{ radio.choice_label }} </label>
+								</div>
+							{% endfor %}
+						</div>
+					{% endif %}
+				{% endfor %}
 
-			<div>
-				<p class="error-msg"> Please answers all the questions. </p>
-			</div>
-			
-			<div>
-				<input type="submit" id="submit-form" class="hidden" />
-			</div>
-		</form>
+				<div>
+					<p class="error-msg"> Please answers all the questions. </p>
+				</div>
+				
+				<div>
+					<input type="submit" id="submit-form" class="hidden" />
+				</div>
+			</form>
+		</div>
 	</div>
 {% endblock %}
 
