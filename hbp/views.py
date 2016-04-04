@@ -2,7 +2,7 @@ from django.http import HttpResponse
 
 from django.shortcuts import render, redirect
 
-from .forms import PersonalizedCareForm, DeliveryDateForm, SignatureForm, PhoneNumberForm
+from .forms import *
 
 # Indicates that the user has finished all the videos
 list_of_questions = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9']
@@ -15,6 +15,14 @@ finished_videos_index = len(list_of_questions) + 1
 
 def index(request):
 	return render(request, 'index.html', {})
+
+# User signs consent page for the initial study
+def consent(request):
+	if request.method == 'GET':
+		form = ConsentForm()
+		return render(request, 'consent.html', {'form': form})
+	elif request.method == 'POST':
+		return redirect('/pc/')
 
 # User answers questions about postpartum needs
 def personalizedCare(request):

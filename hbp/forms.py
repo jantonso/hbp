@@ -12,6 +12,26 @@ NON_LIKERT_CHOICES = [
 	('no','no'),
 	('dk','don\'t know')]
 
+class ConsentForm(forms.Form):
+	participant_name = forms.CharField(max_length=150)
+	participant_day = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'DD'}),
+						max_length=10)
+	participant_month = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'MM'}),
+						max_length=10)
+	participant_year = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'YYYY'}),
+						max_length=10)
+	participant_sig = forms.CharField(widget=forms.HiddenInput())
+	
+	obtaining_name = forms.CharField(max_length=150)
+	obtaining_role = forms.CharField(max_length=300)
+	obtaining_day = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'DD'}),
+						max_length=10)
+	obtaining_month = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'MM'}),
+						max_length=10)
+	obtaining_year = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'YYYY'}),
+						max_length=10)
+	obtaining_sig = forms.CharField(widget=forms.HiddenInput())
+
 class PersonalizedCareForm(forms.Form):
 	q1 = forms.ChoiceField(label='Getting birth control', 
 		choices=LIKERT_CHOICES, widget=forms.RadioSelect())

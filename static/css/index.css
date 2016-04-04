@@ -100,13 +100,13 @@ header .header-content p {
 	border-color: #FEFDFD;
 }
 
-#get-started a:hover > #start-button {
-	border-width: 3px;
-}
-
 #get-started a {
 	text-decoration: none;
 	outline: 0;
 	color: #FEFDFD;
 	font-size: 1.75em;
+}
+
+#get-started a:hover > #start-button {
+	border-width: 3px;
 }

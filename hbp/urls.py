@@ -16,4 +16,5 @@ urlpatterns = patterns('',
 	url(r'^cs/signature/$', views.commitAndScheduleSignature, name='commitAndScheduleSignature'),
 	url(r'^incentive/$', views.incentive, name='incentive'),
 	url(r'^final/$', views.final, name='final'),
+	url(r'^consent/$', views.consent, name='consent'),
 )

@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block stylesheets %} 		
+	<link rel="stylesheet" type="text/css" href="/static/css/consent.css">
+{% endblock %}
+
+{% block js %}
+	<script src="/static/lib/signature_pad.min.js" type="text/javascript"></script>
+	<script src="/static/js/checkDate.js" type="text/javascript"></script>
+	<script src="/static/js/consent.js" type="text/javascript"></script>
+{% endblock %}
+
+
+{% block header %} Consent to Participate in a Research Study {% endblock %}
+
+{% block content %} 
+	<div class="col-lg-10 col-lg-offset-1 text-center">
+		<p class="section-heading"> Study Title: A Qualitative Exploration of Barriers to Glycemic Control in Gestational Diabetes </p>
+		<p class="section-heading"> Principal Investigator: </p>
+		<p> BLAH BLAH BLAH BLAH BLAH BLAH BLAH </p>
+		<p> BLAH BLAH BLAH BLAH BLAH BLAH BLAH </p>
+		<p> BLAH BLAH BLAH BLAH BLAH BLAH BLAH </p>
+		<p> BLAH BLAH BLAH BLAH BLAH BLAH BLAH </p>
+		<p> BLAH BLAH BLAH BLAH BLAH BLAH BLAH </p>
+		<p> BLAH BLAH BLAH BLAH BLAH BLAH BLAH </p>
+		<p> BLAH BLAH BLAH BLAH BLAH BLAH BLAH </p>
+		<p> BLAH BLAH BLAH BLAH BLAH BLAH BLAH </p>
+		<p> BLAH BLAH BLAH BLAH BLAH BLAH BLAH </p>
+		<p> BLAH BLAH BLAH BLAH BLAH BLAH BLAH </p>
+		<p> BLAH BLAH BLAH BLAH BLAH BLAH BLAH </p>
+
+		<form method="POST" action="/consent/" onsubmit="return validateConsentForm()">
+			{% csrf_token %}
+			<div>
+				<p class="section-heading"> CONSENT TO PARTICIPATE: </p>
+				<p> The above information has been explained to me and all of my current questions have been answered. I understand that ... </p>
+				<div class="row" id="participant-sig-fields">
+					<div class="col-lg-12 text-left">
+						<canvas id="participant-signature"></canvas>
+						<label for="participant-signature"> Participant's signature </label>
+						<!-- by defaul this is a hidden field -->
+						{{ form.participant_sig }}
+					</div>
+				</div>
+				<div class="row" id="participant-text-fields">
+					<div class="col-lg-8 text-left">
+						{{ form.participant_name }}
+						<label for"id_participant_name"> Printed name of the participant </label>
+					</div>
+					<div class="col-lg-4 text-left">
+						{{ form.participant_month }}
+						{{ form.participant_day }}
+						{{ form.participant_year }}
+						<label for="dob"> Date </label>
+					</div>	
+				</div>
+			</div>
+			<div>
+				<p class="section-heading"> INVESTIGATOR CERTIFICATION: </p>
+				<p> I certify that I have explained the nature and purpose of this research study to the above-named individual, and I have discussed the potential benefits and risks of study participation. Any questions the individual has about this study... </p>
+			</div>
+		</form>
+	</div>
+{% endblock %}
+
+{% block footer %}
+	<div></div>
+{% endblock %}

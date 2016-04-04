@@ -1,0 +1,47 @@
+p {
+	font-size: 1.75em;
+	font-weight: 200;
+	color: #433F48;
+	text-align: left;
+}
+
+#page-content .section-heading {
+	margin-top: 30px;
+	font-weight: 400;
+}
+
+#page-content form #participant-sig-fields, #participant-text-fields {
+	margin-top: 20px;
+}
+
+#page-content form label {
+	display: block;
+	font-size: 2.0em;
+	font-weight: 200;
+	color: #433F48;
+}
+
+#page-content form #participant-sig-fields #participant-signature {
+	border: 2px solid #745C9D;
+}
+
+#page-content form #participant-text-fields input[type=text] {
+	font-size: 2.0em;
+	font-weight: 300;
+	color: #433F48;
+	text-align: center;
+	border: 2px solid #745C9D;
+}
+
+#page-content form #participant-text-fields #id_participant_name {
+	width: 400px;
+}
+
+#page-content form #participant-text-fields #id_participant_month, #id_participant_day {
+	width: 70px;
+	margin-right: 11px;
+}
+
+#page-content form #participant-text-fields #id_participant_year {
+	width: 100px;
+}
