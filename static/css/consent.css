@@ -10,7 +10,7 @@ p {
 	font-weight: 400;
 }
 
-#page-content form #participant-sig-fields, #participant-text-fields {
+#page-content form .sig-fields, .text-fields {
 	margin-top: 20px;
 }
 
@@ -21,27 +21,62 @@ p {
 	color: #433F48;
 }
 
-#page-content form #participant-sig-fields #participant-signature {
+#page-content form .sig-fields .signature {
 	border: 2px solid #745C9D;
 }
 
-#page-content form #participant-text-fields input[type=text] {
+#page-content form .text-fields input[type=text] {
 	font-size: 2.0em;
 	font-weight: 300;
 	color: #433F48;
-	text-align: center;
 	border: 2px solid #745C9D;
 }
 
-#page-content form #participant-text-fields #id_participant_name {
-	width: 400px;
+#page-content form .text-fields #id_participant_name, #id_obtaining_name,
+	#id_obtaining_role {
+	width: 500px;
+	margin-bottom: 5px;
+	padding-left: 10px;
+	text-align: left;
 }
 
-#page-content form #participant-text-fields #id_participant_month, #id_participant_day {
+#page-content form .text-fields #id_participant_month, #id_participant_day, 
+	#id_obtaining_month, #id_obtaining_day {
 	width: 70px;
-	margin-right: 11px;
+	margin-right: 10px;
+	margin-bottom: 5px;
+	text-align: center;
 }
 
-#page-content form #participant-text-fields #id_participant_year {
+#page-content form .text-fields #id_participant_year, #id_obtaining_year {
 	width: 100px;
+	margin-bottom: 5px;
+	text-align: center;
+}
+
+#page-content #investigator-certification {
+	padding-bottom: 20px;
+}
+
+footer #continue-button {
+	position: relative;
+	display: inline-block;
+	float: right;
+	height: 60px;
+	padding: 15px 20px 15px 20px;
+	background-color: #745C9D;
+}
+
+footer #continue-button label {
+	color: #FEFEFE;
+	font-size: 1.5em;
+	font-weight: bold;
+	cursor: pointer;
+	cursor: hand;
+}
+
+footer #continue-button:hover {
+	background-color: #4E8DFF;
+	cursor: pointer;
+	cursor: hand;
 }

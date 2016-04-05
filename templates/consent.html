@@ -34,15 +34,15 @@
 			<div>
 				<p class="section-heading"> CONSENT TO PARTICIPATE: </p>
 				<p> The above information has been explained to me and all of my current questions have been answered. I understand that ... </p>
-				<div class="row" id="participant-sig-fields">
+				<div class="row sig-fields">
 					<div class="col-lg-12 text-left">
-						<canvas id="participant-signature"></canvas>
+						<canvas id="participant-signature" class="signature"></canvas>
 						<label for="participant-signature"> Participant's signature </label>
 						<!-- by defaul this is a hidden field -->
 						{{ form.participant_sig }}
 					</div>
 				</div>
-				<div class="row" id="participant-text-fields">
+				<div class="row text-fields">
 					<div class="col-lg-8 text-left">
 						{{ form.participant_name }}
 						<label for"id_participant_name"> Printed name of the participant </label>
@@ -55,14 +55,43 @@
 					</div>	
 				</div>
 			</div>
-			<div>
+			<div id="investigator-certification">
 				<p class="section-heading"> INVESTIGATOR CERTIFICATION: </p>
 				<p> I certify that I have explained the nature and purpose of this research study to the above-named individual, and I have discussed the potential benefits and risks of study participation. Any questions the individual has about this study... </p>
+				<div class="row sig-fields">
+					<div class="col-lg-12 text-left">
+						<canvas id="obtaining-signature" class="signature"></canvas>
+						<label for="obtaining-signature"> Signature of person obtaining consent </label>
+						<!-- by defaul this is a hidden field -->
+						{{ form.obtaining_sig }}
+					</div>
+				</div>
+				<div class="row text-fields">
+					<div class="col-lg-8 text-left">
+						{{ form.obtaining_name }}
+						<label for"id_obtaining_name"> Printed name of the person obtaining consent </label>
+					</div>
+					<div class="col-lg-4 text-left">
+						{{ form.obtaining_month }}
+						{{ form.obtaining_day }}
+						{{ form.obtaining_year }}
+						<label for="dob"> Date </label>
+					</div>	
+				</div>
+				<div class="row text-fields">
+					<div class="col-lg-12 text-left">
+						{{ form.obtaining_role}}
+						<label for="id_obtaining_role"> Role in the research study </label>
+					</div>
+				</div>
+				<div>
+					<input type="submit" id="submit-form" class="hidden" />
+				</div>
 			</div>
 		</form>
 	</div>
 {% endblock %}
 
 {% block footer %}
-	<div></div>
+	<div id="continue-button"><label for="submit-form"> Continue </label></div>
 {% endblock %}
