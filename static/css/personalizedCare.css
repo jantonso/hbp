@@ -113,6 +113,8 @@ footer #continue-button label {
 	cursor: hand;
 }
 
-footer #continue-button label:hover {
-	color: #DFDDDC;
+footer #continue-button:hover {
+	background-color: #4E8DFF;
+	cursor: pointer;
+	cursor: hand;
 }

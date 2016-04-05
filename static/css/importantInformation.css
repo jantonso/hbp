@@ -76,7 +76,8 @@ footer a {
 	font-weight: bold;
 }
 
-footer a:hover {
-	color: #E1D4F4;
+footer a:hover div {
+	background-color: #4E8DFF;
+	color: #FEFEFE;
 	text-decoration: none;
 }

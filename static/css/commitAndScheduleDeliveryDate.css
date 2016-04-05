@@ -47,6 +47,8 @@ footer #confirm-date-button label {
 	cursor: hand;
 }
 
-footer #confirm-date-button label:hover {
-	color: #DFDDDC;
+footer #confirm-date-button:hover {
+	background-color: #4E8DFF;
+	cursor: pointer;
+	cursor: hand;
 }

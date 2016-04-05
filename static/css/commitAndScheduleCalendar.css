@@ -203,7 +203,6 @@ footer #confirm-appt-button {
 	height: 60px;
 	padding: 15px 20px 15px 20px;
 	background-color: #745C9D;
-	position: relative;
 	float: right;
 }
 
@@ -215,7 +214,8 @@ footer a {
 	font-weight: bold;
 }
 
-footer a:hover {
-	color: #E1D4F4;
+footer a:hover div {
+	background-color: #4E8DFF;
+	color: #FEFEFE;
 	text-decoration: none;
 }

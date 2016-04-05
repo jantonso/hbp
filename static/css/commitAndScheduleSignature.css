@@ -69,6 +69,8 @@ footer #confirm-sig-button label {
 	cursor: hand;
 }
 
-footer #confirm-sig-button label:hover {
-	color: #DFDDDC;
+footer #confirm-sig-button:hover {
+	background-color: #4E8DFF;
+	cursor: pointer;
+	cursor: hand;
 }

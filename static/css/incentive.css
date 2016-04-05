@@ -59,6 +59,8 @@ footer #confirm-button label {
 	cursor: hand;
 }
 
-footer #confirm-button label:hover {
-	color: #DFDDDC;
+footer #confirm-button:hover {
+	background-color: #4E8DFF;
+	cursor: pointer;
+	cursor: hand;
 }
