@@ -29,30 +29,53 @@ function validateConsentForm() {
 
 // Make sure the participant signed
 function checkParticipant() {
-	if (pSignaturePad.isEmpty()) {
-		/* Display error message
-		console.log('Please sign...');
-		$('#sig-error-msg').text('Please provide a signature.');
-		$('#sig-error-msg').show();*/
-		return false;
-	} else {
-		// Add the base 64 string of the image to a hidden input field in form
-		document.getElementById('id_participant_sig').value = pSignaturePad.toDataURL();
+	var participantName = document.getElementById('id_participant_name').value;
+	if (checkName(participantName, 'Please enter a name for the participant.') 
+		&& checkSignature(pSignaturePad, 'id_participant_sig', 
+			'Please provide a signature for the participant.')) {
 		return true;
+	} else {
+		return false;
 	}
 }
 
 // Make sure the person obtaining consent signed
 function checkObtainer() {
-	if (oSignaturePad.isEmpty()) {
-		/* Display error message
+	var obtainingName = document.getElementById('id_obtaining_name').value;
+	if (checkName(obtainingName, 'Please enter a name for the person obtaining consent.') 
+		&& checkSignature(oSignaturePad, 'id_obtaining_sig', 
+			'Please provide a signature for the person obtaining consent.')) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+// --------------------------------------------- Helpers --------------------------------------- 
+
+// Make sure the name field is valid
+function checkName(name, errorMsg) {
+	if (name != null && name != '') {
+		return true;
+	} else {
+		console.log('Please enter your name.');
+		$('#error-msg').text(errorMsg);
+		$('#error-msg').show();
+		return false;
+	}
+}
+
+// Make sure the user signed
+function checkSignature(signaturePad, sigFieldID, errorMsg) {
+	if (signaturePad.isEmpty()) {
+		// Display error message
 		console.log('Please sign...');
-		$('#sig-error-msg').text('Please provide a signature.');
-		$('#sig-error-msg').show();*/
+		$('#error-msg').text(errorMsg);
+		$('#error-msg').show();
 		return false;
 	} else {
 		// Add the base 64 string of the image to a hidden input field in form
-		document.getElementById('id_obtaining_sig').value = oSignaturePad.toDataURL();
+		document.getElementById(sigFieldID).value = signaturePad.toDataURL();
 		return true;
 	}
 }

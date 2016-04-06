@@ -22,7 +22,15 @@ def consent(request):
 		form = ConsentForm()
 		return render(request, 'consent.html', {'form': form})
 	elif request.method == 'POST':
-		return redirect('/pc/')
+		# Process the ConsentForm
+		form = ConsentForm(request.POST)
+		if form.is_valid():
+			handleConsentForm(request, form)
+			return redirect('/pc/')
+		else:
+			# form is invalid, need to display errors to the user
+			print form.errors
+			return redirect('/')
 
 # User answers questions about postpartum needs
 def personalizedCare(request):
@@ -153,6 +161,26 @@ def final(request):
 	return render(request, 'final.html', {})
 
 # ----------------------------- Helper Functions ---------------------------------- #
+
+def	handleConsentForm(request, form):
+	participant_name = form.cleaned_data['participant_name']
+	participant_day = form.cleaned_data['participant_day']
+	participant_month = form.cleaned_data['participant_month']
+	participant_year = form.cleaned_data['participant_year']
+	participant_sig = form.cleaned_data['participant_sig']
+	participant_date = participant_month + '/' + participant_day + '/' + participant_year
+	print participant_name, participant_date, len(participant_sig)
+	
+	obtaining_name = form.cleaned_data['obtaining_name']
+	obtaining_role = form.cleaned_data['obtaining_role']
+	obtaining_day = form.cleaned_data['obtaining_day']
+	obtaining_month = form.cleaned_data['obtaining_month']
+	obtaining_year = form.cleaned_data['obtaining_year']
+	obtaining_sig = form.cleaned_data['obtaining_sig']
+	obtaining_date = obtaining_month + '/' + obtaining_day + '/' + obtaining_year
+	print obtaining_name, obtaining_date, len(obtaining_sig), obtaining_role
+
+	return
 
 def handlePersonalizedCareForm(request, form):
 	required_videos = []
