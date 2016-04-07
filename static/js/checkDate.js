@@ -1,3 +1,6 @@
+var MIN_YEAR = 1900;
+var CURRENT_YEAR = 2016;
+
 // Check to make sure that the date is valid
 function checkDate(day, month, year) {
 	var isDay = /^[0-9]+$/.test(day);
