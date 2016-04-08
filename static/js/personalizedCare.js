@@ -1,15 +1,20 @@
-// Check to make sure that all questions have been answered
-function validatePCForm() {
-	var allAnswered = true;
-	$('input:radio').each(function() {
-		var name = $(this).attr('name');
-		if ($('input:radio[name='+name+']:checked').length == 0) {
-			allAnswered = false;
+$(document).ready(function() {
+	// Validation of form to make sure that all the fields are filled out
+	$('form').validate({
+		rules: {
+			q1: "required",
+			q2: "required",
+			q3: "required",
+			q4: "required",
+			q5: "required",
+			q6: "required",
+			q7: "required",
+			q8: "required",
+			q9: "required"
+		},
+		// Display errors if a field is missing 
+		showErrors: function(errorMap, errorList) {
+			$('.error-msg').show();
 		}
-	})
-	// If they didn't answer all the questions, display an error message
-	if (!allAnswered) {
-		$('.error-msg').show();
-	}
-	return allAnswered;
-}
+	});
+});
