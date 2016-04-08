@@ -37,7 +37,7 @@ class PersonalizedCareForm(forms.Form):
 		choices=LIKERT_CHOICES, widget=forms.RadioSelect())
 	q2 = forms.ChoiceField(label='Breastfeeding support',
 		choices=LIKERT_CHOICES, widget=forms.RadioSelect())
-	q3 = forms.ChoiceField(label='Checking on my mood after delivery, screening for depression',
+	q3 = forms.ChoiceField(label='Checking on my mood after delivery',
 		choices=LIKERT_CHOICES, widget=forms.RadioSelect())
 	q4 = forms.ChoiceField(label='Talking to a doctor about how to keep my next pregnancy healthy',
 		choices=LIKERT_CHOICES, widget=forms.RadioSelect())

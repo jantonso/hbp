@@ -12,8 +12,8 @@
 
 {% block content %} 
 	<div class="col-lg-10 col-lg-offset-1 text-center">
-		<h2 class="text-center"> The postpartum visit is a time for us to address important health issues for you and your baby. </h2>
-		<p class="text-left" id="question-prompt"> Tell us how important the following issues are to you: </p>
+		<h2 class="text-center"> During the postpartum visit we can talk about many important health issues for you and your baby. </h2>
+		<p class="text-left" id="question-prompt"> Tell us which are the most important issues to you: </p>
 		<div id="questions-container">
 			<form action="/pc/" method="POST" onsubmit="return validatePCForm()">
 				{% csrf_token %}
