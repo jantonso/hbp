@@ -64,6 +64,19 @@ $(document).ready(function() {
 			obtaining_day: "required",
 			obtaining_year: "required"
 		},
+		messages: {
+			participant_sig: "Please provide a signature for the participant.",
+			participant_name: "Please enter a name for the participant.",
+			participant_month: "Please enter a date for the participant.",
+			participant_day: "Please enter a date for the participant.",
+			participant_year: "Please enter a date for the participant.",
+			obtaining_sig: "Please provide a signature for the person obtaining consent.",
+			obtaining_name: "Please enter a name for the person obtaining consent.",
+			obtaining_role: "Please enter the role for the person obtaining consent.",
+			obtaining_month: "Please enter a date for the person obtaining consent.",
+			obtaining_day: "Please enter a date for the person obtaining consent.",
+			obtaining_year: "Please enter a date for the person obtaining consent."
+		},
 		// Before submitting makes sure the dates are valid
 		submitHandler: function(form) {
 
@@ -72,7 +85,7 @@ $(document).ready(function() {
 			var pMonth = form.elements['participant_month'].value;
 			var pYear = form.elements['participant_year'].value;
 			if (!checkDate(pDay, pMonth, pYear)) {
-				$('#error-msg').text('Please enter a validate date for the participant.');
+				$('#error-msg').text('Please enter a valid date for the participant.');
 				$('#error-msg').show();
 				return false;
 			}
@@ -82,7 +95,7 @@ $(document).ready(function() {
 			var oMonth = form.elements['obtaining_month'].value;
 			var oYear = form.elements['obtaining_year'].value;
 			if (!checkDate(oDay, oMonth, oYear)) {
-				$('#error-msg').text('Please enter a validate date for the person obtaining consent.');
+				$('#error-msg').text('Please enter a valid date for the person obtaining consent.');
 				$('#error-msg').show();
 				return false;
 			}
@@ -91,10 +104,12 @@ $(document).ready(function() {
 		},
 		// Display errors if a field is missing 
 		showErrors: function(errorMap, errorList) {
-			console.log(errorMap);
 			console.log(errorList);
-			$('#error-msg').text('There were errors...');
-			$('#error-msg').show();
+			console.log(errorMap);
+			if (errorList.length > 0) {
+				$('#error-msg').text(errorList[0].message);
+				$('#error-msg').show();
+			}
 		}
 	});
 });
