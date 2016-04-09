@@ -15,7 +15,7 @@
 {% block content %} 
 	<div class="col-lg-10 col-lg-offset-1 text-center">
 		<h2> Please enter the date on which you delivered. </h2>
-		<form method="POST" action="/cs/delivery-date/" onsubmit="return validateDeliveryDate()">
+		<form method="POST" action="/cs/delivery-date/">
 			{% csrf_token %}
 			<div>
 				<label for="delivery-date"> I delivered on </label>

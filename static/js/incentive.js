@@ -1,27 +1,29 @@
-function validatePhoneNumber() {
-	if (checkPhoneNumber()) {
-		return true;
-	} else {
-		// Show error message
-		console.log('invalid phone number.');
-		$('#phone-number-error-msg').show();
-		return false;
-	}
-}
+$(document).ready(function() {
+	// Make sure the phone number is valid
+	$.validator.addMethod('validPhoneNumber', function(value, element) {
+		// Remove all non digit characters
+		var phoneNumber = value.replace(/\D/g, '')
 
-function checkPhoneNumber() {
-	var phoneNumber = document.getElementById('id_phone_number').value;
-	console.log(phoneNumber);
+		if (phoneNumber && phoneNumber.length == 10) {
+			// Set the phone number field to the stripped phone number
+			//$('#phone-number').value = phoneNumber;
+			return true;
+		} else {
+			return false;
+		}
+	});
 
-	// Remove all non digit characters
-	phoneNumber = phoneNumber.replace(/\D/g, '')
-	console.log(phoneNumber);
-
-	if (phoneNumber && phoneNumber.length == 10) {
-		// Set the phone number field to the stripped phone number
-		//$('#phone-number').value = phoneNumber;
-		return true;
-	} else {
-		return false;
-	}
-}
+	// Validation of form to make sure that all the fields are filled out
+	$('form').validate({
+		rules: {
+			phone_number: {
+				required: true,
+				validPhoneNumber: true
+			}
+		},
+		// Display errors if a field is missing 
+		showErrors: function(errorMap, errorList) {
+			$('#phone-number-error-msg').show();
+		}
+	});
+});
