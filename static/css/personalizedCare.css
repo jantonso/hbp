@@ -1,5 +1,6 @@
-.error-msg {
+#error-msg p {
 	display: none;
+	text-align: center;
 	font-size: 1.75em;
 	font-weight: 300;
 	color: #4E8DFF;	
@@ -98,15 +99,18 @@
 
 footer #continue-button {
 	position: relative;
-	display: inline-block;
 	float: right;
 	height: 60px;
-	padding: 15px 20px 15px 20px;
+	width: 120px;
+	text-align: center;
 	background-color: #745C9D;
 }
 
 footer #continue-button label {
 	color: #FEFEFE;
+	height: 60px;
+	width: 120px;
+	padding-top: 15px;
 	font-size: 1.5em;
 	font-weight: bold;
 	cursor: pointer;

@@ -1,4 +1,6 @@
 $(document).ready(function() {
+	var errorMsg = $('#error-msg p');
+
 	// Make sure the phone number is valid
 	$.validator.addMethod('validPhoneNumber', function(value, element) {
 		// Remove all non digit characters
@@ -23,7 +25,7 @@ $(document).ready(function() {
 		},
 		// Display errors if a field is missing 
 		showErrors: function(errorMap, errorList) {
-			$('#phone-number-error-msg').show();
+			errorMsg.show();
 		}
 	});
 });

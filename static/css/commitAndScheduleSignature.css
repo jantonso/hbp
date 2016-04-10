@@ -1,3 +1,15 @@
+#error-msg {
+	margin-top: 10px;
+}
+
+#error-msg p {
+	display: none;
+	text-align: center;
+	font-size: 1.75em;
+	font-weight: 300;
+	color: #4E8DFF;	
+}
+
 #page-content h2 {
 	margin-bottom: 10px;
 }
@@ -41,28 +53,20 @@
 	border: 2px solid #745C9D;
 }
 
-#page-content #sig-form form #sig-error-msg {
-	margin-top: 10px;
-}
-
-#page-content #sig-error-msg {
-	display: none;
-	font-size: 1.75em;
-	font-weight: 300;
-	color: #4E8DFF;	
-}
-
 footer #confirm-sig-button {
 	position: relative;
-	display: inline-block;
 	float: right;
 	height: 60px;
-	padding: 15px 20px 15px 20px;
+	width: 120px;
+	text-align: center;
 	background-color: #745C9D;
 }
 
 footer #confirm-sig-button label {
 	color: #FEFEFE;
+	height: 60px;
+	width: 120px;
+	padding-top: 15px;
 	font-size: 1.5em;
 	font-weight: bold;
 	cursor: pointer;

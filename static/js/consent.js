@@ -2,12 +2,14 @@ var pCanvas;
 var pSignaturePad;
 var oCanvas;
 var oSignaturePad;
+var errorMsg; 
 
 /*var nameErrorMsg = 'Please enter a name for the participant.';
 var dateErrorMsg = 'Please provide a valid date for the participant.';
 var sigErrorMsg = 'Please provide a signature for the participant.'; */
 
 $(document).ready(function() {
+	errorMsg = $('form #error-msg p');
 
 	// Bring up the pCanvas to allow participant to sign
 	pCanvas = document.getElementById('participant-signature');
@@ -85,8 +87,8 @@ $(document).ready(function() {
 			var pMonth = form.elements['participant_month'].value;
 			var pYear = form.elements['participant_year'].value;
 			if (!checkDate(pDay, pMonth, pYear)) {
-				$('#error-msg').text('Please enter a valid date for the participant.');
-				$('#error-msg').show();
+				errorMsg.text('Please enter a valid date for the participant.');
+				errorMsg.show();
 				return false;
 			}
 
@@ -95,8 +97,8 @@ $(document).ready(function() {
 			var oMonth = form.elements['obtaining_month'].value;
 			var oYear = form.elements['obtaining_year'].value;
 			if (!checkDate(oDay, oMonth, oYear)) {
-				$('#error-msg').text('Please enter a valid date for the person obtaining consent.');
-				$('#error-msg').show();
+				errorMsg.text('Please enter a valid date for the person obtaining consent.');
+				errorMsg.show();
 				return false;
 			}
 
@@ -107,8 +109,8 @@ $(document).ready(function() {
 			console.log(errorList);
 			console.log(errorMap);
 			if (errorList.length > 0) {
-				$('#error-msg').text(errorList[0].message);
-				$('#error-msg').show();
+				errorMsg.text(errorList[0].message);
+				errorMsg.show();
 			}
 		}
 	});

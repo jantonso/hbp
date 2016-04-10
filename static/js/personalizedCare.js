@@ -1,4 +1,6 @@
 $(document).ready(function() {
+	var errorMsg = $('#questions-container #error-msg p');
+
 	// Validation of form to make sure that all the fields are filled out
 	$('form').validate({
 		rules: {
@@ -14,7 +16,7 @@ $(document).ready(function() {
 		},
 		// Display errors if a field is missing 
 		showErrors: function(errorMap, errorList) {
-			$('.error-msg').show();
+			errorMsg.show();
 		}
 	});
 });

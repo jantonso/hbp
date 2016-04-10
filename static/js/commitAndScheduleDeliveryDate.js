@@ -1,4 +1,6 @@
 $(document).ready(function() {
+	var errorMsg = $('#error-msg p');
+
 	// Validation of form to make sure that all the fields are filled out
 	$('form').validate({
 		rules: {
@@ -12,14 +14,14 @@ $(document).ready(function() {
 			var dMonth = form.elements['delivery_month'].value;
 			var dYear = form.elements['delivery_year'].value;
 			if (!checkDate(dDay, dMonth, dYear)) {
-				$('#delivery_date-error-msg').show();
+				errorMsg.show();
 				return false;
 			}
 			return true;
 		},
 		// Display errors if a field is missing 
 		showErrors: function(errorMap, errorList) {
-			$('#delivery-date-error-msg').show();
+			errorMsg.show();
 		}
 	});
 });

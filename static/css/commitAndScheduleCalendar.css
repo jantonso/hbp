@@ -1,8 +1,12 @@
-.error-msg {
+#error-msg {
+	margin-top: 25px;
+}
+
+#error-msg p {
 	display: none;
+	text-align: center;
 	font-size: 1.75em;
 	font-weight: 300;
-	margin-top: 30px;
 	color: #4E8DFF;	
 }
 
@@ -215,7 +219,7 @@ footer a {
 }
 
 footer a:hover div {
-	background-color: #4E8DFF;
+	background-color: #4E8DFF !important;
 	color: #FEFEFE;
 	text-decoration: none;
 }

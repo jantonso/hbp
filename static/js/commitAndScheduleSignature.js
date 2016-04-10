@@ -2,6 +2,7 @@ var canvas;
 var signaturePad;
 
 $(document).ready(function() {
+	var errorMsg = $('#error-msg p');
 
 	// Bring up the canvas to allow users to sign
 	canvas = document.getElementById('signature-canvas');
@@ -49,8 +50,8 @@ $(document).ready(function() {
 			var dobMonth = form.elements['dob_month'].value;
 			var dobYear = form.elements['dob_year'].value;
 			if (!checkDate(dobDay, dobMonth, dobYear)) {
-				$('#sig-error-msg').text('Please enter a valid date.');
-				$('#sig-error-msg').show();
+				errorMsg.text('Please enter a valid date.');
+				errorMsg.show();
 				return false;
 			}
 
@@ -59,8 +60,8 @@ $(document).ready(function() {
 		// Display errors if a field is missing 
 		showErrors: function(errorMap, errorList) {
 			if (errorList.length > 0) {
-				$('#sig-error-msg').text(errorList[0].message);
-				$('#sig-error-msg').show();
+				errorMsg.text(errorList[0].message);
+				errorMsg.show();
 			}
 		}
 	});

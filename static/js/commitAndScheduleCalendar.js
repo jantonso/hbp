@@ -1,7 +1,10 @@
 var selectedDate = '';
 var selectedAppt = '';
+var errorMsg;
 
 $(document).ready(function() {
+	errorMsg = $('#appt-container #error-msg p');
+
 	$('#calendar-container').datepicker({
 		inline: true,
 		firstDay: 1,
@@ -61,7 +64,7 @@ function confirmAppt() {
 	if (selectedAppt != '') {
 		return true;
 	} else {
-		$('#page-content #appt-container .error-msg').show();
+		errorMsg.show();
 		return false;
 	}
 }
