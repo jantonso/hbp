@@ -11,8 +11,18 @@
 		<!-- Intro message on video section -->
 		{% if video_index == 0 %}
 			<div id="videos-message">
-				<h2> Based on your answers, please watch two videos with some important information on birth control and breastfeeding support. </h2>
-				<p> Please click Next Video to begin. </p>
+				<h2> Based on your answers, please watch some videos with important information on the following topics: </h2>
+				<div id="videos-topics">
+					<p class="divider"> | </p>
+					{% for topic in required_topics %}
+						<p class="topic"> {{ topic }} </p>
+						{% if not forloop.last %}
+							<p class="divider"> | </p>
+						{% endif %}
+					{% endfor %}
+					<p class="divider"> | </p>
+				</div>
+				<p class="text-center" id="video-prompt"> Please click Next Video to begin. </p>
 			</div>
 		<!-- Individual video section -->
 		{% elif not video_index == 0 and not video_index == 10 %}

@@ -4,12 +4,16 @@ from django.shortcuts import render, redirect
 
 from .forms import *
 
-# Indicates that the user has finished all the videos
 list_of_questions = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9']
+list_of_topics = ['birth control', 'breastfeeding support', 'checking on my mood', 'talking to a doctor',
+				  'diet, exercise, weight loss, sexual activity', 'bowel and bladder health', 
+				  'gestational diabetes', 'high blood pressure', 'preterm labor']
+# Indicates that the user has finished all the videos
 finished_videos_index = len(list_of_questions) + 1
 
 # Session values
 # 	=> required_videos = list of required videos for the user to watch
+#	=> required_topics = list of required_topics that the user wants to learn about
 #	=> appointment = {delivery_date, name, date_of_birth, 
 #					  signature, appointment_info, phone_number}
 
@@ -52,12 +56,14 @@ def personalizedCare(request):
 def informationalVideos(request, video_index=0):
 	try:	
 		video_index = int(video_index)
+
 		# Check to see if they have finished all their required videos
 		next_video = 0
 		finished_videos = True
 		required_videos = request.session.get('required_videos')
+		required_topics = request.session.get('required_topics')
 		# They jumped directly to this page
-		if (required_videos == None):
+		if (required_videos == None or required_topics == None):
 			print ("There were no required videos?")
 			return redirect('/')	
 		# They still have required videos to watch		
@@ -68,7 +74,8 @@ def informationalVideos(request, video_index=0):
 			request.session['required_videos'] = required_videos[1:]
 
 		return render(request, 'importantInformation.html', {'video_index': video_index, 
-						'finished_videos': finished_videos, 'next_video': next_video})
+						'finished_videos': finished_videos, 'next_video': next_video, 
+						'required_topics': required_topics})
 	except ValueError as e:
 		print e
 		return redirect('/')
@@ -184,22 +191,27 @@ def	handleConsentForm(request, form):
 
 def handlePersonalizedCareForm(request, form):
 	required_videos = []
+	required_topics = []
 
 	# ALGORITHM TO DETERMINE THE BEST VIDEOS TO WATCH
 	# Any question that was marked 'very important' or answered 'yes' needs to be watched
 	# add that info to the required videos
 	for i in xrange(0,len(list_of_questions)):
 		question_name = list_of_questions[i]
+		question_topic = list_of_topics[i]
 		question_index = i + 1
 		question_answer = form.cleaned_data[question_name]
 		if (question_answer == '2' or question_answer == 'yes'):
 			required_videos += [question_index]
+			required_topics += [question_topic]
 
 	# Add the final index to indicate that all the videos were finished
 	required_videos += [finished_videos_index]
 
-	# Add a list of the required videos to the session
+	# Add a list of the required videos and their respective topics to the session
 	request.session['required_videos'] = required_videos
+	request.session['required_topics'] = required_topics
+
 	return
 
 def handleDeliveryDateForm(request, form, appt_info):

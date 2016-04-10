@@ -4,6 +4,26 @@
 	font-size: 2.0em;
 	font-weight: 200;
 	color: #433F48;
+}
+
+#videos-message #videos-topics {
+	text-align: center;
+}
+
+#videos-message .topic {
+	display: inline-block;
+}
+
+#videos-message .divider {
+	display: inline-block;
+	margin-left: 10px;
+	margin-right: 10px;
+	color: #745C9D;
+	font-weight: 300;
+}
+
+#videos-message #video-prompt {
+	clear: both;
 	margin-top: 150px;
 }
 
