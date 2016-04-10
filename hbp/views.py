@@ -165,7 +165,12 @@ def incentive(request):
 
 # Displays final message to the user
 def final(request):
-	return render(request, 'final.html', {})
+	required_topics = request.session.get('required_topics')
+	# They jumped directly to this page
+	if (required_topics == None):
+		print ("There were no required topics?")
+		return redirect('/')	
+	return render(request, 'final.html', {'required_topics': required_topics})
 
 # ----------------------------- Helper Functions ---------------------------------- #
 
