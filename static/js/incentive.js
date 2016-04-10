@@ -25,7 +25,9 @@ $(document).ready(function() {
 		},
 		// Display errors if a field is missing 
 		showErrors: function(errorMap, errorList) {
-			errorMsg.show();
+			if (errorList.length > 0) {
+				errorMsg.show();
+			}
 		}
 	});
 });

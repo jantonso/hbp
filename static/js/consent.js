@@ -106,8 +106,6 @@ $(document).ready(function() {
 		},
 		// Display errors if a field is missing 
 		showErrors: function(errorMap, errorList) {
-			console.log(errorList);
-			console.log(errorMap);
 			if (errorList.length > 0) {
 				errorMsg.text(errorList[0].message);
 				errorMsg.show();
