@@ -4,12 +4,8 @@ from django.shortcuts import render, redirect
 
 from .forms import *
 
-list_of_questions = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9']
-list_of_topics = ['birth control', 'breastfeeding support', 'checking on my mood', 'talking to a doctor',
-				  'diet, exercise, weight loss, sexual activity', 'bowel and bladder health', 
-				  'gestational diabetes', 'high blood pressure', 'preterm labor']
 # Indicates that the user has finished all the videos
-finished_videos_index = len(list_of_questions) + 1
+finished_videos_index = 10
 
 # Session values
 # 	=> required_videos = list of required videos for the user to watch
@@ -194,21 +190,28 @@ def	handleConsentForm(request, form):
 
 	return
 
+# ALGORITHM TO DETERMINE THE REQUIRED TOPICS/VIDEOS 
+# Choose up to the 5 maximum values for the topics, if there are less than 2, choose 2 default ones
+# Likert = -2, -1, 0, 1, 2 ====> not at all, not really, somewhat, important, very important
+# Non-Likert = -2, 0, 2 ====> no, don't know, yes
 def handlePersonalizedCareForm(request, form):
-	required_videos = []
-	required_topics = []
-
-	# ALGORITHM TO DETERMINE THE BEST VIDEOS TO WATCH
-	# Any question that was marked 'very important' or answered 'yes' needs to be watched
-	# add that info to the required videos
+	list_of_questions = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9']
+	list_of_topics = ['birth control', 'breastfeeding support', 'checking on my mood', 'talking to a doctor',
+				  'diet, exercise, weight loss, sexual activity', 'bowel and bladder health', 
+				  'gestational diabetes', 'high blood pressure', 'preterm labor']
+	answers = {}
 	for i in xrange(0,len(list_of_questions)):
 		question_name = list_of_questions[i]
-		question_topic = list_of_topics[i]
-		question_index = i + 1
-		question_answer = form.cleaned_data[question_name]
-		if (question_answer == '2' or question_answer == 'yes'):
-			required_videos += [question_index]
-			required_topics += [question_topic]
+		question_answer = form.cleaned_data[question_name]	
+
+		answer_value = int(question_answer)
+		# Don't add values that were marked 'not important' or 'no'
+		if (answer_value >= 0):
+			answers[i+1] = answer_value
+
+	# Choose the top five rated topics
+	required_videos = sorted(answers, key=answers.get, reverse=True)[:5]
+	required_topics = [list_of_topics[index-1] for index in required_videos]	
 
 	# Add the final index to indicate that all the videos were finished
 	required_videos += [finished_videos_index]

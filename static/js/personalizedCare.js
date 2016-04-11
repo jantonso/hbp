@@ -1,4 +1,4 @@
-$(document).ready(function() {
+/*$(document).ready(function() {
 	var errorMsg = $('#questions-container #error-msg p');
 
 	// Validation of form to make sure that all the fields are filled out
@@ -21,4 +21,4 @@ $(document).ready(function() {
 			}
 		}
 	});
-});
+});*/
