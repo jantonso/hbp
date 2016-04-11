@@ -33,29 +33,3 @@
 #page-content form #id_delivery_year {
 	width: 100px;
 }
-
-footer #confirm-date-button {
-	position: relative;
-	float: right;
-	height: 60px;
-	width: 120px;
-	text-align: center;
-	background-color: #745C9D;
-}
-
-footer #confirm-date-button label {
-	color: #FEFEFE;
-	height: 60px;
-	width: 120px;
-	padding-top: 15px;
-	font-size: 1.5em;
-	font-weight: bold;
-	cursor: pointer;
-	cursor: hand;
-}
-
-footer #confirm-date-button:hover {
-	background-color: #4E8DFF;
-	cursor: pointer;
-	cursor: hand;
-}

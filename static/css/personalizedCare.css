@@ -94,31 +94,3 @@
 	padding-top: 2px;
 	padding-left: 3px;
 }
-
-/* Footer section */
-
-footer #continue-button {
-	position: relative;
-	float: right;
-	height: 60px;
-	width: 120px;
-	text-align: center;
-	background-color: #745C9D;
-}
-
-footer #continue-button label {
-	color: #FEFEFE;
-	height: 60px;
-	width: 120px;
-	padding-top: 15px;
-	font-size: 1.5em;
-	font-weight: bold;
-	cursor: pointer;
-	cursor: hand;
-}
-
-footer #continue-button:hover {
-	background-color: #4E8DFF;
-	cursor: pointer;
-	cursor: hand;
-}

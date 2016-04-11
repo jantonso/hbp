@@ -52,29 +52,3 @@
 #page-content #sig-form form #signature-field #signature-canvas {
 	border: 2px solid #745C9D;
 }
-
-footer #confirm-sig-button {
-	position: relative;
-	float: right;
-	height: 60px;
-	width: 120px;
-	text-align: center;
-	background-color: #745C9D;
-}
-
-footer #confirm-sig-button label {
-	color: #FEFEFE;
-	height: 60px;
-	width: 120px;
-	padding-top: 15px;
-	font-size: 1.5em;
-	font-weight: bold;
-	cursor: pointer;
-	cursor: hand;
-}
-
-footer #confirm-sig-button:hover {
-	background-color: #4E8DFF;
-	cursor: pointer;
-	cursor: hand;
-}
