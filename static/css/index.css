@@ -90,7 +90,7 @@ header .header-content p {
 	color: #FEFDFD;
 }
 
-#get-started #start-button {
+#get-started .gs-button {
 	display: inline-block;
 	width: 130px;
 	height: 50px;
@@ -107,6 +107,6 @@ header .header-content p {
 	font-size: 1.75em;
 }
 
-#get-started a:hover > #start-button {
+#get-started a:hover > div {
 	border-width: 3px;
 }
