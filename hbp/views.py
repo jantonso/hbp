@@ -2,7 +2,10 @@ from django.http import HttpResponse
 
 from django.shortcuts import render, redirect
 
+from datetime import datetime
+
 from .forms import *
+from .models import *
 
 # Indicates that the user has finished all the videos
 finished_videos_index = 10
@@ -168,6 +171,12 @@ def final(request):
 		return redirect('/')	
 	return render(request, 'final.html', {'required_topics': required_topics})
 
+
+
+
+
+
+
 # ----------------------------- Helper Functions ---------------------------------- #
 
 def	handleConsentForm(request, form):
@@ -176,8 +185,7 @@ def	handleConsentForm(request, form):
 	participant_month = form.cleaned_data['participant_month']
 	participant_year = form.cleaned_data['participant_year']
 	participant_sig = form.cleaned_data['participant_sig']
-	participant_date = participant_month + '/' + participant_day + '/' + participant_year
-	print participant_name, participant_date, len(participant_sig)
+	participant_date_str = participant_month + '/' + participant_day + '/' + participant_year
 	
 	obtaining_name = form.cleaned_data['obtaining_name']
 	obtaining_role = form.cleaned_data['obtaining_role']
@@ -185,8 +193,21 @@ def	handleConsentForm(request, form):
 	obtaining_month = form.cleaned_data['obtaining_month']
 	obtaining_year = form.cleaned_data['obtaining_year']
 	obtaining_sig = form.cleaned_data['obtaining_sig']
-	obtaining_date = obtaining_month + '/' + obtaining_day + '/' + obtaining_year
-	print obtaining_name, obtaining_date, len(obtaining_sig), obtaining_role
+	obtaining_date_str = obtaining_month + '/' + obtaining_day + '/' + obtaining_year
+
+
+	participant_datetime = datetime.strptime(participant_date_str, "%m/%d/%Y");
+	obtaining_datetime = datetime.strptime(obtaining_date_str, "%m/%d/%Y");
+	
+	# Store the Consent Info in the db
+	ci = ConsentInfo(participant_name=participant_name,
+		participant_date=participant_datetime,
+		participant_signature=participant_sig,
+		obtaining_name=obtaining_name,
+		obtaining_role=obtaining_role,
+		obtaining_date=obtaining_datetime,
+		obtaining_signature=obtaining_sig)
+	ci.save()
 
 	return
 
@@ -257,13 +278,25 @@ def handlePhoneNumberForm(request, form, appt_info):
 
 def storeAppointment(appt_info):
 	sig_name = appt_info.get('sig_name', None)
-	dob_date = appt_info.get('dob_date', None)
-	delivery_date = appt_info.get('delivery_date', None)
+	dob_date_str = appt_info.get('dob_date', None)
+	delivery_date_str = appt_info.get('delivery_date', None)
 	sig_image = appt_info.get('sig_image', None)
 	phone_number = appt_info.get('phone_number', None)
-	print sig_name
-	print dob_date
-	print delivery_date
-	print len(sig_image)
-	print phone_number
+
+	# Format is for example: 03/02/2016
+	# Store the patient info in the db
+	dob_datetime = datetime.strptime(dob_date_str, "%m/%d/%Y");
+	delivery_datetime = datetime.strptime(delivery_date_str, "%m/%d/%Y");
+	p = Patient(name=sig_name, dob_date=dob_datetime, 
+		delivery_date=delivery_datetime, phone_number=phone_number,
+		signature_image=sig_image)
+	p.save()
+
+	# NEED TO SAVE THE APPOINTMENT TOOOOOOOOo
+
+	print p.name
+	print p.dob_date
+	print p.delivery_date
+	print p.phone_number
+	print len(p.signature_image)
 	return
