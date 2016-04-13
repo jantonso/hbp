@@ -11,7 +11,9 @@ class Appointment(models.Model):
 	patient = models.ForeignKey(to=Patient, related_name="patient", 
 		null=True, blank=True)
 	unit_name = models.CharField(max_length = 50)
-	appt_time = models.DateTimeField()
+	appt_datetime = models.DateTimeField()
+	appt_date = models.CharField(max_length = 30)
+	appt_time = models.CharField(max_length = 30)
 	booked= models.BooleanField(default=False)
 
 class ConsentInfo(models.Model):

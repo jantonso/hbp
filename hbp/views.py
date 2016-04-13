@@ -2,6 +2,8 @@ from django.http import HttpResponse
 
 from django.shortcuts import render, redirect
 
+from django.core import serializers
+
 from datetime import datetime
 
 from .forms import *
@@ -115,7 +117,11 @@ def commitAndScheduleCalendar(request):
 		print ("There was no appointment in the session")
 		return redirect('/')
 
-	return render(request, 'commitAndScheduleCalendar.html', {})
+	# Pull the appointments from the db
+	all_appts = Appointment.objects.all()
+	appointments = serializers.serialize('json', all_appts)
+	return render(request, 'commitAndScheduleCalendar.html', 
+		{'appointments': appointments})
 
 # User signs and confirms appt 
 def commitAndScheduleSignature(request):
@@ -300,3 +306,20 @@ def storeAppointment(appt_info):
 	print p.phone_number
 	print len(p.signature_image)
 	return
+
+def createMockAppointments():
+	appointment_dates = ["04/13/2016", "04/13/2016", "04/13/2016",
+	"04/12/2016", "04/14/2016", "04/17/2016"]
+	appointment_times = ["10am", "12pm", "2pm", "10am", "12pm","4pm"]
+	for i in xrange(0,len(appointment_dates)):
+		print i
+		appt_datetime = datetime.strptime(
+			appointment_dates[i] + " " + appointment_times[i] , "%m/%d/%Y %I%p")
+		new_appointment = Appointment(unit_name="Blue U",
+			appt_datetime=appt_datetime, appt_date=appointment_dates[i],
+			appt_time=appointment_times[i])
+		new_appointment.save()
+	print "done"
+	return
+
+

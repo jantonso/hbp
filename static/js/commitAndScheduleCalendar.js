@@ -1,8 +1,16 @@
 var selectedDate = '';
 var selectedAppt = '';
 var errorMsg;
+var months = new Array();
+months[0] = "January"; months[1] = "February"; months[2] = "March";
+months[3] = "April"; months[4] = "May"; months[5] = "June";
+months[6] = "July"; months[7] = "August"; months[8] = "September";
+months[9] = "October"; months[10] = "November"; months[11] = "December";
+
 
 $(document).ready(function() {
+	console.log(appointments);
+
 	errorMsg = $('#appt-container #error-msg p');
 
 	$('#calendar-container').datepicker({
@@ -10,23 +18,30 @@ $(document).ready(function() {
 		firstDay: 1,
 		showOtherMonths: true,
 		dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-		dateFormat: 'MM-d-yy',
+		dateFormat: 'mm/dd/yy',
 		beforeShowDay: function(date) {
-			var formattedDate = $.datepicker.formatDate('MM-d-yy', date);
+			var formattedDate = $.datepicker.formatDate('mm/dd/yy', date);
 			if (formattedDate == selectedDate) {
 				return [true, 'selectedDate'];
 			} else {
-				return [true, 'free'];
+				// Figure out if this date has any appointments or not
+				for (var i = 0; i < appointments.length; i++) {
+					if (appointments[i].fields['appt_date'] == formattedDate) {
+						console.log("We got an appt on: " + formattedDate);
+						return [true, 'hasAppts'];
+					}
+				}
+				return [true, 'noAppts'];
 			}
 		},
 		onSelect: function(dateText, inst) {
 			// Highlight the selected day
 			selectedDate = dateText;
 
-			var temp = dateText.split('-');
-			var month = temp[0];
-			var day = temp[1];
-			var year = temp[2];
+			var d = new Date(dateText);
+
+			var month = months[d.getMonth()];
+			var day = d.getDate();
 
 			// Display the appointments for that day
 			$('#page-content #calendar-instructions').hide();

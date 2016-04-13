@@ -136,6 +136,10 @@
 	background: #4E8DFF;
 }
 
+#page-content .ui-datepicker-calendar td.hasAppts {
+	background: #CDDEFF;
+}
+
 #page-content .ui-datepicker-calendar td.selectedDate .ui-state-default {
 	color: #FEFEFE;
 	text-decoration: none;
