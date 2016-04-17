@@ -12,7 +12,9 @@ class Appointment(models.Model):
 		null=True, blank=True)
 	unit_name = models.CharField(max_length = 50)
 	appt_datetime = models.DateTimeField()
+	# format = 04/13/2016
 	appt_date = models.CharField(max_length = 30)
+	# format = 10am, 2pm, etc.
 	appt_time = models.CharField(max_length = 30)
 	booked= models.BooleanField(default=False)
 

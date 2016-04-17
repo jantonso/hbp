@@ -118,8 +118,10 @@ def commitAndScheduleCalendar(request):
 		return redirect('/')
 
 	# Pull the appointments from the db
-	all_appts = Appointment.objects.all()
+	all_appts = Appointment.objects.all().order_by('appt_datetime')
 	appointments = serializers.serialize('json', all_appts)
+	print(appointments)
+	
 	return render(request, 'commitAndScheduleCalendar.html', 
 		{'appointments': appointments})
 
@@ -177,13 +179,9 @@ def final(request):
 		return redirect('/')	
 	return render(request, 'final.html', {'required_topics': required_topics})
 
-
-
-
-
-
-
+# --------------------------------------------------------------------------------- #
 # ----------------------------- Helper Functions ---------------------------------- #
+# --------------------------------------------------------------------------------- #
 
 def	handleConsentForm(request, form):
 	participant_name = form.cleaned_data['participant_name']
@@ -200,7 +198,6 @@ def	handleConsentForm(request, form):
 	obtaining_year = form.cleaned_data['obtaining_year']
 	obtaining_sig = form.cleaned_data['obtaining_sig']
 	obtaining_date_str = obtaining_month + '/' + obtaining_day + '/' + obtaining_year
-
 
 	participant_datetime = datetime.strptime(participant_date_str, "%m/%d/%Y");
 	obtaining_datetime = datetime.strptime(obtaining_date_str, "%m/%d/%Y");
