@@ -60,6 +60,11 @@ class DeliveryDateForm(forms.Form):
 	delivery_year = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'YYYY'}),
 						max_length=10)
 
+class CalendarForm(forms.Form):
+	appt_id = forms.IntegerField(widget=forms.HiddenInput())
+	appt_date = forms.CharField(widget=forms.HiddenInput(), max_length=30)
+	appt_time = forms.CharField(widget=forms.HiddenInput(), max_length=10)
+
 class SignatureForm(forms.Form):
 	sig_name = forms.CharField(max_length=150)
 	dob_day = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'DD'}),

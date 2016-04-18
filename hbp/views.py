@@ -117,13 +117,23 @@ def commitAndScheduleCalendar(request):
 		print ("There was no appointment in the session")
 		return redirect('/')
 
-	# Pull the appointments from the db
-	all_appts = Appointment.objects.all().order_by('appt_datetime')
-	appointments = serializers.serialize('json', all_appts)
-	print(appointments)
-	
-	return render(request, 'commitAndScheduleCalendar.html', 
-		{'appointments': appointments})
+	if request.method == 'GET':
+		form = CalendarForm()
+		# Pull the appointments from the db
+		all_appts = Appointment.objects.all().order_by('appt_datetime')
+		appointments = serializers.serialize('json', all_appts)
+		return render(request, 'commitAndScheduleCalendar.html', 
+			{'appointments': appointments, 'form': form})
+	elif request.method == 'POST':
+		# Process the CalendarForm data
+		form = CalendarForm(request.POST)
+		if form.is_valid():
+			handleCalendarForm(request, form, appt_info)
+			return redirect('/cs/signature/')
+		else:
+			# form is invalid, need to display errors to the user
+			print form.errors
+			return redirect('/')
 
 # User signs and confirms appt 
 def commitAndScheduleSignature(request):
@@ -150,14 +160,18 @@ def commitAndScheduleSignature(request):
 # Displays incentive message and user provides phone number
 def incentive(request):
 	# Check to make sure they didn't just jump directly to this page
+	# and actually scheduled an appointment
 	appt_info = request.session.get('appointment', None)
-	if (appt_info == None):
-		print ("There was no appointment in the session")
+	appt_date = appt_info.get('appt_date', None)
+	appt_time = appt_info.get('appt_time', None)
+	if (appt_info == None or appt_date == None or appt_time == None):
+		print ("There was no appointment scheduled in the session")
 		return redirect('/')
 
 	if request.method == 'GET':
 		form = PhoneNumberForm()
-		return render(request, 'incentive.html', {'form': form})
+		return render(request, 'incentive.html', 
+			{'form': form, 'appt_date': appt_date, 'appt_time': appt_time})
 	elif request.method == 'POST':
 		# Process the PhoneNumberForm data
 		form = PhoneNumberForm(request.POST)
@@ -173,11 +187,15 @@ def incentive(request):
 # Displays final message to the user
 def final(request):
 	required_topics = request.session.get('required_topics')
-	# They jumped directly to this page
-	if (required_topics == None):
-		print ("There were no required topics?")
+	appt_info = request.session.get('appointment', None)
+	appt_date = appt_info.get('appt_date', None)
+	appt_time = appt_info.get('appt_time', None)
+	# They jumped directly to this page or did not schedule an appointment
+	if (required_topics == None or appt_info == None or appt_date == None or appt_time == None):
+		print ("There were no required topics / no appointment")
 		return redirect('/')	
-	return render(request, 'final.html', {'required_topics': required_topics})
+	return render(request, 'final.html', 
+		{'required_topics': required_topics, 'appt_date': appt_date, 'appt_time': appt_time})
 
 # --------------------------------------------------------------------------------- #
 # ----------------------------- Helper Functions ---------------------------------- #
@@ -257,6 +275,19 @@ def handleDeliveryDateForm(request, form, appt_info):
 	request.session['appointment'] = appt_info
 	return
 
+def handleCalendarForm(request, form, appt_info):
+	appt_id = form.cleaned_data['appt_id']
+	appt_date = form.cleaned_data['appt_date']
+	appt_time = form.cleaned_data['appt_time']
+
+	print appt_id
+	print appt_date
+	print appt_time
+
+	appt_info.update({'appt_id': appt_id, 'appt_date': appt_date, 'appt_time': appt_time})
+	request.session['appointment'] = appt_info
+	return
+
 def handleSignatureForm(request, form, appt_info):
 	sig_name = form.cleaned_data['sig_name']
 	dob_day = form.cleaned_data['dob_day']
@@ -285,6 +316,7 @@ def storeAppointment(appt_info):
 	delivery_date_str = appt_info.get('delivery_date', None)
 	sig_image = appt_info.get('sig_image', None)
 	phone_number = appt_info.get('phone_number', None)
+	appt_id = appt_info.get('appt_id', None)
 
 	# Format is for example: 03/02/2016
 	# Store the patient info in the db
@@ -295,19 +327,18 @@ def storeAppointment(appt_info):
 		signature_image=sig_image)
 	p.save()
 
-	# NEED TO SAVE THE APPOINTMENT TOOOOOOOOo
+	# Update the appointment that was booked for this patient
+	a = Appointment.objects.get(pk=appt_id)
+	a.patient = p
+	a.booked = True
+	a.save()
 
-	print p.name
-	print p.dob_date
-	print p.delivery_date
-	print p.phone_number
-	print len(p.signature_image)
 	return
 
 def createMockAppointments():
-	appointment_dates = ["04/13/2016", "04/13/2016", "04/13/2016",
-	"04/12/2016", "04/14/2016", "04/17/2016"]
-	appointment_times = ["10am", "12pm", "2pm", "10am", "12pm","4pm"]
+	appointment_dates = ["04/19/2016", "04/19/2016", "04/19/2016",
+	"04/19/2016", "04/19/2016", "04/10/2016"]
+	appointment_times = ["10am", "12pm", "2pm", "3pm", "5pm","12pm"]
 	for i in xrange(0,len(appointment_dates)):
 		print i
 		appt_datetime = datetime.strptime(

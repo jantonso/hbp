@@ -155,12 +155,12 @@
 
 #page-content #appt-container #appt-date {
 	background-color: #ECECDC;
+	padding-top: 3px;
 	height: 35px;
 }
 
 #page-content #appt-container #appt-date #appt-month {
 	font-size: 1.50em;
-	margin-top: 3px;
 	font-weight: 500;
 	float: left;
 }

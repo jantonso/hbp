@@ -13,7 +13,7 @@ $(document).ready(function() {
 	// Process and convert appts to desired format
 	processAppointments();
 
-	errorMsg = $('#appt-container #error-msg p');
+	errorMsg = $('#appt-container #appt-container-errors #error-msg p');
 
 	$('#calendar-container').datepicker({
 		inline: true,
@@ -22,7 +22,6 @@ $(document).ready(function() {
 		dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
 		dateFormat: 'mm/dd/yy',
 		beforeShowDay: function(date) {
-			console.log(selectedDate);
 			var formattedDate = $.datepicker.formatDate('mm/dd/yy', date);
 			// Check to see if that day is selected
 			if (formattedDate == selectedDate) {
@@ -63,7 +62,7 @@ $(document).ready(function() {
 					var a = appt_times[i];
 					$('#page-content #appt-container #appt-container-times').append(
 						$('<div/>', {'class': 'row'}).append(
-							$('<div/>', {'class': 'col-lg-12 appt ' + appt_class}).append(
+							$('<div/>', {'class': 'col-lg-12 appt ' + appt_class, 'id': a['id']}).append(
 								$('<p/>', {'class': 'appt-time', text: a['time']}),
 								$('<p/>', {'class': 'appt-unit', text: a['unit']})
 							).click(function() {
@@ -74,6 +73,10 @@ $(document).ready(function() {
 								selectedAppt = $(this).find('.appt-time').text();
 								$(this).css('background', '#4E8DFF');
 								$(this).children().css('color', '#FEFEFE');
+
+								document.getElementById('id_appt_id').value = parseInt($(this).attr('id'));
+								document.getElementById('id_appt_date').value = dateText;
+								document.getElementById('id_appt_time').value = selectedAppt;
 							})
 						)
 					);
@@ -81,7 +84,7 @@ $(document).ready(function() {
 			} else {
 				$('#page-content #appt-container #appt-container-times').append(
 					$('<div/>', {'class': 'row'}).append(
-						$('<div/>', {'class': 'col-lg-12 appt appt-odd'}).append(
+						$('<div/>', {'class': 'col-lg-12 appt appt-even'}).append(
 							$('<p/>', {'class': 'appt-unit', text: 'There are no appointments on this day. Please select another day.'})
 						)
 					)
@@ -92,7 +95,21 @@ $(document).ready(function() {
 			resetAppointments();
 		}
 	});
-})
+
+	// Validation of form to make sure that all the fields are filled out
+	$('form').validate({
+		ignore: [],
+		rules: {
+			appt_id: "required"
+		},
+		// Display errors if a field is missing 
+		showErrors: function(errorMap, errorList) {
+			if (errorList.length > 0) {
+				errorMsg.show();
+			}
+		}
+	});
+});
 
 // Resets any selected appointment
 function resetAppointments() {
@@ -100,6 +117,7 @@ function resetAppointments() {
 	$('#page-content #appt-container .appt p').css('color', '#7B8FB7');
 	$('#page-content #appt-container .appt-odd').css('background','#CDDEFF');
 	$('#page-content #appt-container .appt-even').css('background','#DCE7FD');	
+	errorMsg.hide();
 }
 
 // Confirms that the user selected an appointment
@@ -122,9 +140,9 @@ function processAppointments() {
 		var a_time = a.fields['appt_time'];
 		var a_unit = a.fields['unit_name'];
 		if (apptsHashMap[a_date]) {
-			apptsHashMap[a_date].push({'time': a_time, 'unit': a_unit});
+			apptsHashMap[a_date].push({'time': a_time, 'unit': a_unit, 'id': a.pk});
 		} else {
-			apptsHashMap[a_date] = [{'time': a_time, 'unit': a_unit}];
+			apptsHashMap[a_date] = [{'time': a_time, 'unit': a_unit, 'id': a.pk}];
 		}
 	}
 	console.log(apptsHashMap);

@@ -27,20 +27,26 @@
 			</div>
 			<div id="appt-container-times">
 			</div>
+			<div id="appt-container-form">
+				<form method="POST" action="/cs/calendar/">
+					{% csrf_token %}
+					<!-- by defaul these are hidden fields -->
+					{{ form.appt_id }}	
+					{{ form.appt_date }}
+					{{ form.appt_time }}
+					<input type="submit" id="submit-form" class="hidden" />			
+				</form>
+			</div>
 			<div id="appt-container-errors">
 				<div class="row">
 					<div class="col-lg-12" id="error-msg">
 						<p> Please select an appointment. </p>
 					</div>
-				</div>
+				</div>			
 			</div>
 		</div>
 	</div>
 	<script>
 		var appointments = {{ appointments|safe }};
 	</script>
-{% endblock %}
-
-{% block footer %}
-	<a href="/cs/signature/"><div id="confirm-appt-button">Continue</div></a>
 {% endblock %}
