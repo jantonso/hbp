@@ -9,19 +9,26 @@ from datetime import datetime
 from .forms import *
 from .models import *
 
-# Indicates that the user has finished all the videos
+# Indicates that the user has finished all the videos since there are 9 total videos
 finished_videos_index = 10
 
 # Session values
 # 	=> required_videos = list of required videos for the user to watch
 #	=> required_topics = list of required_topics that the user wants to learn about
 #	=> appointment = {delivery_date, name, date_of_birth, 
-#					  signature, appointment_info, phone_number}
+#					  signature, phone_number, appt_id, appt_date, appt_time}
 
+# ---------------------------------------------------------------------------------------- #
+# ---------------------------------- Index Page ------------------------------------------ #
+# ---------------------------------------------------------------------------------------- #
 def index(request):
 	return render(request, 'index.html', {})
 
-# User signs consent page for the initial study
+# ---------------------------------------------------------------------------------------- #
+# --------------------------------- Consent Page ----------------------------------------- #
+# ---------------------------------------------------------------------------------------- #
+# Participant of the experiment and person running the experiment read consent page
+# and both sign providing consent
 def consent(request):
 	if request.method == 'GET':
 		form = ConsentForm()
@@ -37,7 +44,11 @@ def consent(request):
 			print form.errors
 			return redirect('/')
 
-# User answers questions about postpartum needs
+# ---------------------------------------------------------------------------------------- #
+# ---------------------------- Personalized Care Page ------------------------------------ #
+# ---------------------------------------------------------------------------------------- #
+# User answers questions about postpartum needs that we use to determine what 
+# topics they are most interested in and what videos we should make them watch 
 def personalizedCare(request):
 	if request.method == 'GET':
 		form = PersonalizedCareForm()
@@ -53,7 +64,10 @@ def personalizedCare(request):
 			print form.errors
 			return redirect('/')
 
-# User watches informational videos 
+# ---------------------------------------------------------------------------------------- #
+# ---------------------------- Informational Videos Page --------------------------------- #
+# ---------------------------------------------------------------------------------------- #
+# User watches informational videos on the required topics that they marked as important
 def informationalVideos(request, video_index=0):
 	try:	
 		video_index = int(video_index)
@@ -81,13 +95,19 @@ def informationalVideos(request, video_index=0):
 		print e
 		return redirect('/')
 
-# Displays intro message for commit and schedule page
+# ---------------------------------------------------------------------------------------- #
+# ---------------------------- Commit & Schedule Intro Page ------------------------------ #
+# ---------------------------------------------------------------------------------------- #
+# Displays intro message for commit and schedule page and prompts user to commit
 def commitAndScheduleIntro(request):
 	# Keep track of the appointment info in the user's session
 	request.session['appointment'] = {}
 	return render(request, 'commitAndScheduleIntro.html', {})
 
-# User enters in delivery date 
+# ---------------------------------------------------------------------------------------- #
+# ------------------------ Commit & Schedule Delivery Date Page -------------------------- #
+# ---------------------------------------------------------------------------------------- #
+# User enters in their delivery date 
 def commitAndScheduleDeliveryDate(request):
 	# Check to make sure they didn't just jump directly to this page
 	appt_info = request.session.get('appointment', None)
@@ -109,7 +129,10 @@ def commitAndScheduleDeliveryDate(request):
 			print form.errors
 			return redirect('/')
 
-# User selects an appt from calendar 
+# ---------------------------------------------------------------------------------------- #
+# -------------------------- Commit & Schedule Calendar Page ----------------------------- #
+# ---------------------------------------------------------------------------------------- #
+# User selects an appointment from a calendar of available appointments
 def commitAndScheduleCalendar(request):
 	# Check to make sure they didn't just jump directly to this page
 	appt_info = request.session.get('appointment', None)
@@ -135,7 +158,10 @@ def commitAndScheduleCalendar(request):
 			print form.errors
 			return redirect('/')
 
-# User signs and confirms appt 
+# ---------------------------------------------------------------------------------------- #
+# -------------------------- Commit & Schedule Signature Page ---------------------------- #
+# ---------------------------------------------------------------------------------------- #
+# User enters name, date of birth, and signs to confirm the appointment
 def commitAndScheduleSignature(request):
 	# Check to make sure they didn't just jump directly to this page
 	appt_info = request.session.get('appointment', None)
@@ -157,7 +183,10 @@ def commitAndScheduleSignature(request):
 			print form.errors
 			return redirect('/')
 
-# Displays incentive message and user provides phone number
+# ---------------------------------------------------------------------------------------- #
+# -------------------------------- Incentive Page ---------------------------------------- #
+# ---------------------------------------------------------------------------------------- #
+# Displays incentive message to the user and user provides their phone number
 def incentive(request):
 	# Check to make sure they didn't just jump directly to this page
 	# and actually scheduled an appointment
@@ -184,7 +213,10 @@ def incentive(request):
 			print form.errors
 			return redirect('/')		
 
-# Displays final message to the user
+# ---------------------------------------------------------------------------------------- #
+# ------------------------------------- Final Page --------------------------------------- #
+# ---------------------------------------------------------------------------------------- #
+# Displays final information to user about their scheduled appointment
 def final(request):
 	required_topics = request.session.get('required_topics')
 	appt_info = request.session.get('appointment', None)
@@ -197,10 +229,11 @@ def final(request):
 	return render(request, 'final.html', 
 		{'required_topics': required_topics, 'appt_date': appt_date, 'appt_time': appt_time})
 
-# --------------------------------------------------------------------------------- #
-# ----------------------------- Helper Functions ---------------------------------- #
-# --------------------------------------------------------------------------------- #
+# ---------------------------------------------------------------------------------------- #
+# ---------------------------------- Helper Functions ------------------------------------ #
+# ---------------------------------------------------------------------------------------- #
 
+# Stores the consent form information in the DB in the correct format
 def	handleConsentForm(request, form):
 	participant_name = form.cleaned_data['participant_name']
 	participant_day = form.cleaned_data['participant_day']
@@ -264,30 +297,28 @@ def handlePersonalizedCareForm(request, form):
 
 	return
 
+# Adds the user's delivery date to the appointment info in the user's session
 def handleDeliveryDateForm(request, form, appt_info):
 	delivery_day = form.cleaned_data['delivery_day']
 	delivery_month = form.cleaned_data['delivery_month']
 	delivery_year = form.cleaned_data['delivery_year']
 
-	# Keep track of the user's appointment info in the session
 	delivery_date = delivery_month + '/' + delivery_day + '/' + delivery_year
 	appt_info.update({'delivery_date': delivery_date})
 	request.session['appointment'] = appt_info
 	return
 
+# Adds the user's chosen appointment to the appointment info in the user's session
 def handleCalendarForm(request, form, appt_info):
 	appt_id = form.cleaned_data['appt_id']
 	appt_date = form.cleaned_data['appt_date']
 	appt_time = form.cleaned_data['appt_time']
 
-	print appt_id
-	print appt_date
-	print appt_time
-
 	appt_info.update({'appt_id': appt_id, 'appt_date': appt_date, 'appt_time': appt_time})
 	request.session['appointment'] = appt_info
 	return
 
+# Adds the user's name, dob, and signature to the appointment info in the user's session
 def handleSignatureForm(request, form, appt_info):
 	sig_name = form.cleaned_data['sig_name']
 	dob_day = form.cleaned_data['dob_day']
@@ -295,13 +326,13 @@ def handleSignatureForm(request, form, appt_info):
 	dob_year = form.cleaned_data['dob_year']
 	sig_image = form.cleaned_data['sig_image']
 
-	# Add user's appointment info to the session
 	dob_date = dob_month + '/' + dob_day + '/' + dob_year
 	appt_info.update({'sig_name': sig_name, 
 		'dob_date': dob_date, 'sig_image': sig_image})
 	request.session['appointment'] = appt_info
 	return
 
+# Adds the user's phone number to the appointment info in the user's session
 def handlePhoneNumberForm(request, form, appt_info):
 	phone_number = form.cleaned_data['phone_number']
 
@@ -310,6 +341,7 @@ def handlePhoneNumberForm(request, form, appt_info):
 	request.session['appointment'] = appt_info
 	return
 
+# Stores the scheduled appointment and user info in the DB in the correct format
 def storeAppointment(appt_info):
 	sig_name = appt_info.get('sig_name', None)
 	dob_date_str = appt_info.get('dob_date', None)
@@ -335,6 +367,7 @@ def storeAppointment(appt_info):
 
 	return
 
+# Used to add appointments to the DB programatically
 def createMockAppointments():
 	appointment_dates = ["04/19/2016", "04/19/2016", "04/19/2016",
 	"04/19/2016", "04/19/2016", "04/10/2016"]
