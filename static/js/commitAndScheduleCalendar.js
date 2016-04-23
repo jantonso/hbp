@@ -1,5 +1,4 @@
 var selectedDate = '';
-var selectedAppt = '';
 var errorMsg;
 var months = new Array();
 months[0] = "January"; months[1] = "February"; months[2] = "March";
@@ -36,6 +35,9 @@ $(document).ready(function() {
 			}
 		},
 		onSelect: function(dateText, inst) {
+			// Reset all selected appointments 
+			resetAppointments();
+			
 			// Highlight the selected day
 			selectedDate = dateText;
 
@@ -70,13 +72,10 @@ $(document).ready(function() {
 								resetAppointments();
 
 								// Select this appt
-								selectedAppt = $(this).find('.appt-time').text();
 								$(this).css('background', '#4E8DFF');
 								$(this).children().css('color', '#FEFEFE');
 
 								document.getElementById('id_appt_id').value = parseInt($(this).attr('id'));
-								document.getElementById('id_appt_date').value = dateText;
-								document.getElementById('id_appt_time').value = selectedAppt;
 							})
 						)
 					);
@@ -90,9 +89,6 @@ $(document).ready(function() {
 					)
 				);
 			}
-
-			// Reset all selected appointments 
-			resetAppointments();
 		}
 	});
 
@@ -113,21 +109,11 @@ $(document).ready(function() {
 
 // Resets any selected appointment
 function resetAppointments() {
-	selectedAppt = '';
+	document.getElementById('id_appt_id').value = null;
 	$('#page-content #appt-container .appt p').css('color', '#7B8FB7');
 	$('#page-content #appt-container .appt-odd').css('background','#CDDEFF');
 	$('#page-content #appt-container .appt-even').css('background','#DCE7FD');	
 	errorMsg.hide();
-}
-
-// Confirms that the user selected an appointment
-function confirmAppt() {
-	if (selectedAppt != '') {
-		return true;
-	} else {
-		errorMsg.show();
-		return false;
-	}
 }
 
 function processAppointments() {

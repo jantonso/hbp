@@ -1,27 +1,21 @@
 var pCanvas;
-var pSignaturePad;
 var oCanvas;
-var oSignaturePad;
-var errorMsg; 
-
-/*var nameErrorMsg = 'Please enter a name for the participant.';
-var dateErrorMsg = 'Please provide a valid date for the participant.';
-var sigErrorMsg = 'Please provide a signature for the participant.'; */
 
 $(document).ready(function() {
-	errorMsg = $('form #error-msg p');
+	var pErrorMsg = $('form #participant-error-msg p');
+	var oErrorMsg = $('form #obtaining-error-msg p');
 
 	// Bring up the pCanvas to allow participant to sign
 	pCanvas = document.getElementById('participant-signature');
 	pCanvas.width = 920;
 	pCanvas.height = 150;
-	pSignaturePad = new SignaturePad(pCanvas);
+	var pSignaturePad = new SignaturePad(pCanvas);
 
 	// Bring up the oCanvas to allow person obtaining consent to sign
 	oCanvas = document.getElementById('obtaining-signature');
 	oCanvas.width = 920;
 	oCanvas.height = 150;
-	oSignaturePad = new SignaturePad(oCanvas);
+	var oSignaturePad = new SignaturePad(oCanvas);
 
 	window.onresize = resizeCanvas;
 
@@ -87,8 +81,9 @@ $(document).ready(function() {
 			var pMonth = form.elements['participant_month'].value;
 			var pYear = form.elements['participant_year'].value;
 			if (!checkDate(pDay, pMonth, pYear)) {
-				errorMsg.text('Please enter a valid date for the participant.');
-				errorMsg.show();
+				oErrorMsg.hide();
+				pErrorMsg.text('Please enter a valid date for the participant.');
+				pErrorMsg.show();
 				return false;
 			}
 
@@ -97,8 +92,9 @@ $(document).ready(function() {
 			var oMonth = form.elements['obtaining_month'].value;
 			var oYear = form.elements['obtaining_year'].value;
 			if (!checkDate(oDay, oMonth, oYear)) {
-				errorMsg.text('Please enter a valid date for the person obtaining consent.');
-				errorMsg.show();
+				pErrorMsg.hide();
+				oErrorMsg.text('Please enter a valid date for the person obtaining consent.');
+				oErrorMsg.show();
 				return false;
 			}
 
@@ -107,8 +103,18 @@ $(document).ready(function() {
 		// Display errors if a field is missing 
 		showErrors: function(errorMap, errorList) {
 			if (errorList.length > 0) {
-				errorMsg.text(errorList[0].message);
-				errorMsg.show();
+				var errorMsg = errorList[0].message;
+				var errorMsgSplit = errorMsg.split(" ");
+				// Figure out if it is a participant error for the person obtaining consent
+				if (errorMsgSplit[errorMsgSplit.length-1] == 'participant.') {
+					oErrorMsg.hide();
+					pErrorMsg.text(errorList[0].message);
+					pErrorMsg.show();
+				} else {
+					pErrorMsg.hide();
+					oErrorMsg.text(errorList[0].message);
+					oErrorMsg.show();
+				}
 			}
 		}
 	});

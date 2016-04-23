@@ -1,9 +1,10 @@
 from django.db import models
+from django.utils import timezone
 
 class Patient(models.Model):
 	name = models.CharField(max_length = 150)
-	dob_date = models.DateTimeField()
-	delivery_date = models.DateTimeField()
+	dob_date = models.CharField(max_length = 30)
+	delivery_date = models.CharField(max_length = 30)
 	phone_number = models.CharField(max_length = 30)
 	signature_image = models.TextField()
 
@@ -19,10 +20,11 @@ class Appointment(models.Model):
 	booked= models.BooleanField(default=False)
 
 class ConsentInfo(models.Model):
+	timestamp = models.DateTimeField(default=timezone.now)
 	participant_name = models.CharField(max_length = 150)
-	participant_date = models.DateTimeField()
+	participant_date = models.CharField(max_length = 30)
 	participant_signature = models.TextField()
 	obtaining_name = models.CharField(max_length = 150)
 	obtaining_role = models.CharField(max_length = 300)
-	obtaining_date = models.DateTimeField()
+	obtaining_date = models.CharField(max_length = 30)
 	obtaining_signature = models.TextField()

@@ -3,11 +3,14 @@
 }
 
 #error-msg p {
-	display: none;
 	text-align: center;
 	font-size: 1.75em;
 	font-weight: 300;
 	color: #4E8DFF;	
+}
+
+#error-msg p.dont-show {
+	display: none;
 }
 
 #page-content form label {

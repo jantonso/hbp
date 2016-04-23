@@ -45,6 +45,9 @@
 						<label for="dob"> Date </label>
 					</div>	
 				</div>
+				<div class="error-msg" id="participant-error-msg">
+					<p></p>
+				</div>
 			</div>
 			<div id="investigator-certification">
 				<p class="section-heading"> INVESTIGATOR CERTIFICATION: </p>
@@ -75,12 +78,16 @@
 						<label for="id_obtaining_role"> Role in the research study </label>
 					</div>
 				</div>
+				<div class="error-msg" id="obtaining-error-msg">
+					{% if error_msg %}
+						<p> {{ error_msg }} </p>
+					{% else %}
+						<p class="dont-show"></p>
+					{% endif %}
+				</div>
 				<div>
 					<input type="submit" id="submit-form" class="hidden" />
 				</div>
-			</div>
-			<div id="error-msg">
-				<p></p>
 			</div>
 		</form>
 	</div>

@@ -27,7 +27,11 @@
 			</div>
 		</form>
 		<div id="error-msg">
-			<p> Please enter a valid date. </p>
+			{% if error_msg %}
+				<p> {{ error_msg }} </p>
+			{% else %}
+				<p class="dont-show"> Please enter a valid date. </p>
+			{% endif %}
 		</div>
 	</div>
 {% endblock %}

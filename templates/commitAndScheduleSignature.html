@@ -39,7 +39,11 @@
 					</div>
 				</div>
 				<div id="error-msg">
-					<p> That date is invalid. Please try again. </p>
+					{% if error_msg %}
+						<p> {{ error_msg }} </p>
+					{% else %}
+						<p class="dont-show"> That date is invalid. Please try again. </p>
+					{% endif %}
 				</div>
 				<div>
 					<input type="submit" id="submit-form" class="hidden" />

@@ -5,12 +5,15 @@ p {
 	text-align: left;
 }
 
-#error-msg p {
-	display: none;
+.error-msg p {
 	text-align: center;
 	font-size: 1.75em;
 	font-weight: 300;
 	color: #4E8DFF;	
+}
+
+.error-msg p.dont-show {
+	display: none;
 }
 
 #page-content .section-heading {

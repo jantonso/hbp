@@ -40,9 +40,9 @@ def consent(request):
 			handleConsentForm(request, form)
 			return redirect('/pc/')
 		else:
-			# form is invalid, need to display errors to the user
-			print form.errors
-			return redirect('/')
+			error_msg = 'Please enter all the required information.'
+			return render(request, 'consent.html', 
+				{'form': form, 'error_msg': error_msg})
 
 # ---------------------------------------------------------------------------------------- #
 # ---------------------------- Personalized Care Page ------------------------------------ #
@@ -60,9 +60,7 @@ def personalizedCare(request):
 			handlePersonalizedCareForm(request, form)
 			return redirect('/iv/')
 		else:
-			# form is invalid, need to display errors to the user
-			print form.errors
-			return redirect('/')
+			return render(request, 'personalizedCare.html', {'form': form})
 
 # ---------------------------------------------------------------------------------------- #
 # ---------------------------- Informational Videos Page --------------------------------- #
@@ -92,7 +90,6 @@ def informationalVideos(request, video_index=0):
 						'finished_videos': finished_videos, 'next_video': next_video, 
 						'required_topics': required_topics})
 	except ValueError as e:
-		print e
 		return redirect('/')
 
 # ---------------------------------------------------------------------------------------- #
@@ -125,9 +122,9 @@ def commitAndScheduleDeliveryDate(request):
 			handleDeliveryDateForm(request, form, appt_info)
 			return redirect('/cs/calendar/')
 		else:
-			# form is invalid, need to display errors to the user
-			print form.errors
-			return redirect('/')
+			error_msg = 'Please enter a valid date.'
+			return render(request, 'commitAndScheduleDeliveryDate.html', 
+				{'form': form, 'error_msg': error_msg })
 
 # ---------------------------------------------------------------------------------------- #
 # -------------------------- Commit & Schedule Calendar Page ----------------------------- #
@@ -154,9 +151,8 @@ def commitAndScheduleCalendar(request):
 			handleCalendarForm(request, form, appt_info)
 			return redirect('/cs/signature/')
 		else:
-			# form is invalid, need to display errors to the user
-			print form.errors
-			return redirect('/')
+			# Just refresh the calendar on an error
+			return redirect('/cs/calendar/')
 
 # ---------------------------------------------------------------------------------------- #
 # -------------------------- Commit & Schedule Signature Page ---------------------------- #
@@ -179,9 +175,9 @@ def commitAndScheduleSignature(request):
 			handleSignatureForm(request, form, appt_info)
 			return redirect('/incentive/')
 		else:
-			# form is invalid, need to display errors to the user
-			print form.errors
-			return redirect('/')
+			error_msg = 'Please enter all the required information.'
+			return render(request, 'commitAndScheduleSignature.html', 
+				{'form': form, 'error_msg': error_msg})
 
 # ---------------------------------------------------------------------------------------- #
 # -------------------------------- Incentive Page ---------------------------------------- #
@@ -209,9 +205,9 @@ def incentive(request):
 			storeAppointment(appt_info)
 			return redirect('/final/')
 		else:
-			# form is invalid, need to display errors to the user
-			print form.errors
-			return redirect('/')		
+			error_msg = 'Please enter a valid phone number.'
+			return render(request, 'incentive.html', 
+				{'form': form, 'appt_date': appt_date, 'appt_time': appt_time, 'error_msg': error_msg})		
 
 # ---------------------------------------------------------------------------------------- #
 # ------------------------------------- Final Page --------------------------------------- #
@@ -236,30 +232,23 @@ def final(request):
 # Stores the consent form information in the DB in the correct format
 def	handleConsentForm(request, form):
 	participant_name = form.cleaned_data['participant_name']
-	participant_day = form.cleaned_data['participant_day']
-	participant_month = form.cleaned_data['participant_month']
-	participant_year = form.cleaned_data['participant_year']
 	participant_sig = form.cleaned_data['participant_sig']
-	participant_date_str = participant_month + '/' + participant_day + '/' + participant_year
+	participant_date = form.cleaned_data['participant_date']
+	print participant_date
 	
 	obtaining_name = form.cleaned_data['obtaining_name']
 	obtaining_role = form.cleaned_data['obtaining_role']
-	obtaining_day = form.cleaned_data['obtaining_day']
-	obtaining_month = form.cleaned_data['obtaining_month']
-	obtaining_year = form.cleaned_data['obtaining_year']
 	obtaining_sig = form.cleaned_data['obtaining_sig']
-	obtaining_date_str = obtaining_month + '/' + obtaining_day + '/' + obtaining_year
+	obtaining_date = form.cleaned_data['obtaining_date']
+	print obtaining_date
 
-	participant_datetime = datetime.strptime(participant_date_str, "%m/%d/%Y");
-	obtaining_datetime = datetime.strptime(obtaining_date_str, "%m/%d/%Y");
-	
 	# Store the Consent Info in the db
 	ci = ConsentInfo(participant_name=participant_name,
-		participant_date=participant_datetime,
+		participant_date=participant_date,
 		participant_signature=participant_sig,
 		obtaining_name=obtaining_name,
 		obtaining_role=obtaining_role,
-		obtaining_date=obtaining_datetime,
+		obtaining_date=obtaining_date,
 		obtaining_signature=obtaining_sig)
 	ci.save()
 
@@ -274,18 +263,36 @@ def handlePersonalizedCareForm(request, form):
 	list_of_topics = ['birth control', 'breastfeeding support', 'checking on my mood', 'talking to a doctor',
 				  'diet, exercise, weight loss, sexual activity', 'bowel and bladder health', 
 				  'gestational diabetes', 'high blood pressure', 'preterm labor']
+	default_videos = [1, 2]
 	answers = {}
 	for i in xrange(0,len(list_of_questions)):
 		question_name = list_of_questions[i]
 		question_answer = form.cleaned_data[question_name]	
 
-		answer_value = int(question_answer)
-		# Don't add values that were marked 'not important' or 'no'
-		if (answer_value >= 0):
-			answers[i+1] = answer_value
+		try:
+			answer_value = int(question_answer)
+			# Don't add values that were marked 'not important' or 'no'
+			if (answer_value >= 0):
+				answers[i+1] = answer_value
+		# If they forgot to answer one, skip that question
+		except ValueError:
+			continue
 
-	# Choose the top five rated topics
+	# Choose the top five rated topics and videos
 	required_videos = sorted(answers, key=answers.get, reverse=True)[:5]
+
+	# If there are less than 2 required videos, choose the default ones
+	# make sure not to choose duplicate videos if there was 1 required video chosen
+	# by the user
+	if (len(required_videos) == 0):
+		required_videos = default_videos
+	elif (len(required_videos) == 1):
+		if (required_videos[0] in default_videos):
+			default_videos.remove(required_videos[0])
+		required_videos += [default_videos[0]]
+
+	print required_videos
+
 	required_topics = [list_of_topics[index-1] for index in required_videos]	
 
 	# Add the final index to indicate that all the videos were finished
@@ -299,11 +306,7 @@ def handlePersonalizedCareForm(request, form):
 
 # Adds the user's delivery date to the appointment info in the user's session
 def handleDeliveryDateForm(request, form, appt_info):
-	delivery_day = form.cleaned_data['delivery_day']
-	delivery_month = form.cleaned_data['delivery_month']
-	delivery_year = form.cleaned_data['delivery_year']
-
-	delivery_date = delivery_month + '/' + delivery_day + '/' + delivery_year
+	delivery_date = form.cleaned_data['delivery_date']
 	appt_info.update({'delivery_date': delivery_date})
 	request.session['appointment'] = appt_info
 	return
@@ -321,12 +324,9 @@ def handleCalendarForm(request, form, appt_info):
 # Adds the user's name, dob, and signature to the appointment info in the user's session
 def handleSignatureForm(request, form, appt_info):
 	sig_name = form.cleaned_data['sig_name']
-	dob_day = form.cleaned_data['dob_day']
-	dob_month = form.cleaned_data['dob_month']
-	dob_year = form.cleaned_data['dob_year']
+	dob_date = form.cleaned_data['dob_date']
 	sig_image = form.cleaned_data['sig_image']
 
-	dob_date = dob_month + '/' + dob_day + '/' + dob_year
 	appt_info.update({'sig_name': sig_name, 
 		'dob_date': dob_date, 'sig_image': sig_image})
 	request.session['appointment'] = appt_info
@@ -344,18 +344,18 @@ def handlePhoneNumberForm(request, form, appt_info):
 # Stores the scheduled appointment and user info in the DB in the correct format
 def storeAppointment(appt_info):
 	sig_name = appt_info.get('sig_name', None)
-	dob_date_str = appt_info.get('dob_date', None)
-	delivery_date_str = appt_info.get('delivery_date', None)
+	dob_date = appt_info.get('dob_date', None)
+	delivery_date = appt_info.get('delivery_date', None)
 	sig_image = appt_info.get('sig_image', None)
 	phone_number = appt_info.get('phone_number', None)
 	appt_id = appt_info.get('appt_id', None)
 
 	# Format is for example: 03/02/2016
 	# Store the patient info in the db
-	dob_datetime = datetime.strptime(dob_date_str, "%m/%d/%Y");
-	delivery_datetime = datetime.strptime(delivery_date_str, "%m/%d/%Y");
-	p = Patient(name=sig_name, dob_date=dob_datetime, 
-		delivery_date=delivery_datetime, phone_number=phone_number,
+	#dob_datetime = datetime.strptime(dob_date_str, "%m/%d/%Y");
+	#delivery_datetime = datetime.strptime(delivery_date_str, "%m/%d/%Y");
+	p = Patient(name=sig_name, dob_date=dob_date, 
+		delivery_date=delivery_date, phone_number=phone_number,
 		signature_image=sig_image)
 	p.save()
 
