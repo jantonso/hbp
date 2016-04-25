@@ -5,14 +5,14 @@ from django.shortcuts import render, redirect
 from django.core import serializers
 from django.core.files.base import ContentFile
 
-from datetime import datetime
+from django.conf import settings
+
+from datetime import datetime, timedelta
 
 from .forms import *
 from .models import *
 
 import uuid
-
-from django.conf import settings
 import os
 
 # Indicates that the user has finished all the videos since there are 9 total videos
@@ -139,14 +139,22 @@ def commitAndScheduleDeliveryDate(request):
 def commitAndScheduleCalendar(request):
 	# Check to make sure they didn't just jump directly to this page
 	appt_info = request.session.get('appointment', None)
-	if (appt_info == None):
+	delivery_date = appt_info.get('delivery_date', None)
+	if (appt_info == None or delivery_date == None):
 		print ("There was no appointment in the session")
 		return redirect('/')
 
 	if request.method == 'GET':
 		form = CalendarForm()
-		# Pull the appointments from the db
-		all_appts = Appointment.objects.all().order_by('appt_datetime')
+
+		# Pull the appointments from the db that are 6/10 weeks from delivery date
+		delivery_datetime = datetime.strptime(delivery_date, '%m/%d/%Y')
+		min_date = delivery_datetime + timedelta(days=21)
+		max_date = delivery_datetime + timedelta(days=56)
+
+		all_appts = Appointment.objects.filter(appt_datetime__gte=min_date,
+			appt_datetime__lte=max_date).order_by('appt_datetime')
+		
 		appointments = serializers.serialize('json', all_appts)
 		return render(request, 'commitAndScheduleCalendar.html', 
 			{'appointments': appointments, 'form': form})
@@ -225,9 +233,11 @@ def final(request):
 	appt_date = appt_info.get('appt_date', None)
 	appt_time = appt_info.get('appt_time', None)
 	# They jumped directly to this page or did not schedule an appointment
-	if (required_topics == None or appt_info == None or appt_date == None or appt_time == None):
+	if (appt_info == None or appt_date == None or appt_time == None):
 		print ("There were no required topics / no appointment")
 		return redirect('/')	
+	if (required_topics == None):
+		required_topics = []
 	return render(request, 'final.html', 
 		{'required_topics': required_topics, 'appt_date': appt_date, 'appt_time': appt_time})
 
@@ -388,8 +398,8 @@ def storeAppointment(appt_info):
 # Used to add appointments to the DB programatically
 def createMockAppointments():
 	appointment_dates = ["04/19/2016", "04/19/2016", "04/19/2016",
-	"04/19/2016", "04/19/2016", "04/10/2016"]
-	appointment_times = ["10am", "12pm", "2pm", "3pm", "5pm","12pm"]
+	"04/19/2016", "04/19/2016", "04/10/2016", "04/13/2016", "04/13/2016", "04/11/2016","05/02/2016","05/02/2016"]
+	appointment_times = ["10am", "12pm", "2pm", "3pm", "5pm","12pm","2pm","4pm","10am","2pm","3pm"]
 	for i in xrange(0,len(appointment_dates)):
 		print i
 		appt_datetime = datetime.strptime(

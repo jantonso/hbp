@@ -193,6 +193,10 @@
 	background-color: #DCE7FD;
 }
 
+#page-content #appt-container .appt-booked {
+	background-color: #90E6A6;
+}
+
 #page-content #appt-container .appt-time {
 	margin: 0;
 	font-size: 1.50em;

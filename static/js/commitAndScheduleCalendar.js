@@ -57,11 +57,18 @@ $(document).ready(function() {
 			var appt_times = apptsHashMap[selectedDate];
 			if (appt_times) {
 				for (var i = 0; i <appt_times.length; i++) {
-					var appt_class = 'appt-odd';
-					if (i % 2 == 0) {
-						appt_class = 'appt-even';
-					}
+					var appt_class;
 					var a = appt_times[i];
+					// If the appointment is booked, display it as so
+					if (a.booked) {
+						appt_class = 'appt-booked';
+					} else {
+						if (i % 2 == 0) {
+							appt_class = 'appt-even';
+						} else {
+							appt_class = 'appt-odd';
+						}
+					}
 					$('#page-content #appt-container #appt-container-times').append(
 						$('<div/>', {'class': 'row'}).append(
 							$('<div/>', {'class': 'col-lg-12 appt ' + appt_class, 'id': a['id']}).append(
@@ -125,10 +132,13 @@ function processAppointments() {
 		var a_date = a.fields['appt_date'];
 		var a_time = a.fields['appt_time'];
 		var a_unit = a.fields['unit_name'];
+		var a_booked = a.fields['booked'];
 		if (apptsHashMap[a_date]) {
-			apptsHashMap[a_date].push({'time': a_time, 'unit': a_unit, 'id': a.pk});
+			apptsHashMap[a_date].push({'time': a_time, 'unit': a_unit, 
+				'id': a.pk, 'booked': a_booked});
 		} else {
-			apptsHashMap[a_date] = [{'time': a_time, 'unit': a_unit, 'id': a.pk}];
+			apptsHashMap[a_date] = [{'time': a_time, 'unit': a_unit, 
+				'id': a.pk, 'booked': a_booked}];
 		}
 	}
 	console.log(apptsHashMap);
