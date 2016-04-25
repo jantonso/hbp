@@ -3,11 +3,17 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 from django.core import serializers
+from django.core.files.base import ContentFile
 
 from datetime import datetime
 
 from .forms import *
 from .models import *
+
+import uuid
+
+from django.conf import settings
+import os
 
 # Indicates that the user has finished all the videos since there are 9 total videos
 finished_videos_index = 10
@@ -232,27 +238,39 @@ def final(request):
 # Stores the consent form information in the DB in the correct format
 def	handleConsentForm(request, form):
 	participant_name = form.cleaned_data['participant_name']
-	participant_sig = form.cleaned_data['participant_sig']
 	participant_date = form.cleaned_data['participant_date']
-	print participant_date
-	
+	participant_sig = form.cleaned_data['participant_sig']
+
 	obtaining_name = form.cleaned_data['obtaining_name']
 	obtaining_role = form.cleaned_data['obtaining_role']
-	obtaining_sig = form.cleaned_data['obtaining_sig']
 	obtaining_date = form.cleaned_data['obtaining_date']
-	print obtaining_date
+	obtaining_sig = form.cleaned_data['obtaining_sig']
 
 	# Store the Consent Info in the db
 	ci = ConsentInfo(participant_name=participant_name,
 		participant_date=participant_date,
-		participant_signature=participant_sig,
 		obtaining_name=obtaining_name,
 		obtaining_role=obtaining_role,
-		obtaining_date=obtaining_date,
-		obtaining_signature=obtaining_sig)
+		obtaining_date=obtaining_date)
+	ci.participant_signature = convertAndStore(participant_sig)
+	ci.obtaining_signature = convertAndStore(obtaining_sig)
 	ci.save()
 
 	return
+
+# Decode base 64 string to image and store in the file system
+def convertAndStore(sig):
+	sig_base64 = sig.partition('base64,')[2]
+	sig_decoded = sig_base64.decode('base64')
+
+	# Generate a completely random file name
+	filename = 'sig_%d.png' % uuid.uuid4()
+	filename_p = os.path.join(settings.MEDIA_ROOT, filename)
+	while (os.path.isfile(filename_p)):
+		filename = 'sig_%d.png' % uuid.uuid4()
+		filename_p = os.path.join(settings.MEDIA_ROOT, filename)
+
+	return ContentFile(sig_decoded, filename)
 
 # ALGORITHM TO DETERMINE THE REQUIRED TOPICS/VIDEOS 
 # Choose up to the 5 maximum values for the topics, if there are less than 2, choose 2 default ones
