@@ -66,9 +66,9 @@ class PersonalizedCareForm(forms.Form):
 		required=False, choices=LIKERT_CHOICES, widget=forms.RadioSelect())
 	q3 = forms.ChoiceField(label='Checking on my mood after delivery',
 		required=False, choices=LIKERT_CHOICES, widget=forms.RadioSelect())
-	q4 = forms.ChoiceField(label='Talking to a doctor about how to keep my next pregnancy healthy',
+	q4 = forms.ChoiceField(label='Planning my next pregnancy',
 		required=False, choices=LIKERT_CHOICES, widget=forms.RadioSelect())
-	q5 = forms.ChoiceField(label='Getting advice about diet, exercise, weight loss, and sexual activity after delivery',
+	q5 = forms.ChoiceField(label='Sexual activity after birth',
 		required=False, choices=LIKERT_CHOICES, widget=forms.RadioSelect())
 	q6 = forms.ChoiceField(label='Discussing issues of bowel or bladder health such as hemorrhoids or leaking urine',
 		required=False, choices=LIKERT_CHOICES, widget=forms.RadioSelect())
@@ -76,7 +76,7 @@ class PersonalizedCareForm(forms.Form):
 		required=False, choices=NON_LIKERT_CHOICES, widget=forms.RadioSelect())
 	q8 = forms.ChoiceField(label='Did you have high blood pressure during this pregnancy?',
 		required=False, choices=NON_LIKERT_CHOICES, widget=forms.RadioSelect())
-	q9 = forms.ChoiceField(label=' Did you have a preterm labor during this pregnancy?',
+	q9 = forms.ChoiceField(label=' Did you have a preterm delivery during this pregnancy?',
 		required=False, choices=NON_LIKERT_CHOICES, widget=forms.RadioSelect())
 
 class DeliveryDateForm(forms.Form):

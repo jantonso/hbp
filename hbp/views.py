@@ -288,10 +288,10 @@ def convertAndStore(sig):
 # Non-Likert = -2, 0, 2 ====> no, don't know, yes
 def handlePersonalizedCareForm(request, form):
 	list_of_questions = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9']
-	list_of_topics = ['birth control', 'breastfeeding support', 'checking on my mood', 'talking to a doctor',
-				  'diet, exercise, weight loss, sexual activity', 'bowel and bladder health', 
-				  'gestational diabetes', 'high blood pressure', 'preterm labor']
-	default_videos = [1, 2]
+	list_of_topics = ['birth control', 'breastfeeding support', 'checking on my mood', 'planning my next pregnancy',
+				  'sexual activity after birth', 'bowel and bladder health', 
+				  'gestational diabetes', 'high blood pressure', 'preterm delivery']
+	default_videos = [1, 3]
 	answers = {}
 	for i in xrange(0,len(list_of_questions)):
 		question_name = list_of_questions[i]
@@ -307,7 +307,7 @@ def handlePersonalizedCareForm(request, form):
 			continue
 
 	# Choose the top five rated topics and videos
-	required_videos = sorted(answers, key=answers.get, reverse=True)[:5]
+	required_videos = sorted(answers, key=answers.get, reverse=True)[:3]
 
 	# If there are less than 2 required videos, choose the default ones
 	# make sure not to choose duplicate videos if there was 1 required video chosen
@@ -383,8 +383,8 @@ def storeAppointment(appt_info):
 	#dob_datetime = datetime.strptime(dob_date_str, "%m/%d/%Y");
 	#delivery_datetime = datetime.strptime(delivery_date_str, "%m/%d/%Y");
 	p = Patient(name=sig_name, dob_date=dob_date, 
-		delivery_date=delivery_date, phone_number=phone_number,
-		signature_image=sig_image)
+		delivery_date=delivery_date, phone_number=phone_number)
+	p.signature_image = convertAndStore(sig_image)
 	p.save()
 
 	# Update the appointment that was booked for this patient

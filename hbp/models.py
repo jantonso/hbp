@@ -11,6 +11,9 @@ class Patient(models.Model):
 	phone_number = models.CharField(max_length = 30)
 	signature_image = models.ImageField(blank=True, upload_to=GetImageFolder)
 
+	def __unicode__(self):
+		return self.name
+
 class Appointment(models.Model):
 	patient = models.ForeignKey(to=Patient, related_name="patient", 
 		null=True, blank=True)
@@ -21,6 +24,9 @@ class Appointment(models.Model):
 	# format = 10am, 2pm, etc.
 	appt_time = models.CharField(max_length = 30)
 	booked= models.BooleanField(default=False)
+
+	def __unicode__(self):
+		return self.appt_date + ' ' + self.appt_time
 
 class ConsentInfo(models.Model):
 	timestamp = models.DateTimeField(default=timezone.now)
