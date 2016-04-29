@@ -1,6 +1,8 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 
+from django.conf import settings
+
 from . import views
 
 urlpatterns = patterns('',
@@ -17,4 +19,7 @@ urlpatterns = patterns('',
 	url(r'^incentive/$', views.incentive, name='incentive'),
 	url(r'^final/$', views.final, name='final'),
 	url(r'^consent/$', views.consent, name='consent'),
+	url(r'^signatures/(?P<path>.*)$', 'django.views.static.serve', {
+		'document_root': settings.MEDIA_ROOT,
+	}),
 )
