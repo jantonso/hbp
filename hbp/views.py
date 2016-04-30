@@ -14,6 +14,9 @@ from .forms import *
 from .models import *
 
 from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import letter
+from reportlab.platypus import Table, Image
+from reportlab.lib import colors
 
 import uuid
 import os
@@ -269,18 +272,60 @@ def printAppt(request):
 
 	# Build the response PDF
 	response = HttpResponse(content_type='application/pdf')
-	response['Content-Disposition'] = 'attachment; filename="somefilename.pdf"'
+	response['Content-Disposition'] = 'inline; filename="somefilename.pdf"'
 	
-	p = canvas.Canvas(response)
+	p = canvas.Canvas(response, pagesize=letter)
+	width, height = letter
 
-	p.drawString(300, 800, "Appointment Info")
-	p.drawString(100, 750, "Name: " + sig_name)
-	p.drawString(100, 725, "Phone Number: " + phone_number)
-	p.drawString(100, 700, "Date of delivery: " + delivery_date)
-	p.drawString(100, 675, "Date of birth: " + dob_date)
-	p.drawString(100, 650, "Signature: " + sig_image)
-	p.drawString(100, 625, "Appt date: " + appt_date)
-	p.drawString(100, 600, "Appt time: " + appt_time)
+	p.setFont('Helvetica-Bold', 16)
+	p.drawString(width/2-70, height-40, 'Appointment Info')
+
+	p.setFont('Helvetica-Bold', 12)
+	p.drawString(100, height-75, 'Name')
+	p.setFont('Helvetica', 12)
+	p.drawString(100, height-90, sig_name)
+
+	p.setFont('Helvetica-Bold', 12)
+	p.drawString(250, height-75, 'Date of birth')
+	p.setFont('Helvetica', 12)
+	p.drawString(250, height-90, dob_date)
+
+	p.setFont('Helvetica-Bold', 12)
+	p.drawString(400, height-75, 'Phone number')
+	p.setFont('Helvetica', 12)
+	p.drawString(400, height-90, phone_number)
+
+	p.setFont('Helvetica-Bold', 12)
+	p.drawString(100, height-120, 'Date of delivery')
+	p.setFont('Helvetica', 12)
+	p.drawString(100, height-135, delivery_date)
+
+	p.setFont('Helvetica-Bold', 12)
+	p.drawString(250, height-120, 'Appt date')
+	p.setFont('Helvetica', 12)
+	p.drawString(250, height-135, appt_date)
+
+	p.setFont('Helvetica-Bold', 12)
+	p.drawString(400, height-120, 'Appt time')
+	p.setFont('Helvetica', 12)
+	p.drawString(400, height-135, appt_time)
+
+	p.setFont('Helvetica-Bold', 12)
+	p.drawString(100, height-165, 'Signature')
+
+	img_width = 400
+	img_height = 150
+	img = Image(sig_image, width=img_width, height=img_height)
+	img_table = Table(data=[[img]], colWidths=img_width, rowHeights=img_height,
+    	style=[
+	        # The two (0, 0) in each attribute represent the range of table cells that the style applies to. Since there's only one cell at (0, 0), it's used for both start and end of the range
+	        ('ALIGN', (0, 0), (0, 0), 'CENTER'),
+	        ('BOX', (0, 0), (0, 0), 0.5, colors.black), # The fourth argument to this style attribute is the border width
+	        ('VALIGN', (0, 0), (0, 0), 'MIDDLE'),
+	    ]
+	)
+	img_table.wrapOn(p, img_width, img_height)
+	img_table.drawOn(p, 100, height-165-img_height-10)
 
 	p.showPage()
 	p.save()
@@ -433,7 +478,7 @@ def storeAppointment(appt_info):
 	p.signature_image = convertAndStore(sig_image)
 	p.save()
 
-	appt_info['sig_image'] = p.signature_image.url
+	#appt_info['sig_image'] = p.signature_image.url
 
 	# Update the appointment that was booked for this patient
 	a = Appointment.objects.get(pk=appt_id)
