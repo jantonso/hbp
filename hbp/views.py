@@ -1,4 +1,5 @@
 from django.http import HttpResponse
+from django.http import Http404
 
 from django.shortcuts import render, redirect
 
@@ -12,6 +13,8 @@ from datetime import datetime, timedelta
 from .forms import *
 from .models import *
 
+from reportlab.pdfgen import canvas
+
 import uuid
 import os
 
@@ -21,7 +24,7 @@ finished_videos_index = 10
 # Session values
 # 	=> required_videos = list of required videos for the user to watch
 #	=> required_topics = list of required_topics that the user wants to learn about
-#	=> appointment = {delivery_date, name, date_of_birth, 
+#	=> appointment = {delivery_date, sig_name, dob_date, 
 #					  signature, phone_number, appt_id, appt_date, appt_time}
 
 # ---------------------------------------------------------------------------------------- #
@@ -228,18 +231,61 @@ def incentive(request):
 # ---------------------------------------------------------------------------------------- #
 # Displays final information to user about their scheduled appointment
 def final(request):
-	required_topics = request.session.get('required_topics')
+	required_topics = request.session.get('required_topics', None)
 	appt_info = request.session.get('appointment', None)
 	appt_date = appt_info.get('appt_date', None)
 	appt_time = appt_info.get('appt_time', None)
 	# They jumped directly to this page or did not schedule an appointment
-	if (appt_info == None or appt_date == None or appt_time == None):
+	if (appt_info == None or appt_date == None or appt_time == None or required_topics == None):
 		print ("There were no required topics / no appointment")
 		return redirect('/')	
-	if (required_topics == None):
-		required_topics = []
 	return render(request, 'final.html', 
 		{'required_topics': required_topics, 'appt_date': appt_date, 'appt_time': appt_time})
+
+# ---------------------------------------------------------------------------------------- #
+# ---------------------------------- Printing Appt --------------------------------------- #
+# ---------------------------------------------------------------------------------------- #
+# Allows the user to print their appointment info on the final page
+def printAppt(request):
+	required_topics = request.session.get('required_topics', None)
+	appt_info = request.session.get('appointment', None)
+
+	if (required_topics == None or appt_info == None):
+		raise Http404
+
+	print appt_info
+	sig_name = appt_info.get('sig_name', None)
+	delivery_date = appt_info.get('delivery_date', None)
+	dob_date = appt_info.get('dob_date', None)
+	sig_image = appt_info.get('sig_image', None)
+	phone_number = appt_info.get('phone_number', None)
+	appt_date = appt_info.get('appt_date', None)
+	appt_time = appt_info.get('appt_time', None)
+
+	if (sig_name == None or delivery_date == None or dob_date == None 
+		or sig_image == None or phone_number == None or appt_date == None
+		or appt_time == None):
+		raise Http404
+
+	# Build the response PDF
+	response = HttpResponse(content_type='application/pdf')
+	response['Content-Disposition'] = 'attachment; filename="somefilename.pdf"'
+	
+	p = canvas.Canvas(response)
+
+	p.drawString(300, 800, "Appointment Info")
+	p.drawString(100, 750, "Name: " + sig_name)
+	p.drawString(100, 725, "Phone Number: " + phone_number)
+	p.drawString(100, 700, "Date of delivery: " + delivery_date)
+	p.drawString(100, 675, "Date of birth: " + dob_date)
+	p.drawString(100, 650, "Signature: " + sig_image)
+	p.drawString(100, 625, "Appt date: " + appt_date)
+	p.drawString(100, 600, "Appt time: " + appt_time)
+
+	p.showPage()
+	p.save()
+
+	return response
 
 # ---------------------------------------------------------------------------------------- #
 # ---------------------------------- Helper Functions ------------------------------------ #
@@ -386,6 +432,8 @@ def storeAppointment(appt_info):
 		delivery_date=delivery_date, phone_number=phone_number)
 	p.signature_image = convertAndStore(sig_image)
 	p.save()
+
+	appt_info['sig_image'] = p.signature_image.url
 
 	# Update the appointment that was booked for this patient
 	a = Appointment.objects.get(pk=appt_id)

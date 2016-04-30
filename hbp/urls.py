@@ -22,4 +22,5 @@ urlpatterns = patterns('',
 	url(r'^signatures/(?P<path>.*)$', 'django.views.static.serve', {
 		'document_root': settings.MEDIA_ROOT,
 	}),
+	url(r'^print-appt/$', views.printAppt, name='printAppt'),
 )
