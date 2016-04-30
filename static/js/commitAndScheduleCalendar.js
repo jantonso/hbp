@@ -1,5 +1,7 @@
 var selectedDate = '';
 var errorMsg;
+var minDate = null;
+var maxDate = null;
 var months = new Array();
 months[0] = "January"; months[1] = "February"; months[2] = "March";
 months[3] = "April"; months[4] = "May"; months[5] = "June";
@@ -20,6 +22,8 @@ $(document).ready(function() {
 		showOtherMonths: true,
 		dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
 		dateFormat: 'mm/dd/yy',
+		minDate: minDate,
+		maxDate: maxDate,
 		beforeShowDay: function(date) {
 			var formattedDate = $.datepicker.formatDate('mm/dd/yy', date);
 			// Check to see if that day is selected
@@ -130,6 +134,15 @@ function processAppointments() {
 	for (var i = 0; i < appointments.length; i++) {
 		var a = appointments[i];
 		var a_date = a.fields['appt_date'];
+		// Get the minimum and maximum dates, this assumes that
+		// the appointments are sorted reverse chronologically
+		if (i == 0) {
+			minDate = a_date;
+			console.log(minDate);
+		} else if (i == appointments.length - 1) {
+			maxDate = a_date;
+			console.log(maxDate);
+		}
 		var a_time = a.fields['appt_time'];
 		var a_unit = a.fields['unit_name'];
 		var a_booked = a.fields['booked'];
