@@ -29,6 +29,7 @@ finished_videos_index = 10
 #	=> required_topics = list of required_topics that the user wants to learn about
 #	=> appointment = {delivery_date, sig_name, dob_date, 
 #					  signature, phone_number, appt_id, appt_date, appt_time}
+#   => consent_info = (optional) pk for consent information
 
 # ---------------------------------------------------------------------------------------- #
 # ---------------------------------- Index Page ------------------------------------------ #
@@ -252,82 +253,29 @@ def final(request):
 def printAppt(request):
 	required_topics = request.session.get('required_topics', None)
 	appt_info = request.session.get('appointment', None)
+	consent_info = request.session.get('consent_info', None)
 
 	if (required_topics == None or appt_info == None):
 		raise Http404
 
-	print appt_info
-	sig_name = appt_info.get('sig_name', None)
-	delivery_date = appt_info.get('delivery_date', None)
-	dob_date = appt_info.get('dob_date', None)
-	sig_image = appt_info.get('sig_image', None)
-	phone_number = appt_info.get('phone_number', None)
-	appt_date = appt_info.get('appt_date', None)
-	appt_time = appt_info.get('appt_time', None)
-
-	if (sig_name == None or delivery_date == None or dob_date == None 
-		or sig_image == None or phone_number == None or appt_date == None
-		or appt_time == None):
-		raise Http404
-
 	# Build the response PDF
 	response = HttpResponse(content_type='application/pdf')
-	response['Content-Disposition'] = 'inline; filename="somefilename.pdf"'
+	response['Content-Disposition'] = 'inline; filename="appointment_info.pdf"'
 	
 	p = canvas.Canvas(response, pagesize=letter)
 	width, height = letter
 
-	p.setFont('Helvetica-Bold', 16)
-	p.drawString(width/2-70, height-40, 'Appointment Info')
+	# Add the appointment info to the pdf
+	a = printAppointment(p, width, height, required_topics, appt_info)
+	if not a:
+		raise Http404
 
-	p.setFont('Helvetica-Bold', 12)
-	p.drawString(100, height-75, 'Name')
-	p.setFont('Helvetica', 12)
-	p.drawString(100, height-90, sig_name)
+	# If the user filled out the consent form, add this info to the pdf
+	if (consent_info != None):
+		c = printConsentInfo(p, width, height, consent_info)
+		if not c:
+			raise Http404
 
-	p.setFont('Helvetica-Bold', 12)
-	p.drawString(250, height-75, 'Date of birth')
-	p.setFont('Helvetica', 12)
-	p.drawString(250, height-90, dob_date)
-
-	p.setFont('Helvetica-Bold', 12)
-	p.drawString(400, height-75, 'Phone number')
-	p.setFont('Helvetica', 12)
-	p.drawString(400, height-90, phone_number)
-
-	p.setFont('Helvetica-Bold', 12)
-	p.drawString(100, height-120, 'Date of delivery')
-	p.setFont('Helvetica', 12)
-	p.drawString(100, height-135, delivery_date)
-
-	p.setFont('Helvetica-Bold', 12)
-	p.drawString(250, height-120, 'Appt date')
-	p.setFont('Helvetica', 12)
-	p.drawString(250, height-135, appt_date)
-
-	p.setFont('Helvetica-Bold', 12)
-	p.drawString(400, height-120, 'Appt time')
-	p.setFont('Helvetica', 12)
-	p.drawString(400, height-135, appt_time)
-
-	p.setFont('Helvetica-Bold', 12)
-	p.drawString(100, height-165, 'Signature')
-
-	img_width = 400
-	img_height = 150
-	img = Image(sig_image, width=img_width, height=img_height)
-	img_table = Table(data=[[img]], colWidths=img_width, rowHeights=img_height,
-    	style=[
-	        # The two (0, 0) in each attribute represent the range of table cells that the style applies to. Since there's only one cell at (0, 0), it's used for both start and end of the range
-	        ('ALIGN', (0, 0), (0, 0), 'CENTER'),
-	        ('BOX', (0, 0), (0, 0), 0.5, colors.black), # The fourth argument to this style attribute is the border width
-	        ('VALIGN', (0, 0), (0, 0), 'MIDDLE'),
-	    ]
-	)
-	img_table.wrapOn(p, img_width, img_height)
-	img_table.drawOn(p, 100, height-165-img_height-10)
-
-	p.showPage()
 	p.save()
 
 	return response
@@ -356,6 +304,8 @@ def	handleConsentForm(request, form):
 	ci.participant_signature = convertAndStore(participant_sig)
 	ci.obtaining_signature = convertAndStore(obtaining_sig)
 	ci.save()
+
+	request.session['consent_info'] = ci.pk
 
 	return
 
@@ -478,8 +428,6 @@ def storeAppointment(appt_info):
 	p.signature_image = convertAndStore(sig_image)
 	p.save()
 
-	#appt_info['sig_image'] = p.signature_image.url
-
 	# Update the appointment that was booked for this patient
 	a = Appointment.objects.get(pk=appt_id)
 	a.patient = p
@@ -504,4 +452,163 @@ def createMockAppointments():
 	print "done"
 	return
 
+# Adds the appointment information to the pdf to be printed
+def printAppointment(p, width, height, required_topics, appt_info):
+	sig_name = appt_info.get('sig_name', None)
+	delivery_date = appt_info.get('delivery_date', None)
+	dob_date = appt_info.get('dob_date', None)
+	sig_image = appt_info.get('sig_image', None)
+	phone_number = appt_info.get('phone_number', None)
+	appt_date = appt_info.get('appt_date', None)
+	appt_time = appt_info.get('appt_time', None)
 
+	if (sig_name == None or delivery_date == None or dob_date == None 
+		or sig_image == None or phone_number == None or appt_date == None
+		or appt_time == None):
+		return False
+
+	first_col_width = 100
+	second_col_width = 250
+	third_col_width = 400
+
+	# Header
+	current_height = height - 40
+	drawHeader(p, width, current_height, 'Appointment Information')
+
+	# First row
+	top_height = current_height - 30
+	bot_height = current_height - 45
+
+	drawFieldLabel(p, first_col_width, top_height, 'Name')
+	drawFieldValue(p, first_col_width, bot_height, sig_name)
+
+	drawFieldLabel(p, second_col_width, top_height, 'Date of birth')
+	drawFieldValue(p, second_col_width, bot_height, dob_date)
+
+	drawFieldLabel(p, third_col_width, top_height, 'Phone number')
+	drawFieldValue(p, third_col_width, bot_height, phone_number)
+
+	# Second row
+	top_height = bot_height - 30
+	bot_height = bot_height - 45
+
+	drawFieldLabel(p, first_col_width, top_height, 'Date of delivery')
+	drawFieldValue(p, first_col_width, bot_height, delivery_date)
+
+	drawFieldLabel(p, second_col_width, top_height, 'Appt date')
+	drawFieldValue(p, second_col_width, bot_height, appt_date)
+
+	drawFieldLabel(p, third_col_width, top_height, 'Appt time')
+	drawFieldValue(p, third_col_width, bot_height, appt_time)
+
+	# Third row
+	top_height = bot_height - 30
+	current_height = drawSignature(p, sig_image, first_col_width, top_height)
+
+	# Fourth row
+	top_height = current_height - 30
+	bot_height = current_height - 45
+
+	drawFieldLabel(p, first_col_width, top_height, 'Most important topics')
+
+	for i in xrange(0, len(required_topics)):
+		drawFieldValue(p, first_col_width, bot_height-15*i, ' - ' + required_topics[i])
+
+	p.showPage()
+
+	return True
+
+# Adds the consent information to the pdf to be printed
+def printConsentInfo(p, width, height, consent_info):
+	try:
+		ci = ConsentInfo.objects.get(pk=consent_info)
+		participant_name = ci.participant_name
+		participant_date = ci.participant_date
+		participant_signature = ci.participant_signature
+		obtaining_name = ci.obtaining_name
+		obtaining_role = ci.obtaining_role
+		obtaining_date = ci.obtaining_date
+		obtaining_signature = ci.obtaining_signature
+
+		first_col_width = 100
+		second_col_width = 250
+		third_col_width = 400
+
+		# Header
+		current_height = height - 40
+		drawHeader(p, width, current_height, 'Consent Information')
+
+		# First row
+		top_height = current_height - 30
+		bot_height = current_height - 45
+
+		drawFieldLabel(p, first_col_width, top_height, 'Name of participant')
+		drawFieldValue(p, first_col_width, bot_height, participant_name)
+
+		drawFieldLabel(p, third_col_width, top_height, 'Date')
+		drawFieldValue(p, third_col_width, bot_height, participant_date)
+
+		# Second row
+		top_height = bot_height - 30
+		current_height = drawSignature(p, participant_signature, first_col_width, top_height)
+
+		# Third row
+		top_height = current_height - 30
+		bot_height = current_height - 45
+
+		drawFieldLabel(p, first_col_width, top_height, 'Name of person obtaining consent')
+		drawFieldValue(p, first_col_width, bot_height, obtaining_name)
+
+		drawFieldLabel(p, third_col_width, top_height, 'Date')
+		drawFieldValue(p, third_col_width, bot_height, obtaining_date)
+		
+		# Fourth row
+		top_height = bot_height - 30
+		bot_height = bot_height - 45
+
+		drawFieldLabel(p, first_col_width, top_height, 'Role of person obtaining consent')
+		drawFieldValue(p, first_col_width, bot_height, obtaining_role)
+
+		# Fifth row
+		top_height = bot_height - 30
+		drawSignature(p, obtaining_signature, first_col_width, top_height)
+
+		return True
+	except ConsentInfo.DoesNotExist:
+		return False
+
+def drawHeader(p, width, height, header):
+	p.setFont('Helvetica-Bold', 16)
+	p.drawString(width/2-40, height, header)
+	return
+
+def drawFieldLabel(p, width, height, label):
+	p.setFont('Helvetica-Bold', 12)
+	p.drawString(width, height, label)
+	return
+
+def drawFieldValue(p, width, height, value):
+	p.setFont('Helvetica', 12)
+	p.drawString(width, height, value)
+	return
+
+def drawSignature(p, signature, current_width, current_height):
+	p.setFont('Helvetica-Bold', 12)
+	p.drawString(100, current_height, 'Signature')
+	
+	img_width = 400
+	img_height = 120
+	img = Image(signature, width=img_width, height=img_height)
+	img_table = Table(data=[[img]], colWidths=img_width, rowHeights=img_height,
+    	style=[
+	        ('ALIGN', (0, 0), (0, 0), 'CENTER'),
+	        ('BOX', (0, 0), (0, 0), 0.5, colors.black),
+	        ('VALIGN', (0, 0), (0, 0), 'MIDDLE'),
+	    ]
+	)
+
+	current_height = current_height - img_height - 10
+	img_table.wrapOn(p, img_width, img_height)
+	img_table.drawOn(p, current_width, current_height)
+
+	return current_height
