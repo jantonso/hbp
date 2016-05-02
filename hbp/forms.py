@@ -165,6 +165,9 @@ class PhoneNumberForm(forms.Form):
 			else:
 				raise forms.ValidationError('The phone number is invalid...')
 
+class ImportApptsForm(forms.Form):
+	file = forms.FileField()
+
 # Helper Functions
 
 # Make sure that the date entered is a real date and convert it to 

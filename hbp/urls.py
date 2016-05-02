@@ -23,4 +23,5 @@ urlpatterns = patterns('',
 		'document_root': settings.MEDIA_ROOT,
 	}),
 	url(r'^print-appt/$', views.printAppt, name='printAppt'),
+	url(r'^import-appts/$', views.importAppts, name='importAppts'),
 )

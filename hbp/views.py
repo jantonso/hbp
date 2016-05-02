@@ -20,6 +20,7 @@ from reportlab.lib import colors
 
 import uuid
 import os
+import csv
 
 # Indicates that the user has finished all the videos since there are 9 total videos
 finished_videos_index = 10
@@ -253,7 +254,6 @@ def final(request):
 def printAppt(request):
 	required_topics = request.session.get('required_topics', None)
 	appt_info = request.session.get('appointment', None)
-	consent_info = request.session.get('consent_info', None)
 
 	if (required_topics == None or appt_info == None):
 		raise Http404
@@ -270,6 +270,7 @@ def printAppt(request):
 	if not a:
 		raise Http404
 
+	consent_info = request.session.get('consent_info', None)
 	# If the user filled out the consent form, add this info to the pdf
 	if (consent_info != None):
 		c = printConsentInfo(p, width, height, consent_info)
@@ -279,6 +280,42 @@ def printAppt(request):
 	p.save()
 
 	return response
+
+# ---------------------------------------------------------------------------------------- #
+# -------------------------------- Importing Appts --------------------------------------- #
+# ---------------------------------------------------------------------------------------- #
+# Allows the user to import a csv file of appointments
+# Note: Will be moved to the admin page on completion
+def importAppts(request):
+	if request.method == 'GET':
+		form = ImportApptsForm()
+		return render(request, 'import.html', 
+			{'form': form})
+	elif request.method == 'POST':
+		form = ImportApptsForm(request.POST, request.FILES)
+		if form.is_valid():
+				reader = csv.DictReader(request.FILES['file'])
+				formats = ['%m/%d/%Y %I%p', '%m/%d/%y %I%p']
+				for row in reader:
+					appt_date = row['appt_date']
+					appt_time = row['appt_time']
+					unit_name = row['unit_name']
+					able_to_add = False
+					for f in formats:
+						try:
+							appt_datetime = datetime.strptime(
+								appt_date + " " + appt_time , f)
+							new_appointment = Appointment(unit_name=unit_name,
+								appt_datetime=appt_datetime, 
+								appt_date=appt_datetime.strftime("%m/%d/%Y"),
+								appt_time=appt_time)
+							new_appointment.save()
+							able_to_add = True
+						except ValueError as e:
+							continue
+					if not able_to_add:
+						print "This row wasn't parsed correctly..."
+		return redirect('/cs/')
 
 # ---------------------------------------------------------------------------------------- #
 # ---------------------------------- Helper Functions ------------------------------------ #
@@ -434,22 +471,6 @@ def storeAppointment(appt_info):
 	a.booked = True
 	a.save()
 
-	return
-
-# Used to add appointments to the DB programatically
-def createMockAppointments():
-	appointment_dates = ["04/19/2016", "04/19/2016", "04/19/2016",
-	"04/19/2016", "04/19/2016", "04/10/2016", "04/13/2016", "04/13/2016", "04/11/2016","05/02/2016","05/02/2016"]
-	appointment_times = ["10am", "12pm", "2pm", "3pm", "5pm","12pm","2pm","4pm","10am","2pm","3pm"]
-	for i in xrange(0,len(appointment_dates)):
-		print i
-		appt_datetime = datetime.strptime(
-			appointment_dates[i] + " " + appointment_times[i] , "%m/%d/%Y %I%p")
-		new_appointment = Appointment(unit_name="Blue U",
-			appt_datetime=appt_datetime, appt_date=appointment_dates[i],
-			appt_time=appointment_times[i])
-		new_appointment.save()
-	print "done"
 	return
 
 # Adds the appointment information to the pdf to be printed
@@ -612,3 +633,19 @@ def drawSignature(p, signature, current_width, current_height):
 	img_table.drawOn(p, current_width, current_height)
 
 	return current_height
+
+# Used to add appointments to the DB programatically
+def createMockAppointments():
+	appointment_dates = ["04/19/2016", "04/19/2016", "04/19/2016",
+	"04/19/2016", "04/19/2016", "04/10/2016", "04/13/2016", "04/13/2016", "04/11/2016","05/02/2016","05/02/2016"]
+	appointment_times = ["10am", "12pm", "2pm", "3pm", "5pm","12pm","2pm","4pm","10am","2pm","3pm"]
+	for i in xrange(0,len(appointment_dates)):
+		print i
+		appt_datetime = datetime.strptime(
+			appointment_dates[i] + " " + appointment_times[i] , "%m/%d/%Y %I%p")
+		new_appointment = Appointment(unit_name="Blue U",
+			appt_datetime=appt_datetime, appt_date=appointment_dates[i],
+			appt_time=appointment_times[i])
+		new_appointment.save()
+	print "done"
+	return

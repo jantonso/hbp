@@ -7,7 +7,7 @@ months[0] = "January"; months[1] = "February"; months[2] = "March";
 months[3] = "April"; months[4] = "May"; months[5] = "June";
 months[6] = "July"; months[7] = "August"; months[8] = "September";
 months[9] = "October"; months[10] = "November"; months[11] = "December";
-var apptsHashMap = {}
+var apptsHashMap = {};
 
 $(document).ready(function() {
 
@@ -25,18 +25,16 @@ $(document).ready(function() {
 		minDate: minDate,
 		maxDate: maxDate,
 		beforeShowDay: function(date) {
-			var formattedDate = $.datepicker.formatDate('mm/dd/yy', date);
-			// Check to see if that day is selected
+			var formattedDate = $.datepicker.formatDate('mm/dd/yy', date)
 			if (formattedDate == selectedDate) {
 				return [true, 'selectedDate'];
 			} else {
-				// Check to see if there is an appt on that day
 				if (apptsHashMap[formattedDate]) {
 					return [true, 'hasAppts'];
 				} else {
 					return [true, 'noAppts'];
 				}
-			}
+			}			
 		},
 		onSelect: function(dateText, inst) {
 			// Reset all selected appointments 
@@ -134,14 +132,16 @@ function processAppointments() {
 	for (var i = 0; i < appointments.length; i++) {
 		var a = appointments[i];
 		var a_date = a.fields['appt_date'];
+
+		// Convert date to a standardized format
+		a_date = moment(a_date, 'MM/DD/YYYY').format('MM/DD/YYYY');
+
 		// Get the minimum and maximum dates, this assumes that
 		// the appointments are sorted reverse chronologically
 		if (i == 0) {
 			minDate = a_date;
-			console.log(minDate);
 		} else if (i == appointments.length - 1) {
 			maxDate = a_date;
-			console.log(maxDate);
 		}
 		var a_time = a.fields['appt_time'];
 		var a_unit = a.fields['unit_name'];
