@@ -11,9 +11,3 @@ class AppointmentAdmin(admin.ModelAdmin):
 class PatientAdmin(admin.ModelAdmin):
 	list_display = ('name','dob_date','delivery_date','phone_number','signature')
 	search_fields = ('name',)
-
-@admin.register(ConsentInfo)
-class ConsentInfoAdmin(admin.ModelAdmin):
-	ordering = ('timestamp',)
-	list_display = ('participant_name', 'participant_date', 'participant_sig', 'obtaining_name', 'obtaining_sig')
-	search_fields = ('participant_name', 'participant_date')

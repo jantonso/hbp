@@ -38,32 +38,3 @@ class Appointment(models.Model):
 	def __unicode__(self):
 		return self.appt_date + ' ' + self.appt_time
 
-class ConsentInfo(models.Model):
-	timestamp = models.DateTimeField(default=timezone.now)
-	participant_name = models.CharField(max_length = 150)
-	participant_date = models.CharField(max_length = 30)
-	participant_signature = models.ImageField(blank=True, upload_to=GetImageFolder)
-	obtaining_name = models.CharField(max_length = 150)
-	obtaining_role = models.CharField(max_length = 300)
-	obtaining_date = models.CharField(max_length = 30)
-	obtaining_signature = models.ImageField(blank=True, upload_to=GetImageFolder)
-
-	def __unicode__(self):
-		return self.obtaining_date + ' : ' + self.participant_name
-
-	# For admin page to let superusers download signature images
-	def participant_sig(self):
-		if self.participant_signature:
-			return "<a href='%s'>view</a>" % ('/signatures/' + self.participant_signature.url,)
-		else:
-			return "No signature..."
-
-	# For admin page to let superusers download signature images
-	def obtaining_sig(self):
-		if self.obtaining_signature:
-			return "<a href='%s'>view</a>" % ('/signatures/' + self.obtaining_signature.url,)
-		else:
-			return "No signature..."
-
-	participant_sig.allow_tags = True
-	obtaining_sig.allow_tags = True

@@ -30,7 +30,9 @@ finished_videos_index = 10
 #	=> required_topics = list of required_topics that the user wants to learn about
 #	=> appointment = {delivery_date, sig_name, dob_date, 
 #					  signature, phone_number, appt_id, appt_date, appt_time}
-#   => consent_info = (optional) pk for consent information
+#   => consent_info = {participant_name, participant_date, participant_sig,
+#					   obtaining_name, obtaining_role, obtaining_date, 
+#					   obtaining_sig}
 
 # ---------------------------------------------------------------------------------------- #
 # ---------------------------------- Index Page ------------------------------------------ #
@@ -332,33 +334,12 @@ def	handleConsentForm(request, form):
 	obtaining_date = form.cleaned_data['obtaining_date']
 	obtaining_sig = form.cleaned_data['obtaining_sig']
 
-	# Store the Consent Info in the db
-	ci = ConsentInfo(participant_name=participant_name,
-		participant_date=participant_date,
-		obtaining_name=obtaining_name,
-		obtaining_role=obtaining_role,
-		obtaining_date=obtaining_date)
-	ci.participant_signature = convertAndStore(participant_sig)
-	ci.obtaining_signature = convertAndStore(obtaining_sig)
-	ci.save()
-
-	request.session['consent_info'] = ci.pk
+	request.session['consent_info'] = {'participant_name': participant_name,
+		'participant_date': participant_date, 'participant_sig': participant_sig,
+		'obtaining_name': obtaining_name, 'obtaining_role': obtaining_role,
+		'obtaining_date': obtaining_date, 'obtaining_sig': obtaining_sig}
 
 	return
-
-# Decode base 64 string to image and store in the file system
-def convertAndStore(sig):
-	sig_base64 = sig.partition('base64,')[2]
-	sig_decoded = sig_base64.decode('base64')
-
-	# Generate a completely random file name
-	filename = 'sig_%d.png' % uuid.uuid4()
-	filename_p = os.path.join(settings.MEDIA_ROOT, filename)
-	while (os.path.isfile(filename_p)):
-		filename = 'sig_%d.png' % uuid.uuid4()
-		filename_p = os.path.join(settings.MEDIA_ROOT, filename)
-
-	return ContentFile(sig_decoded, filename)
 
 # ALGORITHM TO DETERMINE THE REQUIRED TOPICS/VIDEOS 
 # Choose up to the 5 maximum values for the topics, if there are less than 2, choose 2 default ones
@@ -473,6 +454,20 @@ def storeAppointment(appt_info):
 
 	return
 
+# Decode base 64 string to image and store in the file system
+def convertAndStore(sig):
+	sig_base64 = sig.partition('base64,')[2]
+	sig_decoded = sig_base64.decode('base64')
+
+	# Generate a completely random file name
+	filename = 'sig_%d.png' % uuid.uuid4()
+	filename_p = os.path.join(settings.MEDIA_ROOT, filename)
+	while (os.path.isfile(filename_p)):
+		filename = 'sig_%d.png' % uuid.uuid4()
+		filename_p = os.path.join(settings.MEDIA_ROOT, filename)
+
+	return ContentFile(sig_decoded, filename)
+
 # Adds the appointment information to the pdf to be printed
 def printAppointment(p, width, height, required_topics, appt_info):
 	sig_name = appt_info.get('sig_name', None)
@@ -494,7 +489,7 @@ def printAppointment(p, width, height, required_topics, appt_info):
 
 	# Header
 	current_height = height - 40
-	drawHeader(p, width, current_height, 'Appointment Information')
+	drawHeader(p, width/2-95, current_height, 'Appointment Information')
 
 	# First row
 	top_height = current_height - 30
@@ -541,66 +536,68 @@ def printAppointment(p, width, height, required_topics, appt_info):
 
 # Adds the consent information to the pdf to be printed
 def printConsentInfo(p, width, height, consent_info):
-	try:
-		ci = ConsentInfo.objects.get(pk=consent_info)
-		participant_name = ci.participant_name
-		participant_date = ci.participant_date
-		participant_signature = ci.participant_signature
-		obtaining_name = ci.obtaining_name
-		obtaining_role = ci.obtaining_role
-		obtaining_date = ci.obtaining_date
-		obtaining_signature = ci.obtaining_signature
+	participant_name = consent_info.get('participant_name', None)
+	participant_date = consent_info.get('participant_date', None)
+	participant_signature = consent_info.get('participant_sig', None)
+	obtaining_name = consent_info.get('obtaining_name', None)
+	obtaining_role = consent_info.get('obtaining_role', None)
+	obtaining_date = consent_info.get('obtaining_date', None)
+	obtaining_signature = consent_info.get('obtaining_sig', None)
 
-		first_col_width = 100
-		second_col_width = 250
-		third_col_width = 400
-
-		# Header
-		current_height = height - 40
-		drawHeader(p, width, current_height, 'Consent Information')
-
-		# First row
-		top_height = current_height - 30
-		bot_height = current_height - 45
-
-		drawFieldLabel(p, first_col_width, top_height, 'Name of participant')
-		drawFieldValue(p, first_col_width, bot_height, participant_name)
-
-		drawFieldLabel(p, third_col_width, top_height, 'Date')
-		drawFieldValue(p, third_col_width, bot_height, participant_date)
-
-		# Second row
-		top_height = bot_height - 30
-		current_height = drawSignature(p, participant_signature, first_col_width, top_height)
-
-		# Third row
-		top_height = current_height - 30
-		bot_height = current_height - 45
-
-		drawFieldLabel(p, first_col_width, top_height, 'Name of person obtaining consent')
-		drawFieldValue(p, first_col_width, bot_height, obtaining_name)
-
-		drawFieldLabel(p, third_col_width, top_height, 'Date')
-		drawFieldValue(p, third_col_width, bot_height, obtaining_date)
-		
-		# Fourth row
-		top_height = bot_height - 30
-		bot_height = bot_height - 45
-
-		drawFieldLabel(p, first_col_width, top_height, 'Role of person obtaining consent')
-		drawFieldValue(p, first_col_width, bot_height, obtaining_role)
-
-		# Fifth row
-		top_height = bot_height - 30
-		drawSignature(p, obtaining_signature, first_col_width, top_height)
-
-		return True
-	except ConsentInfo.DoesNotExist:
+	if (participant_name == None or participant_date == None 
+		or participant_signature == None or obtaining_name == None
+		or obtaining_role == None or obtaining_date == None
+		or obtaining_signature == None):
 		return False
+
+	first_col_width = 100
+	second_col_width = 250
+	third_col_width = 400
+
+	# Header
+	current_height = height - 40
+	drawHeader(p, width/2-80, current_height, 'Consent Information')
+
+	# First row
+	top_height = current_height - 30
+	bot_height = current_height - 45
+
+	drawFieldLabel(p, first_col_width, top_height, 'Name of participant')
+	drawFieldValue(p, first_col_width, bot_height, participant_name)
+
+	drawFieldLabel(p, third_col_width, top_height, 'Date')
+	drawFieldValue(p, third_col_width, bot_height, participant_date)
+
+	# Second row
+	top_height = bot_height - 30
+	current_height = drawSignature(p, participant_signature, first_col_width, top_height)
+
+	# Third row
+	top_height = current_height - 30
+	bot_height = current_height - 45
+
+	drawFieldLabel(p, first_col_width, top_height, 'Name of person obtaining consent')
+	drawFieldValue(p, first_col_width, bot_height, obtaining_name)
+
+	drawFieldLabel(p, third_col_width, top_height, 'Date')
+	drawFieldValue(p, third_col_width, bot_height, obtaining_date)
+	
+	# Fourth row
+	top_height = bot_height - 30
+	bot_height = bot_height - 45
+
+	drawFieldLabel(p, first_col_width, top_height, 'Role of person obtaining consent')
+	drawFieldValue(p, first_col_width, bot_height, obtaining_role)
+
+	# Fifth row
+	top_height = bot_height - 30
+	drawSignature(p, obtaining_signature, first_col_width, top_height)
+
+	return True
 
 def drawHeader(p, width, height, header):
 	p.setFont('Helvetica-Bold', 16)
-	p.drawString(width/2-40, height, header)
+	p.drawString(width, height, header)
 	return
 
 def drawFieldLabel(p, width, height, label):
