@@ -12,16 +12,13 @@
 		{% if video_index == 0 %}
 			<div id="videos-message">
 				<h2> Based on your answers, please watch some videos with important information on the following topics: </h2>
-				<div id="videos-topics">
-					<p class="divider"> | </p>
-					{% for topic in required_topics %}
-						<p class="topic"> {{ topic }} </p>
-						{% if not forloop.last %}
-							<p class="divider"> | </p>
-						{% endif %}
-					{% endfor %}
-					<p class="divider"> | </p>
-				</div>
+				{% for topic in required_topics %}
+					{% if not forloop.last %}
+						<p class="topic"> {{ topic }}, </p>
+					{% else %}
+						<p class="topic">and {{ topic }}. </p>
+					{% endif %}
+				{% endfor %}
 				<p class="text-center" id="video-prompt"> Please click Next Video to begin. </p>
 			</div>
 		<!-- Individual video section -->
