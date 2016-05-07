@@ -286,38 +286,37 @@ def printAppt(request):
 # ---------------------------------------------------------------------------------------- #
 # -------------------------------- Importing Appts --------------------------------------- #
 # ---------------------------------------------------------------------------------------- #
-# Allows the user to import a csv file of appointments
-# Note: Will be moved to the admin page on completion
+# Allows an admin user to import a csv file of appointments
 def importAppts(request):
-	if request.method == 'GET':
-		form = ImportApptsForm()
-		return render(request, 'import.html', 
-			{'form': form})
-	elif request.method == 'POST':
-		form = ImportApptsForm(request.POST, request.FILES)
-		if form.is_valid():
-				reader = csv.DictReader(request.FILES['file'])
-				formats = ['%m/%d/%Y %I%p', '%m/%d/%y %I%p']
-				for row in reader:
-					appt_date = row['appt_date']
-					appt_time = row['appt_time']
-					unit_name = row['unit_name']
-					able_to_add = False
-					for f in formats:
-						try:
-							appt_datetime = datetime.strptime(
-								appt_date + " " + appt_time , f)
-							new_appointment = Appointment(unit_name=unit_name,
-								appt_datetime=appt_datetime, 
-								appt_date=appt_datetime.strftime("%m/%d/%Y"),
-								appt_time=appt_time)
-							new_appointment.save()
-							able_to_add = True
-						except ValueError as e:
-							continue
-					if not able_to_add:
-						print "This row wasn't parsed correctly..."
-		return redirect('/cs/')
+	# Make sure that the user is an admin user and that it is is a POST request
+	if not request.user.is_superuser or not request.method == 'POST':
+		raise Http404
+
+	form = ImportApptsForm(request.POST, request.FILES)
+	if form.is_valid():
+		reader = csv.DictReader(form.cleaned_data['appt_file'])
+		formats = ['%m/%d/%Y %I%p', '%m/%d/%y %I%p']
+		for row in reader:
+			appt_date = row['appt_date']
+			appt_time = row['appt_time']
+			unit_name = row['unit_name']
+			able_to_add = False
+			for f in formats:
+				try:
+					appt_datetime = datetime.strptime(
+						appt_date + " " + appt_time , f)
+					new_appointment = Appointment(unit_name=unit_name,
+						appt_datetime=appt_datetime, 
+						appt_date=appt_datetime.strftime("%m/%d/%Y"),
+						appt_time=appt_time)
+					new_appointment.save()
+					able_to_add = True
+				except ValueError as e:
+					continue
+			if not able_to_add:
+				print "This row wasn't parsed correctly..."
+	# Redirect to the admin page that sent the request here
+	return redirect(request.META['HTTP_REFERER'])
 
 # ---------------------------------------------------------------------------------------- #
 # ---------------------------------- Helper Functions ------------------------------------ #

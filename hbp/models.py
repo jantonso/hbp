@@ -21,7 +21,6 @@ class Patient(models.Model):
 			return "<a href='%s'>view</a>" % ('/signatures/' + self.signature_image.url,)
 		else:
 			return "No signature..."
-
 	signature.allow_tags = True
 
 class Appointment(models.Model):
