@@ -19,9 +19,6 @@ urlpatterns = patterns('',
 	url(r'^incentive/$', views.incentive, name='incentive'),
 	url(r'^final/$', views.final, name='final'),
 	url(r'^consent/$', views.consent, name='consent'),
-	url(r'^signatures/(?P<path>.*)$', 'django.views.static.serve', {
-		'document_root': settings.MEDIA_ROOT,
-	}),
 	url(r'^print-appt/$', views.printAppt, name='printAppt'),
 	url(r'^import-appts/$', views.importAppts, name='importAppts'),
 )

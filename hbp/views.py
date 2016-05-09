@@ -442,30 +442,16 @@ def storeAppointment(appt_info):
 	#delivery_datetime = datetime.strptime(delivery_date_str, "%m/%d/%Y");
 	p = Patient(name=sig_name, dob_date=dob_date, 
 		delivery_date=delivery_date, phone_number=phone_number)
-	p.signature_image = convertAndStore(sig_image)
-	p.save()
 
 	# Update the appointment that was booked for this patient
 	a = Appointment.objects.get(pk=appt_id)
-	a.patient = p
 	a.booked = True
 	a.save()
 
+	p.appointment = a
+	p.save()
+
 	return
-
-# Decode base 64 string to image and store in the file system
-def convertAndStore(sig):
-	sig_base64 = sig.partition('base64,')[2]
-	sig_decoded = sig_base64.decode('base64')
-
-	# Generate a completely random file name
-	filename = 'sig_%d.png' % uuid.uuid4()
-	filename_p = os.path.join(settings.MEDIA_ROOT, filename)
-	while (os.path.isfile(filename_p)):
-		filename = 'sig_%d.png' % uuid.uuid4()
-		filename_p = os.path.join(settings.MEDIA_ROOT, filename)
-
-	return ContentFile(sig_decoded, filename)
 
 # Adds the appointment information to the pdf to be printed
 def printAppointment(p, width, height, required_topics, appt_info):
