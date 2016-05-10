@@ -76,7 +76,7 @@ class PersonalizedCareForm(forms.Form):
 		required=False, choices=NON_LIKERT_CHOICES, widget=forms.RadioSelect())
 	q8 = forms.ChoiceField(label='Did you have high blood pressure during this pregnancy?',
 		required=False, choices=NON_LIKERT_CHOICES, widget=forms.RadioSelect())
-	q9 = forms.ChoiceField(label=' Did you have a preterm delivery during this pregnancy?',
+	q9 = forms.ChoiceField(label='Did you have a preterm delivery during this pregnancy?',
 		required=False, choices=NON_LIKERT_CHOICES, widget=forms.RadioSelect())
 
 class DeliveryDateForm(forms.Form):

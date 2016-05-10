@@ -209,12 +209,14 @@ def commitAndScheduleSignature(request):
 # Displays incentive message to the user and user provides their phone number
 def incentive(request):
 	# Check to make sure they didn't just jump directly to this page
-	# and actually scheduled an appointment
+	# and actually scheduled an appointment / answered all the questions
 	appt_info = request.session.get('appointment', None)
 	appt_date = appt_info.get('appt_date', None)
 	appt_time = appt_info.get('appt_time', None)
-	if (appt_info == None or appt_date == None or appt_time == None):
-		print ("There was no appointment scheduled in the session")
+	answer_info = request.session.get('answer_info', None)
+	if (appt_info == None or appt_date == None or appt_time == None or 
+		answer_info == None):
+		print ("There was no appointment scheduled in the session or no answers")
 		return redirect('/')
 
 	if request.method == 'GET':
@@ -226,7 +228,7 @@ def incentive(request):
 		form = PhoneNumberForm(request.POST)
 		if form.is_valid():
 			handlePhoneNumberForm(request, form, appt_info)
-			storeAppointment(appt_info)
+			storeInformation(appt_info, answer_info)
 			return redirect('/final/')
 		else:
 			error_msg = 'Please enter a valid phone number.'
@@ -387,6 +389,7 @@ def handlePersonalizedCareForm(request, form):
 	# Add a list of the required videos and their respective topics to the session
 	request.session['required_videos'] = required_videos
 	request.session['required_topics'] = required_topics
+	request.session['answer_info'] = answers
 
 	return
 
@@ -427,8 +430,8 @@ def handlePhoneNumberForm(request, form, appt_info):
 	request.session['appointment'] = appt_info
 	return
 
-# Stores the scheduled appointment and user info in the DB in the correct format
-def storeAppointment(appt_info):
+# Stores the scheduled appointment, user info, and answer results in DB
+def storeInformation(appt_info, answer_info):
 	sig_name = appt_info.get('sig_name', None)
 	dob_date = appt_info.get('dob_date', None)
 	delivery_date = appt_info.get('delivery_date', None)
@@ -449,9 +452,50 @@ def storeAppointment(appt_info):
 	a.save()
 
 	p.appointment = a
+
+	# Store the patient's answers to the personalized care questions
+	personalized_care_answers = storeAnswers(answer_info)
+	p.personalized_care_answers = personalized_care_answers
+
 	p.save()
 
 	return
+
+def storeAnswers(answer_info):
+	answers = ['no answer', 'no answer', 'no answer', 'no answer', 'no answer',
+		'no answer', 'no answer', 'no answer', 'no answer']
+	likert_choices = ['not at all', 'not really', 'somewhat', 'important', 'very important']
+
+	for key, value in answer_info.iteritems():
+		try:
+			question_number = int(key)
+			# Yes/No question
+			if (question_number >= 7 and question_number <= 9):
+				if (value == 2):
+					answers[question_number-1] = 'yes'
+				elif (value == 0):
+					answers[question_number-1] = 'don\'t know'
+				else:
+					answers[question_number-1] = 'no'
+			# Likert question
+			else:
+				answers[question_number-1] = likert_choices[value+2]
+		except ValueError:
+			continue
+
+	a = PersonalizedCareAnswers()
+	a.q1 = answers[0]
+	a.q2 = answers[1]
+	a.q3 = answers[2]
+	a.q4 = answers[3]
+	a.q5 = answers[4]
+	a.q6 = answers[5]
+	a.q7 = answers[6]
+	a.q8 = answers[7]
+	a.q9 = answers[8]
+	a.save()
+
+	return a
 
 # Adds the appointment information to the pdf to be printed
 def printAppointment(p, width, height, required_topics, appt_info):
