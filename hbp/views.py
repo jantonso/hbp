@@ -33,6 +33,7 @@ finished_videos_index = 10
 #   => consent_info = {participant_name, participant_date, participant_sig,
 #					   obtaining_name, obtaining_role, obtaining_date, 
 #					   obtaining_sig}
+#   => answer_info = user's answer responses
 
 # ---------------------------------------------------------------------------------------- #
 # ---------------------------------- Index Page ------------------------------------------ #
@@ -256,10 +257,10 @@ def final(request):
 # ---------------------------------------------------------------------------------------- #
 # Allows the user to print their appointment info on the final page
 def printAppt(request):
-	required_topics = request.session.get('required_topics', None)
 	appt_info = request.session.get('appointment', None)
+	answer_info = request.session.get('answer_info', None)
 
-	if (required_topics == None or appt_info == None):
+	if (appt_info == None or answer_info == None):
 		raise Http404
 
 	# Build the response PDF
@@ -270,7 +271,7 @@ def printAppt(request):
 	width, height = letter
 
 	# Add the appointment info to the pdf
-	a = printAppointment(p, width, height, required_topics, appt_info)
+	a = printAppointment(p, width, height, appt_info, answer_info)
 	if not a:
 		raise Http404
 
@@ -453,15 +454,28 @@ def storeInformation(appt_info, answer_info):
 
 	p.appointment = a
 
-	# Store the patient's answers to the personalized care questions
-	personalized_care_answers = storeAnswers(answer_info)
+	# Store the patient's answers to the personalized care question
+	answers = getAnswerValues(answer_info)
+
+	personalized_care_answers = PersonalizedCareAnswers()
+	personalized_care_answers.q1 = answers[0]
+	personalized_care_answers.q2 = answers[1]
+	personalized_care_answers.q3 = answers[2]
+	personalized_care_answers.q4 = answers[3]
+	personalized_care_answers.q5 = answers[4]
+	personalized_care_answers.q6 = answers[5]
+	personalized_care_answers.q7 = answers[6]
+	personalized_care_answers.q8 = answers[7]
+	personalized_care_answers.q9 = answers[8]
+	personalized_care_answers.save()
+
 	p.personalized_care_answers = personalized_care_answers
 
 	p.save()
 
 	return
 
-def storeAnswers(answer_info):
+def getAnswerValues(answer_info):
 	answers = ['no answer', 'no answer', 'no answer', 'no answer', 'no answer',
 		'no answer', 'no answer', 'no answer', 'no answer']
 	likert_choices = ['not at all', 'not really', 'somewhat', 'important', 'very important']
@@ -483,6 +497,12 @@ def storeAnswers(answer_info):
 		except ValueError:
 			continue
 
+	return answers
+
+def storeAnswers(answer_info):
+	
+	answers = getAnswerValues(answer_info)
+
 	a = PersonalizedCareAnswers()
 	a.q1 = answers[0]
 	a.q2 = answers[1]
@@ -498,7 +518,7 @@ def storeAnswers(answer_info):
 	return a
 
 # Adds the appointment information to the pdf to be printed
-def printAppointment(p, width, height, required_topics, appt_info):
+def printAppointment(p, width, height, appt_info, answer_info):
 	sig_name = appt_info.get('sig_name', None)
 	delivery_date = appt_info.get('delivery_date', None)
 	dob_date = appt_info.get('dob_date', None)
@@ -552,12 +572,8 @@ def printAppointment(p, width, height, required_topics, appt_info):
 
 	# Fourth row
 	top_height = current_height - 30
-	bot_height = current_height - 45
 
-	drawFieldLabel(p, first_col_width, top_height, 'Most important topics')
-
-	for i in xrange(0, len(required_topics)):
-		drawFieldValue(p, first_col_width, bot_height-15*i, ' - ' + required_topics[i])
+	drawQuestionsAndAnswer(p, answer_info, first_col_width, top_height)
 
 	p.showPage()
 
@@ -659,6 +675,22 @@ def drawSignature(p, signature, current_width, current_height):
 	img_table.drawOn(p, current_width, current_height)
 
 	return current_height
+
+def	drawQuestionsAndAnswer(p, answer_info, first_col_width, top_height):
+	questions = ['Getting birth control:', 'Breastfeeding support:', 'Checking on my mood after delivery:', 
+		'Planning my next pregnancy:', 'Sexual activity after birth:', 
+		'Discussing issues of bowel or bladder health:',
+		'Did you have gestational diabetes during this pregnancy?',
+		'Did you have high blood pressure during this pregnancy?',
+		'Did you have a preterm delivery during this pregnancy?']
+	answers = getAnswerValues(answer_info)
+
+	bot_height = top_height - 15
+	for i in xrange(0, len(questions)):
+		drawFieldLabel(p, first_col_width, top_height, questions[i])
+		drawFieldValue(p, first_col_width + 15, bot_height, answers[i])
+		top_height -= 40
+		bot_height -= 40
 
 # Used to add appointments to the DB programatically
 def createMockAppointments():
