@@ -63,6 +63,24 @@ header .header-content p {
 	color: #745C9D;
 }
 
+#about #how1-img {
+  display: block;
+  margin: auto;
+  margin-top: 20px;
+}
+
+#about #how2-img {
+  display: block;
+  margin: auto;
+  margin-top: 15px;
+}
+
+#about #how3-img {
+  display: block;
+  margin: auto;
+  margin-top: 23px;
+}
+
 #about .step {
 	font-weight: 500;
 	font-size: 1.70em;
@@ -73,6 +91,18 @@ header .header-content p {
 	font-weight: 300;
 	font-size: 1.35em;
 	color: #A3A3A3;
+}
+
+#about #how1-step {
+  margin-top: 5px;
+}
+
+#about #how2-step {
+  margin-top: 12px;
+}
+
+#about #how3-step {
+  margin-top: 5px;
 }
 
 /* Timeline section, display a timeline of the steps */
