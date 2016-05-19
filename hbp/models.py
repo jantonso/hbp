@@ -4,7 +4,7 @@ from django.utils import timezone
 def GetImageFolder(instance, filename):
 	return filename
 
-class PersonalizedCareAnswers(models.Model):
+class PersonalizedCareAnswer(models.Model):
 	q1 = models.IntegerField(null=True, blank=True,
 		verbose_name=u'Getting birth control')
 	q2 = models.IntegerField(null=True, blank=True,
@@ -44,7 +44,7 @@ class Patient(models.Model):
 	dob_date = models.CharField(max_length = 30)
 	delivery_date = models.CharField(max_length = 30)
 	phone_number = models.CharField(max_length = 30)
-	personalized_care_answers = models.OneToOneField(PersonalizedCareAnswers, related_name='patient',
+	personalized_care_answer = models.OneToOneField(PersonalizedCareAnswer, related_name='patient',
 		null=True, blank=True)
 	appointment = models.OneToOneField(Appointment, related_name='patient', 
 		null=True, blank=True)

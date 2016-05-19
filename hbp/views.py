@@ -212,12 +212,15 @@ def incentive(request):
 	# Check to make sure they didn't just jump directly to this page
 	# and actually scheduled an appointment / answered all the questions
 	appt_info = request.session.get('appointment', None)
+	answer_info = request.session.get('answer_info', None)
+	if (appt_info == None or answer_info == None):
+		print ('There was no appointment info or no answers.')
+		return redirect('/')
+
 	appt_date = appt_info.get('appt_date', None)
 	appt_time = appt_info.get('appt_time', None)
-	answer_info = request.session.get('answer_info', None)
-	if (appt_info == None or appt_date == None or appt_time == None or 
-		answer_info == None):
-		print ("There was no appointment scheduled in the session or no answers")
+	if (appt_date == None or appt_time == None):
+		print ("There was no appointment scheduled.");
 		return redirect('/')
 
 	if request.method == 'GET':
@@ -455,7 +458,7 @@ def storeInformation(appt_info, answer_info):
 	a.save()
 
 	# Update the patient's answers to questions
-	personalized_care_answers = PersonalizedCareAnswers()
+	personalized_care_answers = PersonalizedCareAnswer()
 	fields = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9']
 	for i in xrange(1, 10):
 		if (str(i) in answer_info):
