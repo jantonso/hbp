@@ -14,6 +14,11 @@ $(document).ready(function() {
 	// Process and convert appts to desired format
 	processAppointments();
 
+	// If there are no appts...
+	if(jQuery.isEmptyObject(apptsHashMap)) {
+		$('#calendar-instructions').text('There are no appointments based on your delivery date.');
+	}
+
 	errorMsg = $('#appt-container #appt-container-errors #error-msg p');
 
 	$('#calendar-container').datepicker({
@@ -129,18 +134,28 @@ function processAppointments() {
 		var a = appointments[i];
 		var a_date = a.fields['appt_date'];
 
-		// Convert date to a standardized format
-		a_date = moment(a_date, 'MM/DD/YYYY').format('MM/DD/YYYY');
+		a_moment = moment(a_date, 'MM/DD/YYYY');
 
 		// Get the minimum and maximum dates, this assumes that
 		// the appointments are sorted reverse chronologically
 		if (i == 0) {
-			minDate = a_date;
+			var start_date_m = moment(a_moment.format('MM') + '/01/'  + a_moment.format('YYYY'), 
+				'MM/DD/YYYY');
+			minDate = start_date_m.format('MM/DD/YYYY');
+			console.log(minDate);
 		} else if (i == appointments.length - 1) {
-			maxDate = a_date;
+			var start_date_m = moment(a_moment.format('MM') + '/01/' + a_moment.format('YYYY'), 
+				'MM/DD/YYYY');
+			maxDate = start_date_m.clone().endOf('month').format('MM/DD/YYYY');
+			console.log(maxDate);
 		}
+
 		var a_time = a.fields['appt_time'];
 		var a_unit = a.fields['unit_name'];
+
+		// Convert date to a standardized format
+		a_date = a_moment.format('MM/DD/YYYY');
+
 		if (apptsHashMap[a_date]) {
 			apptsHashMap[a_date].push({'time': a_time, 'unit': a_unit, 
 				'id': a.pk});
