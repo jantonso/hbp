@@ -62,14 +62,10 @@ $(document).ready(function() {
 					var appt_class;
 					var a = appt_times[i];
 					// If the appointment is booked, display it as so
-					if (a.booked) {
-						appt_class = 'appt-booked';
+					if (i % 2 == 0) {
+						appt_class = 'appt-even';
 					} else {
-						if (i % 2 == 0) {
-							appt_class = 'appt-even';
-						} else {
-							appt_class = 'appt-odd';
-						}
+						appt_class = 'appt-odd';
 					}
 					$('#page-content #appt-container #appt-container-times').append(
 						$('<div/>', {'class': 'row'}).append(
@@ -145,13 +141,12 @@ function processAppointments() {
 		}
 		var a_time = a.fields['appt_time'];
 		var a_unit = a.fields['unit_name'];
-		var a_booked = a.fields['booked'];
 		if (apptsHashMap[a_date]) {
 			apptsHashMap[a_date].push({'time': a_time, 'unit': a_unit, 
-				'id': a.pk, 'booked': a_booked});
+				'id': a.pk});
 		} else {
 			apptsHashMap[a_date] = [{'time': a_time, 'unit': a_unit, 
-				'id': a.pk, 'booked': a_booked}];
+				'id': a.pk}];
 		}
 	}
 	console.log(apptsHashMap);

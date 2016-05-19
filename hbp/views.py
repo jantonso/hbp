@@ -164,7 +164,7 @@ def commitAndScheduleCalendar(request):
 		max_date = delivery_datetime + timedelta(days=56)
 
 		all_appts = Appointment.objects.filter(appt_datetime__gte=min_date,
-			appt_datetime__lte=max_date).order_by('appt_datetime')
+			appt_datetime__lte=max_date, booked=False).order_by('appt_datetime')
 		
 		appointments = serializers.serialize('json', all_appts)
 		return render(request, 'commitAndScheduleCalendar.html', 
