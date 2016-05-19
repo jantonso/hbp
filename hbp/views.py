@@ -354,12 +354,14 @@ def handlePersonalizedCareForm(request, form):
 				  'gestational diabetes', 'high blood pressure', 'preterm delivery']
 	default_videos = [1, 3]
 	answers = {}
+	all_answers = {}
 	for i in xrange(0,len(list_of_questions)):
 		question_name = list_of_questions[i]
 		question_answer = form.cleaned_data[question_name]	
-
+		print i, question_answer
 		try:
 			answer_value = int(question_answer)
+			all_answers[i+1] = answer_value
 			# Don't add values that were marked 'not important' or 'no'
 			if (answer_value >= 0):
 				answers[i+1] = answer_value
@@ -390,7 +392,7 @@ def handlePersonalizedCareForm(request, form):
 	# Add a list of the required videos and their respective topics to the session
 	request.session['required_videos'] = required_videos
 	request.session['required_topics'] = required_topics
-	request.session['answer_info'] = answers
+	request.session['answer_info'] = all_answers
 
 	return
 
@@ -452,70 +454,20 @@ def storeInformation(appt_info, answer_info):
 	a.booked = True
 	a.save()
 
-	p.appointment = a
-
-	# Store the patient's answers to the personalized care question
-	answers = getAnswerValues(answer_info)
-
+	# Update the patient's answers to questions
 	personalized_care_answers = PersonalizedCareAnswers()
-	personalized_care_answers.q1 = answers[0]
-	personalized_care_answers.q2 = answers[1]
-	personalized_care_answers.q3 = answers[2]
-	personalized_care_answers.q4 = answers[3]
-	personalized_care_answers.q5 = answers[4]
-	personalized_care_answers.q6 = answers[5]
-	personalized_care_answers.q7 = answers[6]
-	personalized_care_answers.q8 = answers[7]
-	personalized_care_answers.q9 = answers[8]
+	fields = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9']
+	for i in xrange(1, 10):
+		if (str(i) in answer_info):
+			setattr(personalized_care_answers, fields[i-1], answer_info[str(i)])
 	personalized_care_answers.save()
 
+	# Update the patient
+	p.appointment = a
 	p.personalized_care_answers = personalized_care_answers
-
 	p.save()
 
 	return
-
-def getAnswerValues(answer_info):
-	answers = ['no answer', 'no answer', 'no answer', 'no answer', 'no answer',
-		'no answer', 'no answer', 'no answer', 'no answer']
-	likert_choices = ['not at all', 'not really', 'somewhat', 'important', 'very important']
-
-	for key, value in answer_info.iteritems():
-		try:
-			question_number = int(key)
-			# Yes/No question
-			if (question_number >= 7 and question_number <= 9):
-				if (value == 2):
-					answers[question_number-1] = 'yes'
-				elif (value == 0):
-					answers[question_number-1] = 'don\'t know'
-				else:
-					answers[question_number-1] = 'no'
-			# Likert question
-			else:
-				answers[question_number-1] = likert_choices[value+2]
-		except ValueError:
-			continue
-
-	return answers
-
-def storeAnswers(answer_info):
-	
-	answers = getAnswerValues(answer_info)
-
-	a = PersonalizedCareAnswers()
-	a.q1 = answers[0]
-	a.q2 = answers[1]
-	a.q3 = answers[2]
-	a.q4 = answers[3]
-	a.q5 = answers[4]
-	a.q6 = answers[5]
-	a.q7 = answers[6]
-	a.q8 = answers[7]
-	a.q9 = answers[8]
-	a.save()
-
-	return a
 
 # Adds the appointment information to the pdf to be printed
 def printAppointment(p, width, height, appt_info, answer_info):
@@ -683,7 +635,7 @@ def	drawQuestionsAndAnswer(p, answer_info, first_col_width, top_height):
 		'Did you have gestational diabetes during this pregnancy?',
 		'Did you have high blood pressure during this pregnancy?',
 		'Did you have a preterm delivery during this pregnancy?']
-	answers = getAnswerValues(answer_info)
+	answers = getTextAnswerValues(answer_info)
 
 	bot_height = top_height - 15
 	for i in xrange(0, len(questions)):
@@ -691,6 +643,30 @@ def	drawQuestionsAndAnswer(p, answer_info, first_col_width, top_height):
 		drawFieldValue(p, first_col_width + 15, bot_height, answers[i])
 		top_height -= 40
 		bot_height -= 40
+
+def getTextAnswerValues(answer_info):
+	answers = ['no answer', 'no answer', 'no answer', 'no answer', 'no answer',
+		'no answer', 'no answer', 'no answer', 'no answer']
+	likert_choices = ['not at all', 'not really', 'somewhat', 'important', 'very important']
+
+	for key, value in answer_info.iteritems():
+		try:
+			question_number = int(key)
+			# Yes/No question
+			if (question_number >= 7 and question_number <= 9):
+				if (value == 2):
+					answers[question_number-1] = 'yes'
+				elif (value == 0):
+					answers[question_number-1] = 'don\'t know'
+				else:
+					answers[question_number-1] = 'no'
+			# Likert question
+			else:
+				answers[question_number-1] = likert_choices[value+2]
+		except ValueError:
+			continue
+
+	return answers
 
 # Used to add appointments to the DB programatically
 def createMockAppointments():
