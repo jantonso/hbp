@@ -31,15 +31,15 @@ class PatientAdmin(admin.ModelAdmin):
 	scheduled_appointment.allow_tags = True
 
 	def answers(self, obj):
-		if (obj.personalized_care_answers):
-			link = urlresolvers.reverse("admin:hbp_personalizedcareanswers_change", args=[obj.personalized_care_answers.id])
-			return u'<a href="%s">%s</a>' % (link, obj.personalized_care_answers)
+		if (obj.personalized_care_answer):
+			link = urlresolvers.reverse("admin:hbp_personalizedcareanswer_change", args=[obj.personalized_care_answer.id])
+			return u'<a href="%s">%s</a>' % (link, obj.personalized_care_answer)
 		else:
 			return 'None'
 	answers.allow_tags = True
 
-@admin.register(PersonalizedCareAnswers)
-class PersonalizedCareAnswersAdmin(admin.ModelAdmin):
+@admin.register(PersonalizedCareAnswer)
+class PersonalizedCareAnswerAdmin(admin.ModelAdmin):
 	list_display = ('__unicode__', 'patient')
 
 	def patient(self, obj):
