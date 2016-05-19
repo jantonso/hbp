@@ -86,6 +86,13 @@ class DeliveryDateForm(forms.Form):
 						max_length=10)
 	delivery_year = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'YYYY'}),
 						max_length=10)
+	q10 = forms.ChoiceField(
+		label='Are you interested in getting a long acting form of contraception like an' 
+		+ ' intrauterine device (IUD) or the birth control implant (Nexplanon)?',
+		choices=NON_LIKERT_CHOICES, widget=forms.RadioSelect())
+	q11 = forms.ChoiceField(
+		label='Have you started or are you planning to start breastfeeding or pumping breastmilk?',
+		choices=NON_LIKERT_CHOICES, widget=forms.RadioSelect())
 
 	def clean(self):
 		cleaned_data = super(DeliveryDateForm, self).clean()

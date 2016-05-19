@@ -23,6 +23,11 @@ class PersonalizedCareAnswer(models.Model):
 		verbose_name=u'Did you have high blood pressure during this pregnancy?')
 	q9 = models.IntegerField(null=True, blank=True,
 		verbose_name=u'Did you have a preterm delivery during this pregnancy?')
+	q10 = models.IntegerField(
+		verbose_name=u'Are you interested in getting a long acting form of contraception like an' 
+		+ ' intrauterine device (IUD) or the birth control implant (Nexplanon)?')
+	q11 = models.IntegerField(
+		verbose_name=u'Have you started or are you planning to start breastfeeding or pumping breastmilk?')
 
 	def __unicode__(self):
 		return self.patient.name + ' Answers'

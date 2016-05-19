@@ -125,8 +125,9 @@ def commitAndScheduleIntro(request):
 def commitAndScheduleDeliveryDate(request):
 	# Check to make sure they didn't just jump directly to this page
 	appt_info = request.session.get('appointment', None)
-	if (appt_info == None):
-		print ("There was no appointment in the session")
+	answer_info = request.session.get('answer_info', None)
+	if (appt_info == None or answer_info == None):
+		print ("There was no appointment or answer_info in the session")
 		return redirect('/')
 
 	if request.method == 'GET':
@@ -136,10 +137,10 @@ def commitAndScheduleDeliveryDate(request):
 		# Process the DeliveryDateForm data
 		form = DeliveryDateForm(request.POST)
 		if form.is_valid():
-			handleDeliveryDateForm(request, form, appt_info)
+			handleDeliveryDateForm(request, form, appt_info, answer_info)
 			return redirect('/cs/calendar/')
 		else:
-			error_msg = 'Please enter a valid date.'
+			error_msg = 'Please fill out the required fields.'
 			return render(request, 'commitAndScheduleDeliveryDate.html', 
 				{'form': form, 'error_msg': error_msg })
 
@@ -400,10 +401,17 @@ def handlePersonalizedCareForm(request, form):
 	return
 
 # Adds the user's delivery date to the appointment info in the user's session
-def handleDeliveryDateForm(request, form, appt_info):
+# Adds the user's answers to the last 2 questions to the answer_info in the user's session
+def handleDeliveryDateForm(request, form, appt_info, answer_info):
 	delivery_date = form.cleaned_data['delivery_date']
 	appt_info.update({'delivery_date': delivery_date})
 	request.session['appointment'] = appt_info
+
+	q10 = form.cleaned_data['q10'] 
+	q11 = form.cleaned_data['q11']
+	answer_info.update({'10': q10, '11': q11})
+	request.session['answer_info'] = answer_info
+
 	return
 
 # Adds the user's chosen appointment to the appointment info in the user's session
@@ -458,16 +466,17 @@ def storeInformation(appt_info, answer_info):
 	a.save()
 
 	# Update the patient's answers to questions
-	personalized_care_answers = PersonalizedCareAnswer()
-	fields = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9']
-	for i in xrange(1, 10):
+	personalized_care_answer = PersonalizedCareAnswer()
+	print answer_info
+	fields = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10', 'q11']
+	for i in xrange(1, 12):
 		if (str(i) in answer_info):
-			setattr(personalized_care_answers, fields[i-1], answer_info[str(i)])
-	personalized_care_answers.save()
+			setattr(personalized_care_answer, fields[i-1], answer_info[str(i)])
+	personalized_care_answer.save()
 
 	# Update the patient
 	p.appointment = a
-	p.personalized_care_answers = personalized_care_answers
+	p.personalized_care_answer = personalized_care_answer
 	p.save()
 
 	return
@@ -637,26 +646,38 @@ def	drawQuestionsAndAnswer(p, answer_info, first_col_width, top_height):
 		'Discussing issues of bowel or bladder health:',
 		'Did you have gestational diabetes during this pregnancy?',
 		'Did you have high blood pressure during this pregnancy?',
-		'Did you have a preterm delivery during this pregnancy?']
+		'Did you have a preterm delivery during this pregnancy?',
+		'Long acting contraception',
+		'Have you started or are you planning to start breastfeeding or pumping breastmilk?']
 	answers = getTextAnswerValues(answer_info)
 
 	bot_height = top_height - 15
 	for i in xrange(0, len(questions)):
-		drawFieldLabel(p, first_col_width, top_height, questions[i])
-		drawFieldValue(p, first_col_width + 15, bot_height, answers[i])
-		top_height -= 40
-		bot_height -= 40
+		if (i != 9):
+			drawFieldLabel(p, first_col_width, top_height, questions[i])
+			drawFieldValue(p, first_col_width + 15, bot_height, answers[i])
+			top_height -= 40
+			bot_height -= 40
+		else:
+			# Too big to fit the question on just one line
+			drawFieldLabel(p, first_col_width, top_height, 
+				'Are you interested in getting a long acting form of contraception like an')
+			drawFieldLabel(p, first_col_width, top_height-15, 
+				'intrauterine device (IUD) or the birth control implant (Nexplanon)?')
+			drawFieldValue(p, first_col_width+15, top_height-30, answers[i])
+			top_height -= 55
+			bot_height -= 55
 
 def getTextAnswerValues(answer_info):
 	answers = ['no answer', 'no answer', 'no answer', 'no answer', 'no answer',
-		'no answer', 'no answer', 'no answer', 'no answer']
+		'no answer', 'no answer', 'no answer', 'no answer', 'no answer', 'no answer']
 	likert_choices = ['not at all', 'not really', 'somewhat', 'important', 'very important']
 
 	for key, value in answer_info.iteritems():
 		try:
 			question_number = int(key)
 			# Yes/No question
-			if (question_number >= 7 and question_number <= 9):
+			if (question_number >= 7 and question_number <= 11):
 				if (value == 2):
 					answers[question_number-1] = 'yes'
 				elif (value == 0):

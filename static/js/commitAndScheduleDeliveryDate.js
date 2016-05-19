@@ -4,6 +4,8 @@ $(document).ready(function() {
 	// Validation of form to make sure that all the fields are filled out
 	$('form').validate({
 		rules: {
+			q10: "required",
+			q11: "required",
 			delivery_month: "required",
 			delivery_day: "required",
 			delivery_year: "required"
@@ -14,6 +16,7 @@ $(document).ready(function() {
 			var dMonth = form.elements['delivery_month'].value;
 			var dYear = form.elements['delivery_year'].value;
 			if (!checkDate(dDay, dMonth, dYear)) {
+				errorMsg.text('Please enter a valid date.');
 				errorMsg.show();
 				return false;
 			}
@@ -22,6 +25,7 @@ $(document).ready(function() {
 		// Display errors if a field is missing 
 		showErrors: function(errorMap, errorList) {
 			if (errorList.length > 0) {
+				errorMsg.text('Please fill out the required fields.');
 				errorMsg.show();
 			}
 		}
