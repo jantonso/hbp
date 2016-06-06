@@ -80,6 +80,10 @@ footer div {
 	background-color: #745C9D;
 }
 
+footer {
+	position: fixed;
+}
+
 footer .back-button {
 	float: left;
 }

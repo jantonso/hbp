@@ -17,8 +17,14 @@
 	margin-bottom: 10px;
 }
 
+.message-prompt {
+	font-size: 2.0em;
+	font-weight: 200;
+	color: #433F48;
+}
+
 #page-content #sig-text-fields {
-	padding-top: 15px;
+	/*padding-top: 15px;*/
 	padding-bottom: 10px;
 }
 
