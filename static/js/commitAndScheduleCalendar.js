@@ -44,12 +44,17 @@ $(document).ready(function() {
 		onSelect: function(dateText, inst) {
 			// Reset all selected appointments 
 			resetAppointments();
+
+			// Hide the calendar legend
+			$('#page-content .calendar-legend').hide();
 			
 			// Highlight the selected day
 			selectedDate = dateText;
 
 			// Show the appointment container
-			$('#page-content #calendar-instructions').hide();
+			$('#page-content #calendar-instructions')
+				.text('Click on a time to schedule the appointment and then click Continue.');
+			$('#page-content #calendar-instructions').css('margin-top', '0px');
 			$('#page-content #appt-container').show();
 
 			// Show the appointment date on the container
@@ -86,6 +91,9 @@ $(document).ready(function() {
 								$(this).children().css('color', '#FEFEFE');
 
 								document.getElementById('id_appt_id').value = parseInt($(this).attr('id'));
+							
+								// Show the continue button
+								$('footer #continue-button').show();
 							})
 						)
 					);
@@ -124,6 +132,7 @@ function resetAppointments() {
 	$('#page-content #appt-container .appt-odd').css('background','#CDDEFF');
 	$('#page-content #appt-container .appt-even').css('background','#DCE7FD');	
 	errorMsg.hide();
+	$('footer #continue-button').hide();
 }
 
 function processAppointments() {

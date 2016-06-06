@@ -15,7 +15,23 @@
 	<div class="col-lg-8" id="calendar-container">
 	</div>
 	<div class="col-lg-4">
-		<p id="calendar-instructions"> Please select a follow up appointment. Click on a day to view the available times. </p>
+		<p id="calendar-instructions"> Please select a follow up appointment. Click on a day to see the appointment availability. </p>
+		<div class="row calendar-legend">
+			<div class="col-lg-2">
+				<div id="available-days"></div>
+			</div>
+			<div class="col-lg-10">
+				<p class="legend-message"> Available </p>
+			</div>
+		</div>
+		<div class="row calendar-legend">
+			<div class="col-lg-2">
+				<div id="non-available-days"></div>
+			</div>
+			<div class="col-lg-10">
+				<p class="legend-message"> Not Available </p>
+			</div>
+		</div>
 		<div id="appt-container">
 			<div id="appt-container-info">
 				<div class="row">

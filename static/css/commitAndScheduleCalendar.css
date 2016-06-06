@@ -11,15 +11,40 @@
 }
 
 #page-content #calendar-instructions {
-	margin-top: 225px;
-	text-align: center;
+	margin-top: 85px;
+	text-align: left;
 	font-size: 2.0em;
 	font-weight: 300;
 	color: #745C9D;
 }
 
+#page-content .calendar-legend {
+	margin-top: 10px;
+}
+
+#page-content #available-days {
+	display: inline-block;
+	width: 90px;
+	height: 60px;
+	background-color: #CDDEFF;
+}
+
+#page-content #non-available-days {
+	display: inline-block;
+	width: 90px;
+	height: 60px;
+	background-color: #ECECDC;
+}
+
+#page-content .legend-message {
+	margin: 10px 0px 0px 40px;
+	font-size: 2.0em;
+	font-weight: 200;
+	color: #433F48;
+}
+
 #page-content #calendar-container {
-	padding: 30px 0px 10px 0px;
+	padding: 10px 0px 10px 0px;
 	margin: 0;
 }
 
@@ -67,7 +92,7 @@
 
 #page-content .ui-datepicker-prev {
     left: 0;
-    padding-left: 20px;
+    padding-left: 5px;
     text-decoration: none;
     color: #433F48;
 }
@@ -78,7 +103,7 @@
  
 #page-content .ui-datepicker-next {
     right: 0;
-    padding-right: 20px;
+    padding-right: 40px;
     text-decoration: none;
     color: #433F48;
 }
@@ -150,7 +175,7 @@
 #page-content #appt-container {
 	font-family: 'Work Sans', sans-serif;
 	display: none;
-	padding-top: 113px;
+	padding-top: 10px;
 }
 
 #page-content #appt-container #appt-date {
@@ -208,26 +233,4 @@
 	margin: 0;
 	font-size: 1.50em;
 	color: #7B8FB7;
-}
-
-footer #confirm-appt-button {
-	display: inline-block;
-	height: 60px;
-	padding: 15px 20px 15px 20px;
-	background-color: #745C9D;
-	float: right;
-}
-
-footer a {
-	text-decoration: none;
-	outline: 0;
-	color: #FEFEFE;
-	font-size: 1.5em;
-	font-weight: bold;
-}
-
-footer a:hover div {
-	background-color: #4E8DFF !important;
-	color: #FEFEFE;
-	text-decoration: none;
 }
