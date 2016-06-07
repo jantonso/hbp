@@ -63,9 +63,9 @@ TEMPLATE_DIRS = (
 
 # Try to load local settings if they are there, if not load prod settings
 try:
-    from local_settings import *
+    from hbp.local_settings import *
 except ImportError as e:
     try:
-        from production_settings import *
+        from hbp.production_settings import *
     except ImportError as e:
         pass
