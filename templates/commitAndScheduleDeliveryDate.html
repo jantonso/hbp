@@ -13,7 +13,7 @@
 
 {% block content %} 
 	<div class="col-lg-10 col-lg-offset-1 text-center">
-		<h2> Please provide the following information. </h2>
+		<h2> Please provide the following information </h2>
 		<form method="POST" action="/cs/delivery-date/">
 			{% csrf_token %}
 			<label class="statement text-left non-likert-label"> {{ form.q10.label }} </label>
