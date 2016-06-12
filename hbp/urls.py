@@ -21,4 +21,6 @@ urlpatterns = patterns('',
 	url(r'^consent/$', views.consent, name='consent'),
 	url(r'^print-appt/$', views.printAppt, name='printAppt'),
 	url(r'^import-appts/$', views.importAppts, name='importAppts'),
+	url(r'^export-appts/$', views.exportAppts, name='exportAppts'),
+	url(r'^export-patients/$', views.exportPatients, name='exportPatients'),
 )

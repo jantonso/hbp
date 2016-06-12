@@ -326,6 +326,59 @@ def importAppts(request):
 	return redirect(request.META['HTTP_REFERER'])
 
 # ---------------------------------------------------------------------------------------- #
+# ------------------------------- Exporting Appointments Data ----------------------------- #
+# ---------------------------------------------------------------------------------------- #
+# Allows an admin user to export the appointments data in the db in csv files
+def exportAppts(request):
+	# Make sure that the user is an admin user and that it is is a GET request
+	if not request.user.is_superuser or not request.method == 'GET':
+		raise Http404
+
+	response = HttpResponse(content_type='text/csv')
+	response['Content-Disposition'] = 'attachment; filename="appointments.csv"'
+
+	writer = csv.writer(response)
+	writer.writerow(['appt_date', 'appt_time', 'unit_name', 'booked', 'patient_name'])
+
+	appts = Appointment.objects.all()
+	for a in appts:
+		if hasattr(a, 'patient'):
+			writer.writerow([a.appt_date, a.appt_time, a.unit_name, a.booked, a.patient.name])
+		else:
+			writer.writerow([a.appt_date, a.appt_time, a.unit_name, a.booked, ''])
+
+	return response
+
+# ---------------------------------------------------------------------------------------- #
+# ------------------------------- Exporting Patient Data --------------------------------- #
+# ---------------------------------------------------------------------------------------- #
+# Allows an admin user to export the patient data in the db in csv files
+def exportPatients(request):
+	# Make sure that the user is an admin user and that it is is a GET request
+	if not request.user.is_superuser or not request.method == 'GET':
+		raise Http404
+
+	response = HttpResponse(content_type='text/csv')
+	response['Content-Disposition'] = 'attachment; filename="patients.csv"'
+
+	writer = csv.writer(response)
+	writer.writerow(['name', 'dob_date', 'delivery_date', 'phone_number', 'appt_date','appt_time',
+		'q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10', 'q11'])
+
+	question_labels = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10', 'q11']
+	patients = Patient.objects.all()
+	for p in patients:
+		p_answers = p.personalized_care_answer
+		answers = []
+		for label in question_labels:
+			answers += [getattr(p_answers, label)]
+		writer.writerow([p.name, p.dob_date, p.delivery_date, p.phone_number, p.appointment.appt_date, 
+			p.appointment.appt_time, answers[0], answers[1],answers[2], answers[3], answers[4], 
+			answers[5], answers[6], answers[7], answers[8], answers[9], answers[10]])
+
+	return response
+
+# ---------------------------------------------------------------------------------------- #
 # ---------------------------------- Helper Functions ------------------------------------ #
 # ---------------------------------------------------------------------------------------- #
 
@@ -691,19 +744,3 @@ def getTextAnswerValues(answer_info):
 			continue
 
 	return answers
-
-# Used to add appointments to the DB programatically
-def createMockAppointments():
-	appointment_dates = ["04/19/2016", "04/19/2016", "04/19/2016",
-	"04/19/2016", "04/19/2016", "04/10/2016", "04/13/2016", "04/13/2016", "04/11/2016","05/02/2016","05/02/2016"]
-	appointment_times = ["10am", "12pm", "2pm", "3pm", "5pm","12pm","2pm","4pm","10am","2pm","3pm"]
-	for i in xrange(0,len(appointment_dates)):
-		print i
-		appt_datetime = datetime.strptime(
-			appointment_dates[i] + " " + appointment_times[i] , "%m/%d/%Y %I%p")
-		new_appointment = Appointment(unit_name="Blue U",
-			appt_datetime=appt_datetime, appt_date=appointment_dates[i],
-			appt_time=appointment_times[i])
-		new_appointment.save()
-	print "done"
-	return

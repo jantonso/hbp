@@ -14,10 +14,5 @@
         {% endif %}
       {% endblock %}
     </ul>
-	<form action="/import-appts/" method="POST" enctype="multipart/form-data">
-		{% csrf_token %}
-		<input name="appt_file" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />  			
-		<input type="submit" value="submit">
-	</form>
-  <a href="/export-appts/"> Export Appointments </a>
+    <a href="/export-patients/"> Export Patients </a>
 {% endblock %}
