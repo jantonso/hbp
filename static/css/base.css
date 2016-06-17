@@ -52,7 +52,7 @@ footer {
 	position: absolute;
 	left: 0;
 	bottom: 0;
-	height: 60px;
+	height: 50px;
 	width: 100%;
 	overflow: hidden;
 }
@@ -60,7 +60,7 @@ footer {
 footer #continue-button {
 	position: relative;
 	float: right;
-	height: 60px;
+	height: 50px;
 	width: 120px;
 	text-align: center;
 	background-color: #745C9D;
@@ -68,7 +68,7 @@ footer #continue-button {
 
 footer #continue-button label {
 	color: #FEFEFE;
-	height: 60px;
+	height: 50px;
 	width: 120px;
 	padding-top: 15px;
 	font-size: 1.5em;
