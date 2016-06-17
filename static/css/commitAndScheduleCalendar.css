@@ -73,7 +73,7 @@
 }
 
 #page-content .ui-datepicker-title {
-	text-align: center;
+	margin-left: 120px;
 }
 
 #page-content .ui-datepicker-month {
@@ -103,7 +103,7 @@
  
 #page-content .ui-datepicker-next {
     right: 0;
-    padding-right: 40px;
+    padding-right: 100px;
     text-decoration: none;
     color: #433F48;
 }
