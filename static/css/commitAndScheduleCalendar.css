@@ -234,3 +234,7 @@
 	font-size: 1.50em;
 	color: #7B8FB7;
 }
+
+footer #continue-button {
+	display: none;
+}
