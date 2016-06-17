@@ -7,7 +7,7 @@ $(document).ready(function() {
 	// Bring up the canvas to allow users to sign
 	canvas = document.getElementById('signature-canvas');
 	canvas.width = 800;
-	canvas.height = 230;
+	canvas.height = 220;
 	signaturePad = new SignaturePad(canvas);
 
 	window.onresize = resizeCanvas;
