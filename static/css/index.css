@@ -29,8 +29,7 @@ header {
 
 header .header-content {
   position: relative;
-  padding-top: 150px;
-  padding-bottom: 150px;
+  padding-top: 125px;
 }
 
 header .header-content h1 {
