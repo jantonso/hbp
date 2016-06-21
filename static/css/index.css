@@ -342,7 +342,7 @@ header .header-content p {
 /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */ 
 @media (min-width:641px) and (max-width:960px) { 
   header {
-    min-height: 43%;
+    min-height: 63%;
   }
 
   header .header-content {
