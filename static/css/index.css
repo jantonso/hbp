@@ -17,7 +17,7 @@ body {
 header {
 	position: relative;
 	width: 100%;
-  min-height: 84%;
+  min-height: 90%;
 	-webkit-background-size: cover;
   -moz-background-size: cover;
 	background-size: cover;
@@ -30,7 +30,6 @@ header {
 header .header-content {
 	position: relative;
 	padding-top: 150px;
-	padding-bottom: 150px;
 }
 
 header .header-content h1 {
@@ -44,6 +43,12 @@ header .header-content p {
 	font-weight: 300;
 	font-size: 3.25em;
 	color: #53347F;
+}
+
+header .header-content #scroll-down-prompt {
+  margin-top: 175px;
+  font-weight: 200;
+  font-size: 2.25em;
 }
 
 /* About section, describe the steps of HBP */
@@ -347,7 +352,7 @@ header .header-content p {
   }
 
   header .header-content {
-    padding-top: 70px;
+    padding-top: 80px;
   }
 
   header .header-content h1 {
@@ -359,6 +364,12 @@ header .header-content p {
   header .header-content p {
     font-weight: 300;
     font-size: 2.50em;
+  }
+
+  header .header-content #scroll-down-prompt {
+    margin-top: 50px;
+    font-weight: 200;
+    font-size: 2.0em;
   }
 
   #about {
