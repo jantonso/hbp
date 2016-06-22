@@ -349,11 +349,11 @@ header .header-content #scroll-down-prompt {
 @media (min-width:641px) and (max-width:960px) { 
   /*header {
     min-height: 60%;
-  }
+  }*/
 
   header .header-content {
     padding-top: 150px;
-  }*/
+  }
 
   header .header-content h1 {
     font-size: 4.0em;
@@ -367,7 +367,6 @@ header .header-content #scroll-down-prompt {
   }
 
   header .header-content #scroll-down-prompt {
-    margin-top: 160px;
     font-weight: 200;
     font-size: 2.0em;
   }
