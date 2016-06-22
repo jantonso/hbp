@@ -340,7 +340,7 @@ header .header-content p {
 	border-width: 3px;
 }
 
-/* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */ 
+/* Small Tablets Landscape */
 @media (min-width:641px) and (max-width:960px) { 
   header {
     min-height: 43%;
@@ -406,7 +406,27 @@ header .header-content p {
   }
 }
 
-/* tablet, landscape iPad, lo-res laptops ands desktops */ 
+/* Small Tablets Portrait */
+@media (min-width:641px) and (max-width:960px) and (orientation: portrait) { 
+  header {
+    min-height: 60%;
+  }
+
+  header .header-content {
+    padding-top: 200px;
+  }
+
+  #about {
+    padding-top: 20px;
+    padding-bottom: 30px;
+  }
+
+  #about h2 {
+    margin-bottom: 20px;
+  }
+}
+
+/* Large Tablets */
 @media (min-width:961px) and (max-width:1024px) { 
   header {
     min-height: 60%;
