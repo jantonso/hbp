@@ -17,7 +17,7 @@ body {
 header {
   position: relative;
   width: 100%;
-  min-height: 84%;
+  min-height: 90%;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
@@ -29,7 +29,7 @@ header {
 
 header .header-content {
   position: relative;
-  padding-top: 110px;
+  padding-top: 150px;
 }
 
 header .header-content h1 {
@@ -43,6 +43,12 @@ header .header-content p {
   font-weight: 300;
   font-size: 3.25em;
   color: #53347F;
+}
+
+header .header-content #scroll-down-prompt {
+  margin-top: 175px;
+  font-weight: 200;
+  font-size: 2.25em;
 }
 
 /* About section, describe the steps of HBP */
@@ -339,15 +345,15 @@ header .header-content p {
   border-width: 3px;
 }
 
-/* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */ 
+/* Small Tablets Landscape */
 @media (min-width:641px) and (max-width:960px) { 
-  header {
+  /*header {
     min-height: 60%;
   }
 
   header .header-content {
-    padding-top: 70px;
-  }
+    padding-top: 150px;
+  }*/
 
   header .header-content h1 {
     font-size: 4.0em;
@@ -360,15 +366,20 @@ header .header-content p {
     font-size: 2.50em;
   }
 
+  header .header-content #scroll-down-prompt {
+    margin-top: 160px;
+    font-weight: 200;
+    font-size: 2.0em;
+  }
+
   #about {
-    padding-top: 0px;
-    padding-bottom: 20px;
+    padding-top: 40px;
+    padding-bottom: 60px;
   }
 
   #about h2 {
     font-size: 2.50em;
     font-weight: 300;
-    margin-bottom: 0px;
   }
 
   #about .step {
@@ -379,7 +390,7 @@ header .header-content p {
 
   #about .step-desc {
     font-weight: 300;
-    font-size: 1.05em;
+    font-size: 1.20em;
   }
 
   #timeline-section {
@@ -405,14 +416,35 @@ header .header-content p {
   }
 }
 
-/* tablet, landscape iPad, lo-res laptops ands desktops */ 
-@media (min-width:961px) and (max-width:1024px) { 
+/* Small Tablets Portrait */
+@media (min-width:641px) and (max-width:960px) and (orientation: portrait) { 
   header {
     min-height: 60%;
   }
 
   header .header-content {
-    padding-top: 85px;
+    padding-top: 190px;
+  }
+
+  #about {
+    padding-top: 40px;
+    padding-bottom: 60px;
+  }
+
+  #about h2 {
+    margin-bottom: 20px;
+  }
+}
+
+/* Large Tablets */
+@media (min-width:961px) and (max-width:1024px) { 
+  /*header {
+    min-height: 60%;
+  }
+
+  */
+  header .header-content {
+    padding-top: 200px;
   }
 
   header .header-content h1 {
@@ -426,9 +458,15 @@ header .header-content p {
     font-size: 3.0em;
   }
 
+  header .header-content #scroll-down-prompt {
+    margin-top: 200px;
+    font-weight: 200;
+    font-size: 2.0em;
+  }
+
   #about {
-    padding-top: 20px;
-    padding-bottom: 35px;
+    padding-top: 50px;
+    padding-bottom: 70px;
   }
 
   #about h2 {
@@ -445,7 +483,7 @@ header .header-content p {
 
   #about .step-desc {
     font-weight: 300;
-    font-size: 1.20em;
+    font-size: 1.30em;
   }
 
   #timeline-section {
