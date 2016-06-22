@@ -29,14 +29,14 @@ header {
 
 header .header-content {
   position: relative;
-  padding-top: 150px;
+  padding-top: 120px;
 }
 
 header .header-content h1 {
   font-size: 6.0em;
   font-weight: 500;
   color: #53347F;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 header .header-content p {
@@ -46,7 +46,7 @@ header .header-content p {
 }
 
 header .header-content #scroll-down-prompt {
-  margin-top: 175px;
+  margin-top: 170px;
   font-weight: 200;
   font-size: 2.25em;
 }
