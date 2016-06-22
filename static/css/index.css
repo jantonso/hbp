@@ -347,13 +347,13 @@ header .header-content #scroll-down-prompt {
 
 /* Small Tablets Landscape */
 @media (min-width:641px) and (max-width:960px) { 
-  header {
-    min-height: 43%;
+  /*header {
+    min-height: 60%;
   }
 
   header .header-content {
-    padding-top: 80px;
-  }
+    padding-top: 150px;
+  }*/
 
   header .header-content h1 {
     font-size: 4.0em;
@@ -367,20 +367,19 @@ header .header-content #scroll-down-prompt {
   }
 
   header .header-content #scroll-down-prompt {
-    margin-top: 50px;
+    margin-top: 160px;
     font-weight: 200;
     font-size: 2.0em;
   }
 
   #about {
-    padding-top: 0px;
-    padding-bottom: 20px;
+    padding-top: 40px;
+    padding-bottom: 60px;
   }
 
   #about h2 {
     font-size: 2.50em;
     font-weight: 300;
-    margin-bottom: 0px;
   }
 
   #about .step {
@@ -391,7 +390,7 @@ header .header-content #scroll-down-prompt {
 
   #about .step-desc {
     font-weight: 300;
-    font-size: 1.05em;
+    font-size: 1.20em;
   }
 
   #timeline-section {
@@ -424,12 +423,12 @@ header .header-content #scroll-down-prompt {
   }
 
   header .header-content {
-    padding-top: 200px;
+    padding-top: 190px;
   }
 
   #about {
-    padding-top: 20px;
-    padding-bottom: 30px;
+    padding-top: 40px;
+    padding-bottom: 60px;
   }
 
   #about h2 {
@@ -439,12 +438,13 @@ header .header-content #scroll-down-prompt {
 
 /* Large Tablets */
 @media (min-width:961px) and (max-width:1024px) { 
-  header {
+  /*header {
     min-height: 60%;
   }
 
+  */
   header .header-content {
-    padding-top: 85px;
+    padding-top: 200px;
   }
 
   header .header-content h1 {
@@ -458,9 +458,15 @@ header .header-content #scroll-down-prompt {
     font-size: 3.0em;
   }
 
+  header .header-content #scroll-down-prompt {
+    margin-top: 200px;
+    font-weight: 200;
+    font-size: 2.0em;
+  }
+
   #about {
-    padding-top: 20px;
-    padding-bottom: 35px;
+    padding-top: 50px;
+    padding-bottom: 70px;
   }
 
   #about h2 {
@@ -477,7 +483,7 @@ header .header-content #scroll-down-prompt {
 
   #about .step-desc {
     font-weight: 300;
-    font-size: 1.20em;
+    font-size: 1.30em;
   }
 
   #timeline-section {
