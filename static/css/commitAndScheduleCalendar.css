@@ -238,3 +238,128 @@
 footer #continue-button {
 	display: none;
 }
+
+
+/* Small Tablets Landscape */
+@media (min-width:641px) and (max-width:960px) { 
+	#page-content #calendar-instructions {
+		margin-top: 75px;
+		font-size: 1.45em;
+		font-weight: 300;
+	}
+
+	#page-content .legend-message {
+		margin: 10px 0px 0px 40px;
+		font-size: 1.30em;
+		font-weight: 300;
+	}
+
+	#page-content #available-days {
+		width: 65px;
+		height: 45px;
+	}
+
+	#page-content #non-available-days {
+		width: 65px;
+		height: 45px;
+	}
+
+	#page-content .ui-datepicker {
+		font-size: 1.35em;
+	}
+
+	#page-content .ui-datepicker-next {
+	    padding-right: 5px;
+	}
+
+	#page-content .ui-datepicker-calendar td {
+		padding: 0.6em 1.10em 0.6em 1.10em;
+	}
+
+	/* Appt-container stuff */
+	#page-content #appt-container #appt-date #appt-month {
+		font-size: 1.30em;
+		font-weight: 400;
+	}
+
+	#page-content #appt-container #appt-date #appt-day {
+		font-size: 1.40em;
+		font-weight: 500;
+	}
+
+	#page-content #appt-container .appt {
+		padding-top: 5px;
+		padding-bottom: 5px;
+	}
+
+	#page-content #appt-container .appt-time {
+		font-size: 1.20em;
+		font-weight: 500;
+	}
+
+	#page-content #appt-container .appt-unit {
+		font-size: 1.20em;
+	}
+}
+
+/* Small Tablets Portrait */
+@media (min-width:641px) and (max-width:960px) and (orientation: portrait) { 
+	/* Same as small tablets landscape */
+}
+
+/* Large Tablets */
+@media (min-width:961px) and (max-width:1024px) { 
+	#page-content #calendar-instructions {
+		margin-top: 75px;
+		font-size: 1.85em;
+		font-weight: 300;
+	}
+
+	#page-content .legend-message {
+		margin: 10px 0px 0px 40px;
+		font-size: 1.60em;
+		font-weight: 300;
+	}
+
+	#page-content #available-days {
+		width: 80px;
+		height: 60px;
+	}
+
+	#page-content #non-available-days {
+		width: 80px;
+		height: 60px;
+	}
+
+	#page-content .ui-datepicker {
+		font-size: 1.50em;
+	}
+
+	#page-content .ui-datepicker-next {
+	    padding-right: 20px;
+	}
+
+	#page-content .ui-datepicker-calendar td {
+		padding: 0.7em 1.40em 0.7em 1.40em;
+	}
+
+	/* Appt-container stuff */
+	#page-content #appt-container .appt {
+		padding-top: 5px;
+		padding-bottom: 5px;
+	}
+
+	#page-content #appt-container .appt-time {
+		font-size: 1.40em;
+		font-weight: 500;
+	}
+
+	#page-content #appt-container .appt-unit {
+		font-size: 1.40em;
+	}
+}
+
+/* big landscape tablets, laptops, and desktops */ 
+@media (min-width:1025px) {
+
+}
