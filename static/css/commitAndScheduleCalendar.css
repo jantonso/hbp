@@ -265,15 +265,15 @@ footer #continue-button {
 	}
 
 	#page-content .ui-datepicker {
-		font-size: 1.40em;
+		font-size: 1.45em;
 	}
 
 	#page-content .ui-datepicker-next {
-	    padding-right: 0px;
+	    padding-right: 10px;
 	}
 
 	#page-content .ui-datepicker-calendar td {
-		padding: 0.6em 1.20em 0.6em 1.20em;
+		padding: 0.7em 1.25em 0.7em 1.25em;
 	}
 
 	/* Appt-container stuff */
