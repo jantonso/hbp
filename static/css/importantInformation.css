@@ -105,3 +105,50 @@ footer a:hover div {
 	color: #FEFEFE;
 	text-decoration: none;
 }
+
+/* Small Tablets Landscape */
+@media (min-width:641px) and (max-width:960px) { 
+	#page-content h2 {
+		font-size: 2.30em;
+		font-weight: 300;
+	}
+
+	#video-links .video-link p {
+		font-weight: 400;
+		font-size: 1.15em;
+		color: #433F48;
+	}
+}
+
+/* Small Tablets Portrait */
+@media (min-width:641px) and (max-width:960px) and (orientation: portrait) { 
+	#page-content h2 {
+		font-size: 2.5em;
+		font-weight: 300;
+	}
+
+	#video-links .video-link p {
+		font-weight: 400;
+		font-size: 1.15em;
+		color: #433F48;
+	}
+}
+
+/* Large Tablets */
+@media (min-width:961px) and (max-width:1024px) { 
+	#page-content h2 {
+		font-size: 2.75em;
+		font-weight: 300;
+	}
+
+	#video-links .video-link p {
+		font-weight: 400;
+		font-size: 1.30em;
+		color: #433F48;
+	}
+}
+
+/* big landscape tablets, laptops, and desktops */ 
+@media (min-width:1025px) {
+
+}
