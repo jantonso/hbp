@@ -433,6 +433,11 @@ header .header-content #scroll-down-prompt {
   #about h2 {
     margin-bottom: 20px;
   }
+
+  .timeline .timeline-body p {
+    font-weight: 300;
+    font-size: 1.15em;
+  }
 }
 
 /* Large Tablets */
@@ -505,14 +510,6 @@ header .header-content #scroll-down-prompt {
   .timeline .timeline-body p {
     font-weight: 300;
     font-size: 1.50em;
-  }
-}
-
-/* Large Tablets */
-@media (min-width:961px) and (max-width:1024px) and (orientation: portrait) { 
-  .timeline .timeline-body p {
-    font-weight: 300;
-    font-size: 1.00em;
   }
 }
 
