@@ -244,7 +244,7 @@ footer #continue-button {
 @media (min-width:641px) and (max-width:960px) { 
 	#page-content #calendar-instructions {
 		margin-top: 75px;
-		font-size: 1.45em;
+		font-size: 1.60em;
 		font-weight: 300;
 	}
 
@@ -265,15 +265,15 @@ footer #continue-button {
 	}
 
 	#page-content .ui-datepicker {
-		font-size: 1.35em;
+		font-size: 1.40em;
 	}
 
 	#page-content .ui-datepicker-next {
-	    padding-right: 5px;
+	    padding-right: 0px;
 	}
 
 	#page-content .ui-datepicker-calendar td {
-		padding: 0.6em 1.10em 0.6em 1.10em;
+		padding: 0.6em 1.20em 0.6em 1.20em;
 	}
 
 	/* Appt-container stuff */
