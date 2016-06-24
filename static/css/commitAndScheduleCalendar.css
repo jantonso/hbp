@@ -281,12 +281,12 @@ footer #continue-button {
 
 	/* Appt-container stuff */
 	#page-content #appt-container #appt-date #appt-month {
-		font-size: 1.45em;
+		font-size: 1.50em;
 		font-weight: 400;
 	}
 
 	#page-content #appt-container #appt-date #appt-day {
-		font-size: 1.50em;
+		font-size: 1.55em;
 		font-weight: 500;
 	}
 
@@ -296,12 +296,12 @@ footer #continue-button {
 	}
 
 	#page-content #appt-container .appt-time {
-		font-size: 1.30em;
+		font-size: 1.35em;
 		font-weight: 500;
 	}
 
 	#page-content #appt-container .appt-unit {
-		font-size: 1.30em;
+		font-size: 1.35em;
 	}
 }
 
