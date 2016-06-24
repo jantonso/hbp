@@ -62,7 +62,6 @@
 #page-content .ui-datepicker {
 	display: none;
 	text-transform: uppercase;
-	font-family: 'Work Sans', sans-serif;
 	font-size: 1.75em;
 }
 
@@ -242,6 +241,10 @@ footer #continue-button {
 
 /* Small Tablets Landscape */
 @media (min-width:641px) and (max-width:960px) { 
+	#page-content .ui-datepicker-title {
+		margin-left: 200px;
+	}
+
 	#page-content #calendar-instructions {
 		margin-top: 75px;
 		font-size: 1.60em;
@@ -250,17 +253,17 @@ footer #continue-button {
 
 	#page-content .legend-message {
 		margin: 10px 0px 0px 40px;
-		font-size: 1.30em;
+		font-size: 1.45em;
 		font-weight: 300;
 	}
 
 	#page-content #available-days {
-		width: 65px;
+		width: 60px;
 		height: 45px;
 	}
 
 	#page-content #non-available-days {
-		width: 65px;
+		width: 60px;
 		height: 45px;
 	}
 
@@ -278,12 +281,12 @@ footer #continue-button {
 
 	/* Appt-container stuff */
 	#page-content #appt-container #appt-date #appt-month {
-		font-size: 1.30em;
+		font-size: 1.45em;
 		font-weight: 400;
 	}
 
 	#page-content #appt-container #appt-date #appt-day {
-		font-size: 1.40em;
+		font-size: 1.50em;
 		font-weight: 500;
 	}
 
@@ -293,12 +296,12 @@ footer #continue-button {
 	}
 
 	#page-content #appt-container .appt-time {
-		font-size: 1.20em;
+		font-size: 1.30em;
 		font-weight: 500;
 	}
 
 	#page-content #appt-container .appt-unit {
-		font-size: 1.20em;
+		font-size: 1.30em;
 	}
 }
 
