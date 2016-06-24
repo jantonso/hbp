@@ -335,7 +335,7 @@ footer #continue-button {
 	}
 
 	#page-content .ui-datepicker {
-		font-size: 1.50em;
+		font-size: 1.60em;
 	}
 
 	#page-content .ui-datepicker-next {
@@ -343,22 +343,27 @@ footer #continue-button {
 	}
 
 	#page-content .ui-datepicker-calendar td {
-		padding: 0.7em 1.40em 0.7em 1.40em;
+		padding: 0.75em 1.45em 0.75em 1.45em;
 	}
 
 	/* Appt-container stuff */
+	#page-content #appt-container #appt-date #appt-month {
+		font-size: 1.60em;
+		font-weight: 500;
+	}
+
 	#page-content #appt-container .appt {
 		padding-top: 5px;
 		padding-bottom: 5px;
 	}
 
 	#page-content #appt-container .appt-time {
-		font-size: 1.40em;
+		font-size: 1.50em;
 		font-weight: 500;
 	}
 
 	#page-content #appt-container .appt-unit {
-		font-size: 1.40em;
+		font-size: 1.50em;
 	}
 }
 
