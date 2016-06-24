@@ -434,6 +434,17 @@ header .header-content #scroll-down-prompt {
     margin-bottom: 20px;
   }
 
+  #about .step {
+    font-weight: 500;
+    font-size: 1.20em;
+    margin-bottom: 0px;
+  }
+
+  #about .step-desc {
+    font-weight: 300;
+    font-size: 1.15em;
+  }
+
   .timeline .timeline-body p {
     font-weight: 300;
     font-size: 1.15em;
