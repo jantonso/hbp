@@ -312,6 +312,10 @@ footer #continue-button {
 
 /* Large Tablets */
 @media (min-width:961px) and (max-width:1024px) { 
+	#page-content .ui-datepicker-title {
+		margin-left: 240px;
+	}
+
 	#page-content #calendar-instructions {
 		margin-top: 75px;
 		font-size: 1.85em;
@@ -339,7 +343,7 @@ footer #continue-button {
 	}
 
 	#page-content .ui-datepicker-next {
-	    padding-right: 20px;
+	    padding-right: 50px;
 	}
 
 	#page-content .ui-datepicker-calendar td {
