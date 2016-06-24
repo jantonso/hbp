@@ -508,6 +508,14 @@ header .header-content #scroll-down-prompt {
   }
 }
 
+/* Large Tablets */
+@media (min-width:961px) and (max-width:1024px) and (orientation: portrait) { 
+  .timeline .timeline-body p {
+    font-weight: 300;
+    font-size: 1.00em;
+  }
+}
+
 /* big landscape tablets, laptops, and desktops */ 
 @media (min-width:1025px) {
 
