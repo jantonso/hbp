@@ -322,6 +322,10 @@ footer #continue-button {
 		font-weight: 300;
 	}
 
+	#page-content .calendar-legend {
+		margin-top: 20px;
+	}
+
 	#page-content .legend-message {
 		margin: 10px 0px 0px 40px;
 		font-size: 1.60em;
