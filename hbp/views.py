@@ -247,12 +247,18 @@ def incentive(request):
 def final(request):
 	required_topics = request.session.get('required_topics', None)
 	appt_info = request.session.get('appointment', None)
-	appt_date = appt_info.get('appt_date', None)
-	appt_time = appt_info.get('appt_time', None)
+
 	# They jumped directly to this page or did not schedule an appointment
-	if (appt_info == None or appt_date == None or appt_time == None or required_topics == None):
+	if (appt_info == None or required_topics == None):
 		print ("There were no required topics / no appointment")
 		return redirect('/')	
+
+	appt_date = appt_info.get('appt_date', None)
+	appt_time = appt_info.get('appt_time', None)
+
+	if (appt_date == None or appt_time == None):
+		print ("There was no appt info")
+
 	return render(request, 'final.html', 
 		{'required_topics': required_topics, 'appt_date': appt_date, 'appt_time': appt_time})
 
