@@ -71,6 +71,7 @@
 
 	#page-content #sig-form form #sig-text-fields label {
 		float: left;
+		clear: both;
 	}
 
 	#page-content #sig-form form #sig-text-fields input[type=text] {
