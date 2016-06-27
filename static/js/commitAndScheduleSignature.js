@@ -6,8 +6,28 @@ $(document).ready(function() {
 
 	// Bring up the canvas to allow users to sign
 	canvas = document.getElementById('signature-canvas');
-	canvas.width = 800;
-	canvas.height = 220;
+	console.log(window.innerHeight);
+	console.log(window.innerWidth);
+	// Small Tablets landscape
+	if (window.innerWidth >= 641 && window.innerWidth <= 960
+		&& window.innerWidth >= window.innerHeight) {
+		canvas.width = 500;
+		canvas.height = 220;
+	// Small tablets portrait
+	else if (window.innerWidth >= 641 && window.innerWidth <= 960 
+		&& window.innerWidth < window.innerHeight) {
+		canvas.width = 500;
+		canvas.height = 220;
+	// Large tablets
+	} else if (window.innerWidth >= 961 && window.innerWidth <= 1024) {
+		canvas.width = 800;
+		canvas.height = 220;
+	// Desktops
+	} else {
+		canvas.width = 800;
+		canvas.height = 220;
+	}
+
 	signaturePad = new SignaturePad(canvas);
 
 	window.onresize = resizeCanvas;
