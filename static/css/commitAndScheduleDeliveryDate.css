@@ -125,11 +125,11 @@
 	}
 
 	#error-msg {
-		margin-top: 20px;
 		display: block;
 	}
 
 	#error-msg p {
+		margin-top: 20px;
 		text-align: left;
 		font-size: 2.0em;
 		font-weight: 300;
