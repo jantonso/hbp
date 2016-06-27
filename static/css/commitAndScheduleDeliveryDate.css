@@ -71,7 +71,7 @@
 /* Small Tablets Landscape */
 @media (min-width:641px) and (max-width:960px) { 
 	#page-content h2 {
-		font-size: 2.75em;
+		font-size: 2.60em;
 		font-weight: 300;
 	}
 
@@ -100,7 +100,7 @@
 /* Small Tablets Portrait */
 @media (min-width:641px) and (max-width:960px) and (orientation: portrait) { 
 	#page-content h2 {
-		font-size: 3.0em;
+		font-size: 2.70em;
 		font-weight: 300;
 	}
 }
