@@ -72,9 +72,12 @@
 	#page-content #sig-form form #sig-text-fields label {
 		float: left;
 		clear: both;
+		margin-top: 10px;
 	}
 
 	#page-content #sig-form form #sig-text-fields input[type=text] {
+		float: left;
+		margin-top: 10px;
 		margin-left: 0px;
 	}
 }
