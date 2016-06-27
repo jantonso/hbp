@@ -20,11 +20,11 @@
 				{% csrf_token %}
 				<p class="message-prompt text-left"> Type your name and date of birth here: </p>
 				<div class="row" id="sig-text-fields">
-					<div class="col-sm-6">
+					<div class="col-sm-4 col-md-6">
 						<label for"id_sig_name"> Name </label>
 						{{ form.sig_name }}
 					</div>
-					<div class="col-sm-6">
+					<div class="col-sm-4 col-md-6">
 						<label for="dob"> Date of birth </label>
 						{{ form.dob_month }}
 						{{ form.dob_day }}
