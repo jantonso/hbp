@@ -12,29 +12,29 @@ $(document).ready(function() {
 	// Small Tablets landscape
 	if (window.innerWidth >= 641 && window.innerWidth <= 960
 		&& window.innerWidth >= window.innerHeight) {
-		pCanvas.width = 520;
-		pCanvas.height = 160;
-		oCanvas.width = 520;
-		oCanvas.height = 160;
+		pCanvas.width = 600;
+		pCanvas.height = 180;
+		oCanvas.width = 600;
+		oCanvas.height = 180;
 	// Small tablets portrait
 	} else if (window.innerWidth >= 641 && window.innerWidth <= 960 
 		&& window.innerWidth < window.innerHeight) {
-		pCanvas.width = 520;
-		pCanvas.height = 200;
-		oCanvas.width = 520;
-		oCanvas.height = 200;
+		pCanvas.width = 600;
+		pCanvas.height = 180;
+		oCanvas.width = 600;
+		oCanvas.height = 180;
 	// Large tablets
 	} else if (window.innerWidth >= 961 && window.innerWidth <= 1024) {
 		pCanvas.width = 920;
-		pCanvas.height = 160;
+		pCanvas.height = 180;
 		oCanvas.width = 920;
-		oCanvas.height = 160;
+		oCanvas.height = 180;
 	// Desktops
 	} else {
 		pCanvas.width = 920;
-		pCanvas.height = 160;
+		pCanvas.height = 180;
 		oCanvas.width = 920;
-		oCanvas.height = 160;
+		oCanvas.height = 180;
 	}
 
 	var pSignaturePad = new SignaturePad(pCanvas);
