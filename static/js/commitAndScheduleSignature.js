@@ -30,7 +30,7 @@ $(document).ready(function() {
 
 	signaturePad = new SignaturePad(canvas);
 
-	window.onresize = resizeCanvas;
+	//window.onresize = resizeCanvas;
 
 	// Check to make sure the user signed
 	$.validator.addMethod('signatureNotEmpty', function(value, element) {
