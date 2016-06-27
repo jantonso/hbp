@@ -82,7 +82,7 @@
 	}
 
 	#page-content #sig-form form #sig-text-fields #id_sig_name {
-		margin-left: 85px;
+		margin-left: 87px;
 	}
 
 	#page-content #sig-form form #sig-text-fields #id_dob_month {
@@ -111,6 +111,10 @@
 	#page-content h2 {
 		font-size: 3.25em;
 		font-weight: 300;
+	}
+
+	#page-content #sig-form form #sig-text-fields input[type=text] {
+		margin-left: 10px;
 	}
 }
 
