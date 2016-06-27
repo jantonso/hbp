@@ -76,22 +76,22 @@
 	}
 
 	#page-content form .statement {
-		font-size: 1.5em;
+		font-size: 2.0em;
 		font-weight: 200;
 	}
 
 	#page-content form .non-likert {
-		margin-bottom: 5px;
+		margin-bottom: 10px;
 	}
 
 	#page-content form input[type=text] {
-		font-size: 1.6em;
+		font-size: 2.0em;
 		font-weight: 300;
 		border: 2px solid #745C9D;
 	}
 
 	#error-msg p {
-		font-size: 1.5em;
+		font-size: 2.0em;
 		font-weight: 300;
 		margin-left: 10px;
 	}
