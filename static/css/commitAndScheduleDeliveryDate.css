@@ -67,3 +67,53 @@
 	width: 100px;
 	float: left;
 }
+
+/* Small Tablets Landscape */
+@media (min-width:641px) and (max-width:960px) { 
+	#page-content h2 {
+		font-size: 2.30em;
+		font-weight: 300;
+	}
+
+	#page-content form .statement {
+		font-size: 1.5em;
+		font-weight: 200;
+	}
+
+	#page-content form .non-likert {
+		margin-bottom: 5px;
+	}
+
+	#page-content form input[type=text] {
+		font-size: 1.6em;
+		font-weight: 300;
+		border: 2px solid #745C9D;
+	}
+
+	#error-msg p {
+		font-size: 1.5em;
+		font-weight: 300;
+		margin-left: 10px;
+	}
+}
+
+/* Small Tablets Portrait */
+@media (min-width:641px) and (max-width:960px) and (orientation: portrait) { 
+	#page-content h2 {
+		font-size: 2.5em;
+		font-weight: 300;
+	}
+}
+
+/* Large Tablets */
+@media (min-width:961px) and (max-width:1024px) { 
+	#page-content h2 {
+		font-size: 2.75em;
+		font-weight: 300;
+	}
+}
+
+/* big landscape tablets, laptops, and desktops */ 
+@media (min-width:1025px) {
+
+}
