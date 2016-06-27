@@ -11,13 +11,13 @@ $(document).ready(function() {
 	// Small Tablets landscape
 	if (window.innerWidth >= 641 && window.innerWidth <= 960
 		&& window.innerWidth >= window.innerHeight) {
-		canvas.width = 500;
-		canvas.height = 220;
+		canvas.width = 520;
+		canvas.height = 200;
 	// Small tablets portrait
 	} else if (window.innerWidth >= 641 && window.innerWidth <= 960 
 		&& window.innerWidth < window.innerHeight) {
-		canvas.width = 500;
-		canvas.height = 220;
+		canvas.width = 520;
+		canvas.height = 200;
 	// Large tablets
 	} else if (window.innerWidth >= 961 && window.innerWidth <= 1024) {
 		canvas.width = 800;
