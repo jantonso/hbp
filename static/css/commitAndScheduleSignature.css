@@ -80,6 +80,18 @@
 		margin-top: 10px;
 		margin-left: 0px;
 	}
+
+	#page-content #sig-form form #sig-text-fields #id_sig_name {
+		margin-left: 100px;
+	}
+
+	#page-content #sig-form form #sig-text-fields #id_dob_month {
+		margin-left: 20px;
+	}
+
+	#page-content #sig-form form #sig-text-fields #id_dob_day, #id_dob_year {
+		margin-left: 20px;
+	}
 }
 
 /* Small Tablets Portrait */
