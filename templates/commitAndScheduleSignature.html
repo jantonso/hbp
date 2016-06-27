@@ -13,18 +13,18 @@
 {% block header %} Commit and Schedule {% endblock %}
 
 {% block content %} 
-	<div class="col-lg-10 col-lg-offset-1 text-center">
+	<div class="col-sm-10 col-sm-offset-1 text-center">
 		<h2> Please confirm your appointment </h2>
 		<div id="sig-form">
 			<form method="POST" action="/cs/signature/">
 				{% csrf_token %}
 				<p class="message-prompt text-left"> Type your name and date of birth here: </p>
 				<div class="row" id="sig-text-fields">
-					<div class="col-lg-6">
+					<div class="col-sm-6">
 						<label for"id_sig_name"> Name </label>
 						{{ form.sig_name }}
 					</div>
-					<div class="col-lg-6">
+					<div class="col-sm-6">
 						<label for="dob"> Date of birth </label>
 						{{ form.dob_month }}
 						{{ form.dob_day }}
@@ -33,7 +33,7 @@
 				</div>
 				<p class="message-prompt text-left"> Use the stylus to sign here: </p>
 				<div class="row" id="signature-field">
-					<div class="col-lg-12">
+					<div class="col-sm-12">
 						<label for="signature-canvas"> Signature </label>
 						<canvas id="signature-canvas"></canvas>
 						<!-- by defaul this is a hidden field -->
