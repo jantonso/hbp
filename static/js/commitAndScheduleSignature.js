@@ -14,7 +14,7 @@ $(document).ready(function() {
 		canvas.width = 500;
 		canvas.height = 220;
 	// Small tablets portrait
-	else if (window.innerWidth >= 641 && window.innerWidth <= 960 
+	} else if (window.innerWidth >= 641 && window.innerWidth <= 960 
 		&& window.innerWidth < window.innerHeight) {
 		canvas.width = 500;
 		canvas.height = 220;
