@@ -68,3 +68,44 @@ p {
 #page-content #investigator-certification {
 	padding-bottom: 20px;
 }
+
+/* Small Tablets Landscape */
+@media (min-width:641px) and (max-width:960px) { 
+	#page-content form .text-fields #id_participant_month, #id_participant_day, 
+	#id_obtaining_month, #id_obtaining_day {
+		margin-top: 20px;
+	}
+
+	#page-content form .text-fields #id_participant_year, #id_obtaining_year {
+		margin-top: 20px;
+	}
+}
+
+/* Small Tablets Portrait */
+@media (min-width:641px) and (max-width:960px) and (orientation: portrait) { 
+	#page-content form .text-fields #id_participant_month, #id_participant_day, 
+	#id_obtaining_month, #id_obtaining_day {
+		margin-top: 20px;
+	}
+
+	#page-content form .text-fields #id_participant_year, #id_obtaining_year {
+		margin-top: 20px;
+	}
+}
+
+/* Large Tablets */
+@media (min-width:961px) and (max-width:1024px) { 
+	#page-content form .text-fields #id_participant_month, #id_participant_day, 
+	#id_obtaining_month, #id_obtaining_day {
+		margin-top: 20px;
+	}
+
+	#page-content form .text-fields #id_participant_year, #id_obtaining_year {
+		margin-top: 20px;
+	}
+}
+
+/* big landscape tablets, laptops, and desktops */ 
+@media (min-width:1025px) {
+
+}

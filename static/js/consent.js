@@ -7,14 +7,37 @@ $(document).ready(function() {
 
 	// Bring up the pCanvas to allow participant to sign
 	pCanvas = document.getElementById('participant-signature');
-	pCanvas.width = 920;
-	pCanvas.height = 150;
-	var pSignaturePad = new SignaturePad(pCanvas);
-
-	// Bring up the oCanvas to allow person obtaining consent to sign
 	oCanvas = document.getElementById('obtaining-signature');
-	oCanvas.width = 920;
-	oCanvas.height = 150;
+
+	// Small Tablets landscape
+	if (window.innerWidth >= 641 && window.innerWidth <= 960
+		&& window.innerWidth >= window.innerHeight) {
+		pCanvas.width = 520;
+		pCanvas.height = 160;
+		oCanvas.width = 520;
+		oCanvas.height = 160;
+	// Small tablets portrait
+	} else if (window.innerWidth >= 641 && window.innerWidth <= 960 
+		&& window.innerWidth < window.innerHeight) {
+		pCanvas.width = 520;
+		pCanvas.height = 200;
+		oCanvas.width = 520;
+		oCanvas.height = 200;
+	// Large tablets
+	} else if (window.innerWidth >= 961 && window.innerWidth <= 1024) {
+		pCanvas.width = 920;
+		pCanvas.height = 160;
+		oCanvas.width = 920;
+		oCanvas.height = 160;
+	// Desktops
+	} else {
+		pCanvas.width = 920;
+		pCanvas.height = 160;
+		oCanvas.width = 920;
+		oCanvas.height = 160;
+	}
+
+	var pSignaturePad = new SignaturePad(pCanvas);
 	var oSignaturePad = new SignaturePad(oCanvas);
 
 	window.onresize = resizeCanvas;

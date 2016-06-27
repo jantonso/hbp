@@ -6,8 +6,7 @@ $(document).ready(function() {
 
 	// Bring up the canvas to allow users to sign
 	canvas = document.getElementById('signature-canvas');
-	console.log(window.innerHeight);
-	console.log(window.innerWidth);
+	
 	// Small Tablets landscape
 	if (window.innerWidth >= 641 && window.innerWidth <= 960
 		&& window.innerWidth >= window.innerHeight) {
