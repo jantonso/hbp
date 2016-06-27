@@ -91,10 +91,13 @@
 		border: 2px solid #745C9D;
 	}
 
+	#page-content form #id_delivery_year {
+		width: 90px;
+	}
+
 	#error-msg p {
 		font-size: 1.9em;
 		font-weight: 300;
-		margin-left: 10px;
 	}
 }
 
@@ -121,10 +124,15 @@
 		border: 2px solid #745C9D;
 	}
 
+	#error-msg {
+		margin-top: 3px;
+		display: block;
+	}
+
 	#error-msg p {
+		text-align: left;
 		font-size: 2.0em;
 		font-weight: 300;
-		margin-left: 10px;
 	}
 }
 
