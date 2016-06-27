@@ -40,7 +40,7 @@ $(document).ready(function() {
 	var pSignaturePad = new SignaturePad(pCanvas);
 	var oSignaturePad = new SignaturePad(oCanvas);
 
-	window.onresize = resizeCanvas;
+	//window.onresize = resizeCanvas;
 
 	// Check to make sure the participant signed
 	$.validator.addMethod('pSignatureNotEmpty', function(value, element) {
