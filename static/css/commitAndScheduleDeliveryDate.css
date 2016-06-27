@@ -126,10 +126,10 @@
 
 	#error-msg {
 		display: block;
+		margin-top: 20px;
 	}
 
 	#error-msg p {
-		margin-top: 20px;
 		text-align: left;
 		font-size: 2.0em;
 		font-weight: 300;
