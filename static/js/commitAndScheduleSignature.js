@@ -12,7 +12,7 @@ $(document).ready(function() {
 	if (window.innerWidth >= 641 && window.innerWidth <= 960
 		&& window.innerWidth >= window.innerHeight) {
 		canvas.width = 520;
-		canvas.height = 140;
+		canvas.height = 160;
 	// Small tablets portrait
 	} else if (window.innerWidth >= 641 && window.innerWidth <= 960 
 		&& window.innerWidth < window.innerHeight) {

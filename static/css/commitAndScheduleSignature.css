@@ -82,14 +82,18 @@
 	}
 
 	#page-content #sig-form form #sig-text-fields #id_sig_name {
-		margin-left: 100px;
+		margin-left: 80px;
 	}
 
 	#page-content #sig-form form #sig-text-fields #id_dob_month {
+		margin-left: 25px;
+	}
+
+	#page-content #sig-form form #sig-text-fields #id_dob_day {
 		margin-left: 20px;
 	}
 
-	#page-content #sig-form form #sig-text-fields #id_dob_day, #id_dob_year {
+	#page-content #sig-form form #sig-text-fields #id_dob_year {
 		margin-left: 20px;
 	}
 }
