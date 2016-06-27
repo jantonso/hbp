@@ -6,7 +6,7 @@
 
 #error-msg p {
 	text-align: left;
-	font-size: 1.75em;
+	font-size: 2.0em;
 	font-weight: 300;
 	color: #4E8DFF;	
 }
@@ -96,7 +96,7 @@
 	}
 
 	#error-msg p {
-		font-size: 1.9em;
+		font-size: 1.70em;
 		font-weight: 300;
 	}
 }
@@ -125,7 +125,7 @@
 	}
 
 	#error-msg {
-		margin-top: 3px;
+		margin-top: 20px;
 		display: block;
 	}
 
