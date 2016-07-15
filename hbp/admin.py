@@ -18,6 +18,8 @@ class AppointmentAdmin(admin.ModelAdmin):
 
 @admin.register(Patient)
 class PatientAdmin(admin.ModelAdmin):
+	fields = ['name', 'dob_date', 'delivery_date', 'phone_number', 
+		'personalized_care_answer', 'appointment']
 	list_display = ('name','dob_date','delivery_date','phone_number',
 		'scheduled_appointment', 'answers')
 	search_fields = ('name','phone_number')
