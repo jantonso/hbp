@@ -86,7 +86,7 @@ footer #continue-button:hover {
 .loading-message {
 	position: relative;
 	float: right;
-	height: 60px;
-	width: 60px;
+	height: 55px;
+	width: 55px;
 	margin-right: 10px;
 }
