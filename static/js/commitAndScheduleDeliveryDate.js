@@ -3,7 +3,7 @@ $(document).ready(function() {
 	$('.loading-message').hide();
 
 	// Auto tab date fields as the user types
-	$('form .text-fields #id_delivery_month').on('keypress', function(event) {
+	$('form #id_delivery_month').on('keypress', function(event) {
 		// Make sure it is a numeric value or backspace, delete, tab, escape, enter
 		if (event.charCode >= 48 && event.charCode <= 57) {
 			if ($(this).val().length == 1) {
@@ -15,7 +15,7 @@ $(document).ready(function() {
 	});
 
 	// Auto tab date fields as the user types
-	$('form .text-fields #id_delivery_day').on('keypress', function(event) {
+	$('form #id_delivery_day').on('keypress', function(event) {
 		// Make sure it is a numeric value or backspace, delete, tab, escape, enter
 		if (event.charCode >= 48 && event.charCode <= 57) {
 			if ($(this).val().length == 1) {
@@ -26,7 +26,7 @@ $(document).ready(function() {
 		}
 	});
 
-	$('form .text-fields #id_delivery_year').on('keypress', function(event) {
+	$('form #id_delivery_year').on('keypress', function(event) {
 		// Make sure it is a numeric value or backspace, delete, tab, escape, enter
 		if (event.charCode >= 48 && event.charCode <= 57) {
 			if ($(this).val().length == 4) {
