@@ -155,12 +155,12 @@
 	<!-- If they have finished the videos either have back or continue buttons -->
 	{% if finished_videos %}
 		{% if video_index == 10 %}
-			<a href="/cs/"><div class="next-button">Continue</div></a>
+			<a href="/cs/"><div class="button-div next-button">Continue</div></a>
 		{% else %}
-			<a href="/iv/10/"><div class="back-button">Back</div></a>
+			<a href="/iv/10/"><div class="button-div back-button">Back</div></a>
 		{% endif %}
 	<!-- If they have not finished the videos, only have next button -->
 	{% else %}
-		<a href="/iv/{{ next_video }}/"><div class="next-button">Next video</div></a>
+		<a href="/iv/{{ next_video }}/"><div class="button-div next-button">Next video</div></a>
 	{% endif %}
 {% endblock %}
