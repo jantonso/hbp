@@ -84,7 +84,9 @@ footer #continue-button:hover {
 }
 
 .loading-message {
-	position: fixed;
-	bottom: 30px;
-	right: 120px;
+	position: relative;
+	float: right;
+	height: 60px;
+	width: 60px;
+	margin-right: 10px;
 }

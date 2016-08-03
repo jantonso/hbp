@@ -24,11 +24,7 @@
 				</div>
 			</div>
 		</section>
-
-		<div class="loading-message"> 
-			<img src="/static/img/ajax-loader.gif" />
-		</div>
-
+		
 		{% block extraSection %}
 		{% endblock %}
 		
@@ -36,6 +32,9 @@
 			{% block footer %}
 				<div id="continue-button"><label for="submit-form"> Continue </label></div>
 			{% endblock %}
+			<div class="loading-message"> 
+				<img src="/static/img/ajax-loader.gif" />
+			</div>
 		</footer>
 	</body>
 </html>

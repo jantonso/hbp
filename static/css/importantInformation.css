@@ -73,7 +73,7 @@
 
 /* Footer section */
 
-footer div {
+footer .button-div {
 	display: inline-block;
 	height: 60px;
 	padding: 15px 20px 15px 20px;

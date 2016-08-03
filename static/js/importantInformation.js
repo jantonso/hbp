@@ -2,13 +2,18 @@ $(document).ready(function() {
 	$('.loading-message').hide();
 
 	$('footer .next-button').click(function() {
-		$('#video-links .video-link').hide();
-		$('#videos-container iframe').hide();
 		$('.loading-message').show();
 	});
 
 	$('footer .back-button').click(function() {
-		$('#videos-container iframe').hide();
+		$('.loading-message').css('float', 'left');
+		$('.loading-message').show();
+	});
+
+	$('#video-links .video-link').click(function() {
+		$('.loading-message').css('float', 'none');
+		$('.loading-message').css('margin-left', 'auto');
+		$('.loading-message').css('margin-right', 'auto');
 		$('.loading-message').show();
 	});
 });
