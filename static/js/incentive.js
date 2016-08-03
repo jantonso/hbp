@@ -1,5 +1,6 @@
 $(document).ready(function() {
 	var errorMsg = $('#error-msg p');
+	$('.loading-message').hide();
 
 	// Make sure the phone number is valid
 	$.validator.addMethod('validPhoneNumber', function(value, element) {
@@ -22,6 +23,10 @@ $(document).ready(function() {
 				required: true,
 				validPhoneNumber: true
 			}
+		},
+		submitHandler: function(form) {
+			$('.loading-message').show();
+			return true;
 		},
 		// Display errors if a field is missing 
 		showErrors: function(errorMap, errorList) {

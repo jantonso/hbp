@@ -1,5 +1,6 @@
 $(document).ready(function() {
 	var errorMsg = $('#error-msg p');
+	$('.loading-message').hide();
 
 	// Validation of form to make sure that all the fields are filled out
 	$('form').validate({
@@ -20,6 +21,8 @@ $(document).ready(function() {
 				errorMsg.show();
 				return false;
 			}
+
+			$('.loading-message').show();
 			return true;
 		},
 		// Display errors if a field is missing 
