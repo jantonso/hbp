@@ -2,6 +2,41 @@ $(document).ready(function() {
 	var errorMsg = $('#error-msg p');
 	$('.loading-message').hide();
 
+	// Auto tab date fields as the user types
+	$('form .text-fields #id_delivery_month').on('keypress', function(event) {
+		// Make sure it is a numeric value or backspace, delete, tab, escape, enter
+		if (event.charCode >= 48 && event.charCode <= 57) {
+			if ($(this).val().length == 1) {
+				$(this).next('input').focus();
+			}
+		} else if ($.inArray(event.keyCode, [46, 8, 9, 27, 13, 110, 190]) == -1) {
+			event.preventDefault();
+		}
+	});
+
+	// Auto tab date fields as the user types
+	$('form .text-fields #id_delivery_day').on('keypress', function(event) {
+		// Make sure it is a numeric value or backspace, delete, tab, escape, enter
+		if (event.charCode >= 48 && event.charCode <= 57) {
+			if ($(this).val().length == 1) {
+				$(this).next('input').focus();
+			}
+		} else if ($.inArray(event.keyCode, [46, 8, 9, 27, 13, 110, 190]) == -1) {
+			event.preventDefault();
+		}
+	});
+
+	$('form .text-fields #id_delivery_year').on('keypress', function(event) {
+		// Make sure it is a numeric value or backspace, delete, tab, escape, enter
+		if (event.charCode >= 48 && event.charCode <= 57) {
+			if ($(this).val().length == 4) {
+				console.log("num");
+			}
+		} else if ($.inArray(event.keyCode, [46, 8, 9, 27, 13, 110, 190]) == -1) {
+			event.preventDefault();
+		}
+	});
+
 	// Validation of form to make sure that all the fields are filled out
 	$('form').validate({
 		rules: {
