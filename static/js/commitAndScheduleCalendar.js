@@ -10,6 +10,7 @@ months[9] = "October"; months[10] = "November"; months[11] = "December";
 var apptsHashMap = {};
 
 $(document).ready(function() {
+	$('.loading-message').hide();
 
 	// Process and convert appts to desired format
 	processAppointments();
@@ -115,6 +116,10 @@ $(document).ready(function() {
 		ignore: [],
 		rules: {
 			appt_id: "required"
+		},
+		submitHandler: function(form) {
+			$('.loading-message').show();
+			return true;
 		},
 		// Display errors if a field is missing 
 		showErrors: function(errorMap, errorList) {

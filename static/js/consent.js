@@ -2,6 +2,7 @@ var pCanvas;
 var oCanvas;
 
 $(document).ready(function() {
+	$('.loading-message').hide();
 	var pErrorMsg = $('form #participant-error-msg p');
 	var oErrorMsg = $('form #obtaining-error-msg p');
 
@@ -98,6 +99,7 @@ $(document).ready(function() {
 				return false;
 			}
 
+			$('.loading-message').show();
 			return true;
 		},
 		// Display errors if a field is missing 

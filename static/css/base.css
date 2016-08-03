@@ -82,3 +82,9 @@ footer #continue-button:hover {
 	cursor: pointer;
 	cursor: hand;
 }
+
+.loading-message {
+	position: fixed;
+	top: 30%;
+	left: 40%;
+}

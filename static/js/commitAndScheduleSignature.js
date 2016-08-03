@@ -3,6 +3,7 @@ var signaturePad;
 
 $(document).ready(function() {
 	var errorMsg = $('#error-msg p');
+	$('.loading-message').hide();
 
 	// Bring up the canvas to allow users to sign
 	canvas = document.getElementById('signature-canvas');
@@ -55,6 +56,7 @@ $(document).ready(function() {
 				return false;
 			}
 
+			$('.loading-message').show();
 			return true;
 		},
 		// Display errors if a field is missing 
