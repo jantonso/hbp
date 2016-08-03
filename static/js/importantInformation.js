@@ -2,7 +2,7 @@ $(document).ready(function() {
 	$('.loading-message').hide();
 
 	$('footer .next-button').click(function() {
-		$('.video-links .video-link').hide();
+		$('#video-links .video-link').hide();
 		$('#videos-container iframe').hide();
 		$('.loading-message').show();
 	});
