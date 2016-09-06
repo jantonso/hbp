@@ -68,6 +68,12 @@
 	float: left;
 }
 
+#page-content form #test-message {
+	font-size: 1.75em;
+	font-weight: 200;
+	color: #433F48;
+}
+
 /* Small Tablets Landscape */
 @media (min-width:641px) and (max-width:960px) { 
 	#page-content h2 {
