@@ -6,16 +6,18 @@ from .models import Appointment
 import re
 
 LIKERT_CHOICES = [
-	(-2,'not at all'),
-	(-1,'not really'),
-	(0,'somewhat'),
-	(1,'important'),
-	(2,'very important')]
+	(0,'not at all'),
+	(1,'not really'),
+	(2,'somewhat'),
+	(3,'important'),
+	(4,'very important')
+]
 
 NON_LIKERT_CHOICES = [
-	(2,'yes'),
-	(-2,'no'),
-	(0,'don\'t know')]
+	(0,'no'),
+	(2,'don\'t know'),
+	(4,'yes')
+]
 
 class ConsentForm(forms.Form):
 	participant_name = forms.CharField(max_length=150)
