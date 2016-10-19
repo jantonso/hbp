@@ -408,8 +408,8 @@ def	handleConsentForm(request, form):
 
 # ALGORITHM TO DETERMINE THE REQUIRED TOPICS/VIDEOS 
 # Choose up to the 5 maximum values for the topics, if there are less than 2, choose 2 default ones
-# Likert = -2, -1, 0, 1, 2 ====> not at all, not really, somewhat, important, very important
-# Non-Likert = -2, 0, 2 ====> no, don't know, yes
+# Likert = 0, 1, 2, 3, 4 ====> not at all, not really, somewhat, important, very important
+# Non-Likert = 0, 2, 4 ====> no, don't know, yes
 def handlePersonalizedCareForm(request, form):
 	list_of_questions = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9']
 	list_of_topics = ['birth control', 'breastfeeding support', 'checking on my mood', 'planning my next pregnancy',
@@ -426,7 +426,7 @@ def handlePersonalizedCareForm(request, form):
 			answer_value = int(question_answer)
 			all_answers[i+1] = answer_value
 			# Don't add values that were marked 'not important' or 'no'
-			if (answer_value >= 0):
+			if (answer_value >= 2):
 				answers[i+1] = answer_value
 		# If they forgot to answer one, skip that question
 		except ValueError:
@@ -735,17 +735,18 @@ def getTextAnswerValues(answer_info):
 	for key, value in answer_info.iteritems():
 		try:
 			question_number = int(key)
+			value = int(value)
 			# Yes/No question
 			if (question_number >= 7 and question_number <= 11):
-				if (value == 2):
+				if (value == 4):
 					answers[question_number-1] = 'yes'
-				elif (value == 0):
+				elif (value == 2):
 					answers[question_number-1] = 'don\'t know'
 				else:
 					answers[question_number-1] = 'no'
 			# Likert question
 			else:
-				answers[question_number-1] = likert_choices[value+2]
+				answers[question_number-1] = likert_choices[value]
 		except ValueError:
 			continue
 
