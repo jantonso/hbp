@@ -308,7 +308,7 @@ def importAppts(request):
 	form = ImportApptsForm(request.POST, request.FILES)
 	if form.is_valid():
 		reader = csv.DictReader(form.cleaned_data['appt_file'])
-		formats = ['%m/%d/%Y %I:00 %p', '%m/%d/%y %I:00 %p']
+		formats = ['%m/%d/%Y %I:%M %p', '%m/%d/%y %I:%M %p']
 		for row in reader:
 			appt_date = row['appt_date']
 			appt_time = row['appt_time']
